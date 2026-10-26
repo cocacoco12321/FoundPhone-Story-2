@@ -399,12 +399,9 @@ function VerticalVideo({ p, item }: { p: Props; item: Item }) {
     <article className="vertical-video">
       {item.id === "douyin-dog-photo" ? <img src={import.meta.env.BASE_URL + "douyin.jpg"} alt="白色小狗坐在蓝色宠物推车里" /> : <Media item={item} />}
       <div className="vertical-actions">
-        <button
-          aria-label={`作者${item.sender}`}
-          onClick={() => p.onItem(item)}
-        >
+        <div aria-label={`作者${item.sender}`} className="vertical-action-static">
           <Avatar name={item.sender} />
-        </button>
+        </div>
         <button
           aria-label={`喜欢${item.title}`}
           onClick={() => setLiked(!liked)}
@@ -412,15 +409,15 @@ function VerticalVideo({ p, item }: { p: Props; item: Item }) {
           <Heart size={29} fill={liked ? "#f44368" : "white"} />
           <small>{item.likes + (liked ? 1 : 0)}</small>
         </button>
-        <button aria-label={`评论${item.title}`} onClick={() => p.onItem(item)}>
+        <div aria-label={`评论${item.title}`} className="vertical-action-static">
           <MessageCircle size={29} />
           <small>{item.id === "douyin-dog-photo" ? 37 : item.comments.length}</small>
-        </button>
+        </div>
         {item.id === "douyin-dog-photo" && (
-          <button aria-label="转发这条抖音" onClick={() => p.onItem(item)}>
+          <div aria-label="转发这条抖音" className="vertical-action-static">
             <span style={{fontSize:27,lineHeight:1}}>➤</span>
             <small>23</small>
-          </button>
+          </div>
         )}
         <button
           aria-label={`收藏${item.title}`}
@@ -429,14 +426,14 @@ function VerticalVideo({ p, item }: { p: Props; item: Item }) {
           <Bookmark size={27} fill={saved ? "#f8cc55" : "none"} />
         </button>
       </div>
-      <button className="vertical-caption" onClick={() => p.onItem(item)}>
+      <div className="vertical-caption">
         <strong>@{item.sender}</strong>
         <p>{item.body}</p>
         <small>
           <Music size={11} />
           {item.title}
         </small>
-      </button>
+      </div>
     </article>
   );
 }
