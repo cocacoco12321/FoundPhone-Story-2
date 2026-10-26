@@ -150,6 +150,9 @@ export function MymyKakao(p: SkinProps) {
                   {!m.outgoing && run.last && (
                     <span className="kzt">{m.time.slice(-5)}</span>
                   )}
+                  {m.outgoing && run.last && (
+                    <div className="kzmav kzmav-self"><Avatar name={m.sender} src={import.meta.env.BASE_URL + "avatars/kkt-me.jpg"} /></div>
+                  )}
                 </div>
               );
             })}
