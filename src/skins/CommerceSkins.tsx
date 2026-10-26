@@ -93,12 +93,19 @@ export function AlipaySkin(p: Props) {
 export function TaobaoSkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "商品");
   const [status, setStatus] = useState("全部");
-  const list = items
-    .filter((i) =>
-      tab === "商品"
-        ? i.folder !== "订单" && i.folder !== "物流"
-        : i.folder === tab,
-    )
+  const featuredOrders = items.filter((i) => ["taobao-curated-ROG Extreme", "taobao-curated-Naturewise"].includes(i.id)).map((i) => ({
+    ...i,
+    folder: "订单",
+    sender: i.id.includes("Extreme") ? "ROG旗舰店" : "Naturewise海外旗舰店",
+    title: i.id.includes("Extreme") ? "ROG 夜魔 Extreme 三模无线机械键盘" : "Naturewise 维生素 D3 + K2 + 甘氨酸镁",
+    body: i.id.includes("Extreme") ? "黑色 · 夜魔 Extreme · 数量 ×1" : "D3+K2+甘氨酸镁 · 数量 ×1",
+    meta: { ...i.meta, price: i.id.includes("Extreme") ? "3869.10" : "237.61", status: "待发货", number: "订单商品 · ×1" },
+  }));
+  const list = (tab === "商品"
+    ? items.filter((i) => i.folder !== "订单" && i.folder !== "物流")
+    : tab === "订单"
+      ? [...featuredOrders, ...items.filter((i) => i.folder === "订单")]
+      : items.filter((i) => i.folder === tab))
     .filter((i) => status === "全部" || meta(i, "status") === status);
   return (
     <div className="catalog-skin taobao-ui">
@@ -142,7 +149,7 @@ export function TaobaoSkin(p: Props) {
                 <div>
                   <ShoppingBag size={16} />
                   <strong>{i.sender}</strong>
-                  <small>{meta(i, "status", "订单记录")}</small>
+                  <small style={{ color: "#f06425" }}>{meta(i, "status", "订单记录")}</small>
                 </div>
                 <section>
                   <Media item={i} />
@@ -154,7 +161,7 @@ export function TaobaoSkin(p: Props) {
                     <b>¥ {meta(i, "price", "—")}</b>
                   </span>
                 </section>
-                <footer>{meta(i, "number", i.time)}</footer>
+                <footer><span>{meta(i, "number", i.time)}</span><strong style={{ float: "right", color: "#f06425" }}>实付款 ¥{meta(i, "price", "—")}</strong></footer>
               </button>
             ))}
           </>
