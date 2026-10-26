@@ -4928,3 +4928,8 @@ label {
 }
 
 .ios18 .phone-screen:not(.in-app) .wallpaper-orb { display: none; }
+
+/* KakaoTalk: all outgoing messages have no avatar, including old saved chats. */
+.kakao-chat-content .message-row.outgoing .avatar { display: none !important; }
+.kakao-chat-content .message-row.outgoing { justify-content: flex-start !important; flex-direction: row-reverse; }
+.kakao-chat-content .chat-time { display: block !important; width: fit-content; max-width: 92%; margin: 20px auto 18px !important; padding: 7px 15px !important; border-radius: 20px; background: rgba(255,255,255,.23) !important; color: #fff !important; font-size: 13px !important; font-weight: 600; text-align: center; }
