@@ -397,7 +397,7 @@ function VerticalVideo({ p, item }: { p: Props; item: Item }) {
     [saved, setSaved] = useSkinState<boolean>(p, `saved-${item.id}`, false);
   return (
     <article className="vertical-video">
-      <Media item={item} />
+      {item.id === "douyin-dog-photo" ? <img src={import.meta.env.BASE_URL + "douyin.jpg"} alt="白色小狗坐在蓝色宠物推车里" /> : <Media item={item} />}
       <div className="vertical-actions">
         <button
           aria-label={`作者${item.sender}`}
@@ -414,8 +414,14 @@ function VerticalVideo({ p, item }: { p: Props; item: Item }) {
         </button>
         <button aria-label={`评论${item.title}`} onClick={() => p.onItem(item)}>
           <MessageCircle size={29} />
-          <small>{item.comments.length}</small>
+          <small>{item.id === "douyin-dog-photo" ? 37 : item.comments.length}</small>
         </button>
+        {item.id === "douyin-dog-photo" && (
+          <button aria-label="转发这条抖音" onClick={() => p.onItem(item)}>
+            <span style={{fontSize:27,lineHeight:1}}>➤</span>
+            <small>23</small>
+          </button>
+        )}
         <button
           aria-label={`收藏${item.title}`}
           onClick={() => setSaved(!saved)}
@@ -436,7 +442,16 @@ function VerticalVideo({ p, item }: { p: Props; item: Item }) {
 }
 export function DouyinSkin(p: Props) {
   const { tab, setTab, items } = useContent(p, "推荐");
-  const list = tab === "推荐" ? items : items.filter((i) => i.folder === tab);
+  const dogPost: Item = {
+    id: "douyin-dog-photo", title: "遛小狗", body: "遛小狗 🐶",
+    richText: "", meta: {}, time: "2022-05-27 20:16",
+    sender: "ZeroC", avatar: "", kind: "image", media: "",
+    hidden: false, unlock: "", password: "", folder: "推荐",
+    favorite: false, outgoing: false, read: false, likes: 2517,
+    comments: Array.from({length: 37}, (_, i) => "评论 " + (i + 1)),
+  };
+  const feed = [dogPost, ...items.filter(i => i.id !== dogPost.id && i.title !== "我的第一条抖音")];
+  const list = tab === "推荐" ? feed : feed.filter((i) => i.folder === tab);
   return (
     <div className="catalog-skin douyin-ui">
       <Header p={p} />
