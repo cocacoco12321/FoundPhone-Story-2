@@ -961,7 +961,7 @@ function AppContent({
     meta: {},
     time: "2023-03-18",
     sender: "我不知道你在说什么",
-    avatar: import.meta.env.BASE_URL + "weibo-avatar.jpg",
+    avatar: import.meta.env.BASE_URL + "avatars/weibo-avatar.jpg",
     kind: "text",
     media: "",
     hidden: false,
@@ -978,7 +978,7 @@ function AppContent({
     ? items.map(item => ({
         ...item,
         sender: "我不知道你在说什么",
-        avatar: import.meta.env.BASE_URL + "weibo-avatar.jpg",
+        avatar: import.meta.env.BASE_URL + "avatars/weibo-avatar.jpg",
       }))
     : items;
   const gallerySource = app.id === "photos" && !creator
