@@ -140,7 +140,7 @@ function MessageList({
               {whatsapp && i.outgoing && <CheckCheck size={11} />}
             </small>
           </button>
-          {!whatsapp && i.outgoing && <Avatar name={i.sender} src={i.avatar} />}
+          {!whatsapp && i.outgoing && <Avatar name={i.sender} src={i.avatar} outgoing={true} />}
             </div>
           </div>
         );
