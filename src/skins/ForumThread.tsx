@@ -281,7 +281,7 @@ export function ForumThread({ onBack }: { onBack: () => void }) {
             <div style={{fontSize:13,color:"#8b929a",margin:"8px 0 14px"}}>全部帖子 · 最新讨论</div>
             <button onClick={()=>setOpened(true)} style={{width:"100%",border:"1px solid #e9ebed",borderRadius:14,background:"white",textAlign:"left",padding:18,color:"#20242b"}}>
               <div style={{fontSize:12,color:"#7e8994",marginBottom:10}}>匿名28391 · 匿名区</div>
-              <div style={{fontWeight:700,fontSize:19,marginBottom:14}}>两个室友疑似在一起了怎么办？</div>
+              <div style={{fontWeight:700,fontSize:15,lineHeight:1.45,marginBottom:12,overflowWrap:"anywhere"}}>两个室友疑似在一起了怎么办？</div>
               <div style={{display:"flex",gap:15,color:"#8b929a",fontSize:12}}><span>情感 · 校园</span><span>💬 {all.length} 条回复</span></div>
             </button>
           </div>
