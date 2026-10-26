@@ -270,7 +270,7 @@ export function ForumThread({ onBack }: { onBack: () => void }) {
   const [extra, setExtra] = useState<string[]>([]);
   const all = [...floors.map(f => ({...f, replyTo: f.replyTo as number | null})), ...extra.map((body,i)=>({floor:floors.length+i+1,depth:0,author:"我",body,replyTo:null}))];
   return (
-    <div style={{height:"100%",display:"flex",flexDirection:"column",background:"#f6f7f8",color:"#20242b",fontFamily:"-apple-system,BlinkMacSystemFont,sans-serif"}}>
+    <div style={{height:"100%",display:"flex",flexDirection:"column",background:"#f3f5f7",color:"#20242b",fontFamily:"-apple-system,BlinkMacSystemFont,sans-serif"}}>
       <div style={{height:52,display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 16px",background:"white",borderBottom:"1px solid #eceef0"}}>
         <button onClick={opened?()=>setOpened(false):onBack} style={{border:0,background:"transparent",display:"flex",alignItems:"center",gap:4,color:"#333"}}><ChevronLeft size={20}/> {opened?"论坛":"返回"}</button>
         <strong style={{fontSize:17}}>论坛</strong><span style={{width:42}}/>
@@ -294,9 +294,9 @@ export function ForumThread({ onBack }: { onBack: () => void }) {
             </section>
             <div style={{fontSize:13,color:"#87909b",padding:"4px 4px 12px"}}>全部回复（{all.length}）· 按楼层排序</div>
             {all.map(f => (
-              <article key={f.floor} id={"forum-floor-"+f.floor} style={{background:"white",borderRadius:11,padding:"14px 15px",marginBottom:8,marginLeft:f.depth?Math.min(f.depth,2)*12:0,borderLeft:f.depth?"3px solid #c8d6e4":"3px solid transparent"}}>
+              <article key={f.floor} id={"forum-floor-"+f.floor} style={{background:"white",borderRadius:11,padding:"14px 15px",marginBottom:9,marginLeft:f.depth?Math.min(f.depth,2)*12:0,borderLeft:f.depth?"3px solid #a5bcd0":"3px solid transparent",boxShadow:"0 2px 10px rgba(30,48,68,.035)"}}>
                 <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:8,marginBottom:9}}>
-                  <span style={{fontSize:12,fontWeight:650,color:f.author==="匿名28391"?"#467eb7":"#677480"}}>{f.author}{f.author==="匿名28391"?" · 楼主":""}</span>
+                  <span style={{display:"flex",alignItems:"center",gap:8,fontSize:12,fontWeight:650,color:f.author==="匿名28391"?"#467eb7":"#677480"}}><span style={{width:26,height:26,borderRadius:"50%",background:f.author==="匿名28391"?"#d9e9f7":"#e9edf0",display:"inline-flex",alignItems:"center",justifyContent:"center",fontSize:11}}>{f.author==="匿名28391"?"楼":"匿"}</span>{f.author}{f.author==="匿名28391"?" · 楼主":""}</span>
                   <span style={{fontSize:12,color:"#929ba3"}}>{f.floor}楼</span>
                 </div>
                 {f.replyTo!==null && <div style={{fontSize:12,color:"#7d8c9b",background:"#f3f6f8",padding:"6px 9px",borderRadius:6,marginBottom:9}}>↳ 回复 {f.replyTo}楼</div>}
@@ -312,7 +312,7 @@ export function ForumThread({ onBack }: { onBack: () => void }) {
       </div>
       {opened && <form onSubmit={e=>{e.preventDefault();if(draft.trim()){setExtra(old=>[...old,draft.trim()]);setDraft("")}}} style={{display:"flex",gap:8,padding:"10px 12px",background:"white",borderTop:"1px solid #eee"}}>
         <input id="forum-reply-input" value={draft} onChange={e=>setDraft(e.target.value)} placeholder="说点什么…" style={{flex:1,minWidth:0,border:"1px solid #e4e8eb",borderRadius:20,padding:"9px 13px",fontSize:13}}/>
-        <button type="submit" style={{border:0,borderRadius:20,padding:"8px 13px",background:"#507ca5",color:"white",fontSize:13}}>发送</button>
+        <button type="submit" style={{border:0,borderRadius:20,padding:"8px 13px",background:"#426b91",color:"white",fontSize:13}}>发送</button>
       </form>}
     </div>
   );
