@@ -952,9 +952,30 @@ function AppContent({
         comments: [],
       }))
     : [];
+  const weiboMarch18: Item[] = app.id === "weibo" && !creator ? [{
+    id: "weibo-20230318-together",
+    title: "在一起了。",
+    body: "晚上一起在操场跑步的时候我问他，二十二岁会和二十一岁有什么区别吗，他跑得气喘吁吁的额头上都挂着汗，转头看我然后笑着摇头说不会有区别，我又问想要什么样的生日礼物，他说去年不就说过了，不需要生日礼物。可我已经买好他想要的新键盘了，所以我勾着他的脖子逼问，结果他说他想要的我给不了，我一下子就生气了什么叫想要的我给不了，只要是他想要的我上刀山下火海都要让他得到好吗？\n\n他没回答我的追问，问我是不是要和他当一辈子好兄弟，一句话把我问懵了，我应该说当然吗应该说不要吗，四个字在我脑子里打架的时候他又说话了，如果我说我对你的情感超越普通友谊你会...我突然什么都懂了。",
+    richText: "",
+    meta: {},
+    time: "2023-03-18",
+    sender: "我",
+    avatar: "",
+    kind: "text",
+    media: "",
+    hidden: false,
+    unlock: "",
+    password: "",
+    folder: "",
+    favorite: false,
+    outgoing: false,
+    read: false,
+    likes: 0,
+    comments: [],
+  }] : [];
   const gallerySource = app.id === "photos" && !creator
     ? galleryItems
-    : [...items, ...october28Items];
+    : [...weiboMarch18, ...items, ...october28Items];
   const shown = gallerySource
     .filter((i) => creator || visible(i, state))
     .filter((i) =>
@@ -1266,9 +1287,9 @@ function AppContent({
                     <MoreHorizontal size={20} />
                   </button>
                 </div>
-                <button className="post-image" onClick={() => read(i)}>
+                {i.kind !== "text" && <button className="post-image" onClick={() => read(i)}>
                   <Media item={i} />
-                </button>
+                </button>}
                 <div className="post-actions">
                   <button
                     aria-label="虚构点赞"
