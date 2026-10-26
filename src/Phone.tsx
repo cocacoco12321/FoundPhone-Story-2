@@ -1278,7 +1278,7 @@ function AppContent({
       ) : detail ? (
         detailView
       ) : app.engine === "messaging" && thread ? (
-        <div className="chat-content">
+        <div className={`chat-content ${app.id === "kakao" ? "kakao-chat-content" : ""}`}>
           {shown
             .filter((i) => i.title === thread)
             .map((i, index, messages) => {
@@ -1290,8 +1290,8 @@ function AppContent({
                 ? `${parts[0]}年${Number(parts[1])}月${Number(parts[2])}日`
                 : "";
               return (
-                <div key={i.id} style={{width:"100%"}}>
-                  {showDate && <div className="chat-time" style={{display:"block",textAlign:"center",margin:"16px auto 12px",padding:"6px 12px",width:"fit-content",borderRadius:12,background:app.id === "kakao"?"rgba(60,55,50,.14)":undefined,color:app.id === "kakao"?"#4d4b49":undefined,fontSize:12}}>{dateLabel}</div>}
+                <div key={i.id} style={{width:"100%", display:"flow-root"}}>
+                  {showDate && <div className="chat-time" style={{display:"block",textAlign:"center",margin:"16px auto 12px",padding:"6px 12px",width:"fit-content",borderRadius:12,background:app.id === "kakao"?"rgba(255,255,255,.25)":undefined,color:app.id === "kakao"?"#ffffff":undefined,fontSize:app.id === "kakao"?13:12,fontWeight:600,clear:"both"}}>{dateLabel}</div>}
               <button
                 key={i.id}
                 className={`message-row ${i.outgoing ? "outgoing" : ""}`}
