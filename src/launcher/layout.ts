@@ -163,7 +163,26 @@ export function useDeviceLayout(authored: Work, creator = false) {
       }
     }),
     [error, setError] = useState("");
-  const layout = stored.workId === base.id ? stored : defaultLayout(base);
+  const storedLayout = stored.workId === base.id ? stored : defaultLayout(base);
+  // Restore Weibo and Xiaohongshu on existing devices, including saved layouts
+  // where they were previously hidden or moved into a folder.
+  const layout = useMemo(() => ({
+    ...storedLayout,
+    apps: storedLayout.apps.map((app) =>
+      app.id === "weibo" || app.id === "xiaohongshu"
+        ? { ...app, installed: true, visible: true, dock: false, folder: "" }
+        : app,
+    ),
+    order: [
+      "weibo", "xiaohongshu",
+      ...storedLayout.order.filter((id) => id !== "weibo" && id !== "xiaohongshu"),
+    ],
+    positions: Object.fromEntries(
+      Object.entries(storedLayout.positions).filter(
+        ([id]) => id !== "weibo" && id !== "xiaohongshu",
+      ),
+    ),
+  }), [storedLayout]);
   useEffect(() => {
     if (creator) return;
     try {
