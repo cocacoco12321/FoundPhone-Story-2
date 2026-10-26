@@ -197,8 +197,8 @@ export function validateWork(input: unknown): Work {
 }
 export function safeMedia(value: string) {
   // Vite uses a relative base on GitHub Pages (e.g. "./01.jpg").
-  // Permit only the eighteen curated gallery filenames, not arbitrary external URLs.
-  if (/^(?:\.\/|\/|\/FoundPhone-Studio\/)?(?:0[1-9]|1[0-8])\.(?:jpg|mov)$/.test(value)) return value;
+  // Permit curated gallery media under the GitHub Pages base path.
+  if (/^(?:\.\/|\/|\/FoundPhone-Studio\/)?(?:0[1-9]|1[0-9]|2[0-6])\.(?:jpg|mov)$/.test(value)) return value;
   return /^data:(image\/(png|jpeg|webp|gif)|audio\/(mpeg|mp3|wav|ogg|webm|mp4)|video\/(mp4|webm));base64,[a-zA-Z0-9+/=\s]+$/.test(
     value,
   )
