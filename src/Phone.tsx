@@ -960,7 +960,7 @@ function AppContent({
         title: "宋硕",
         body: message.body,
         richText: "",
-        meta: message.kind === "voice" ? { voiceMessage: "true" } : message.kind === "receipt" ? { transferReceipt: "true" } : {},
+        meta: { voiceMessage: message.kind === "voice" ? "true" : "false", transferReceipt: message.kind === "receipt" ? "true" : "false" },
         time: message.time,
         sender: message.speaker === "宋" ? "宋硕" : "我",
         avatar: "",
