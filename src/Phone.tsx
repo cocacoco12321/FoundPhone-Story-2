@@ -894,19 +894,19 @@ function AppContent({
   const [pwError, setPwError] = useState("");
   const [likes, setLikes] = useState<string[]>([]);
   // Curated gallery assets, in the exact order supplied by the author.
-  const galleryItems: Item[] = Array.from({ length: 9 }, (_, index) => {
+  const galleryItems: Item[] = Array.from({ length: 18 }, (_, index) => {
     const n = index + 1;
-    const filename = String(n).padStart(2, "0") + (n === 6 ? ".mov" : ".jpg");
+    const filename = String(n).padStart(2, "0") + ([6, 17].includes(n) ? ".mov" : ".jpg");
     return {
       id: "curated-gallery-" + n,
-      title: n === 6 ? "视频" : "照片 " + n,
+      title: [6, 17].includes(n) ? "视频" : "照片 " + n,
       body: "",
       richText: "",
       meta: {},
       time: "2026-10-26 12:00",
       sender: "",
       avatar: "",
-      kind: n === 6 ? "video" : "image",
+      kind: [6, 17].includes(n) ? "video" : "image",
       media: import.meta.env.BASE_URL + filename,
       hidden: false,
       unlock: "",
