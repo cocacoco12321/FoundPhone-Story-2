@@ -865,13 +865,14 @@ function Media({ item }: { item: Item }) {
   );
 }
 function kakaoAvatar(sender: string, outgoing = false): string {
-  if (/^605/.test(sender)) return import.meta.env.BASE_URL + "avatars/kkt-songshuo.jpg";
-  const name = outgoing ? "me" : /炫宇/.test(sender) ? "xuanyu"
-    : /珍浩/.test(sender) ? "zhenhao"
-    : /宋硕|^宋$/.test(sender) ? "songshuo"
-    : /^(我|成)$/.test(sender) ? "me" : "";
-  return name ? import.meta.env.BASE_URL + "avatars/" + (name === "songshuo" || name === "me" ? "kkt-" : "") + name + ".jpg" : "";
+  if (outgoing || sender === "我") return "";
+  const file = /炫宇/.test(sender) ? "xuanyu.jpg"
+    : /珍浩/.test(sender) ? "zhenhao.jpg"
+    : /宋硕|^宋$/.test(sender) ? "kkt-songshuo.jpg"
+    : "";
+  return file ? "https://raw.githubusercontent.com/cocacoco12321/FoundPhone-Studio/main/public/avatars/" + file : "";
 }
+
 function AppContent({
   app,
   name,
@@ -1291,7 +1292,7 @@ function AppContent({
                 : "";
               return (
                 <div key={i.id} style={{width:"100%", display:"flow-root"}}>
-                  {showDate && <div className="chat-time" style={{display:"block",textAlign:"center",margin:"16px auto 12px",padding:"6px 12px",width:"fit-content",borderRadius:12,background:app.id === "kakao"?"rgba(255,255,255,.25)":undefined,color:app.id === "kakao"?"#ffffff":undefined,fontSize:app.id === "kakao"?13:12,fontWeight:600,clear:"both"}}>{dateLabel}</div>}
+                  {showDate && <div className={app.id === "kakao" ? "kakao-date-divider" : "chat-time"} role="separator" aria-label={dateLabel}>{dateLabel}</div>}
               <button
                 key={i.id}
                 className={`message-row ${i.outgoing ? "outgoing" : ""}`}
@@ -1299,7 +1300,7 @@ function AppContent({
                 onClick={() => (creator ? onEdit(i) : onRead(i.id))}
               >
                 {!(app.id === "kakao" && i.outgoing) && <span className="avatar">{app.id === "kakao" && kakaoAvatar(i.sender, i.outgoing) ? (
-                  <img src={kakaoAvatar(i.sender, i.outgoing)} alt={i.sender} style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:"inherit"}} onError={(e) => { e.currentTarget.style.display = "none"; e.currentTarget.parentElement?.setAttribute("title", "头像图片加载失败"); }} />
+                  <img src={kakaoAvatar(i.sender, i.outgoing)} alt={i.sender} style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:"inherit"}} onError={(e) => { e.currentTarget.parentElement?.setAttribute("title", "头像图片加载失败"); }} />
                 ) : i.sender.slice(0, 1)}</span>}
                 <span className="bubble">
                   {i.kind === "image" ||
