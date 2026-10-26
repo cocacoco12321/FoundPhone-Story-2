@@ -725,7 +725,19 @@ export function FilesSkin(p: Props) {
   );
 }
 export function MusicSkin(p: Props) {
-  const { tab, setTab, items } = useContent(p, "资料库");
+  const { tab, setTab, items: originalItems } = useContent(p, "资料库");
+  const addedSongs: Item[] = [
+    ["Die For You", "The Weeknd", "Starboy", "4:20"],
+    ["BIRDS OF A FEATHER", "Billie Eilish", "HIT ME HARD AND SOFT", "3:30"],
+    ["LADY", "Kenshi Yonezu", "LADY", "3:27"],
+  ].map(([title, sender, album, duration], index) => ({
+    id: "native-added-song-" + index, title, sender, body: sender + " · " + album,
+    richText: "", meta: { album, duration }, time: "", avatar: "",
+    kind: "audio" as const, media: "", hidden: false, unlock: "", password: "",
+    folder: "喜欢的歌曲", favorite: true, outgoing: false, read: false,
+    likes: 0, comments: [],
+  }));
+  const items = [...addedSongs, ...originalItems.filter(i => !addedSongs.some(s => s.title.toLowerCase() === i.title.toLowerCase()))];
   const [song, setSong] = useTrack(p, items);
   return (
     <div className="catalog-skin native-music">
