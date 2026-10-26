@@ -960,8 +960,8 @@ function AppContent({
     richText: "",
     meta: {},
     time: "2023-03-18",
-    sender: "我",
-    avatar: "",
+    sender: "我不知道你在说什么",
+    avatar: import.meta.env.BASE_URL + "weibo-avatar.jpg",
     kind: "text",
     media: "",
     hidden: false,
@@ -974,9 +974,16 @@ function AppContent({
     likes: 0,
     comments: [],
   }] : [];
+  const normalizedItems = app.id === "weibo" && !creator
+    ? items.map(item => ({
+        ...item,
+        sender: "我不知道你在说什么",
+        avatar: import.meta.env.BASE_URL + "weibo-avatar.jpg",
+      }))
+    : items;
   const gallerySource = app.id === "photos" && !creator
     ? galleryItems
-    : [...weiboMarch18, ...items, ...october28Items];
+    : [...weiboMarch18, ...normalizedItems, ...october28Items];
   const shown = gallerySource
     .filter((i) => creator || visible(i, state))
     .filter((i) =>
@@ -1293,8 +1300,8 @@ function AppContent({
             filtered.map((i) => (
               <article className="social-post" key={i.id}>
                 <div className="post-author">
-                  <span className="avatar" style={{ background: app.color }}>
-                    {i.sender.slice(0, 1)}
+                  <span className="avatar" style={{ background: app.color, overflow: "hidden" }}>
+                    {app.id === "weibo" && i.avatar ? <img src={i.avatar} alt="微博头像" style={{width:"100%",height:"100%",objectFit:"cover"}} /> : i.sender.slice(0, 1)}
                   </span>
                   <div>
                     <strong>{i.sender}</strong>
