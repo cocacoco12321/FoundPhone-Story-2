@@ -222,3 +222,45 @@
 .native-note-paper .baker-check-item input:checked { background:#e8b53e; border-color:#e8b53e; }
 .native-note-paper .baker-check-item input:checked::after { content:"✓"; color:white; font-size:17px; font-weight:700; }
 .native-note-paper .baker-check-item input:checked + span { text-decoration:line-through; color:#999; }
+
+/* Override global form-label layout: compact, left-aligned iOS Notes checklist. */
+.ios18 .native-detail-notes .native-note-paper .baker-checklist {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: 8px 0 16px;
+  width: 100%;
+}
+.ios18 .native-detail-notes .native-note-paper label.baker-check-item {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  text-align: left !important;
+  width: 100%;
+  min-height: 38px;
+  gap: 10px !important;
+  margin: 0 !important;
+  padding: 3px 0 !important;
+  font-size: 16px !important;
+  font-weight: 400;
+  line-height: 1.4;
+}
+.ios18 .native-detail-notes .native-note-paper label.baker-check-item input[type="checkbox"] {
+  display: grid !important;
+  flex: 0 0 21px !important;
+  width: 21px !important;
+  height: 21px !important;
+  min-width: 21px !important;
+  min-height: 21px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.ios18 .native-detail-notes .native-note-paper label.baker-check-item span {
+  display: inline !important;
+  flex: 1 1 auto;
+  text-align: left !important;
+  font-size: 16px !important;
+}
