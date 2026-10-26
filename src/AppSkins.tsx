@@ -98,12 +98,18 @@ function MessageList({
 }) {
   return (
     <div className={`skin-messages ${whatsapp ? "wa-wallpaper" : ""}`}>
-      <div className="skin-date">{items[0]?.time.slice(0, 10)}</div>
-      {items.map((i) => (
-        <div
-          key={i.id}
-          className={`skin-message ${i.outgoing ? "outgoing" : ""}`}
-        >
+      {items.map((i, index) => {
+        const date = i.time?.slice(0, 10) ?? "";
+        const previousDate = items[index - 1]?.time?.slice(0, 10);
+        const showDate = Boolean(date && date !== previousDate);
+        const parts = date.split("-");
+        const dateLabel = parts.length === 3
+          ? `${parts[0]}年${Number(parts[1])}月${Number(parts[2])}日`
+          : date;
+        return (
+          <div key={i.id}>
+            {showDate && <div className="skin-date">{dateLabel}</div>}
+            <div className={`skin-message ${i.outgoing ? "outgoing" : ""}`}>
           {!whatsapp && !i.outgoing && (
             <Avatar name={i.sender} src={i.avatar} />
           )}
@@ -127,8 +133,10 @@ function MessageList({
             </small>
           </button>
           {!whatsapp && i.outgoing && <Avatar name={i.sender} src={i.avatar} />}
-        </div>
-      ))}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
