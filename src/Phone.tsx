@@ -1,6 +1,7 @@
 import { StatusGlyph } from "./ios/StatusGlyph";
 import { SocialDetail, socialDetailApps } from "./skins/SocialDetails";
 import { ForumThread } from "./skins/ForumThread";
+import { october28Messages } from "./content/october28";
 import { NativeCalculator } from "./ios/Calculator";
 import { HomeLauncher } from "./launcher/HomeLauncher";
 import { useDeviceLayout, withoutHiddenApps } from "./launcher/layout";
@@ -921,9 +922,32 @@ function AppContent({
       comments: [],
     };
   });
+  const october28Items: Item[] = app.id === "wechat" && !creator
+    ? october28Messages.map((message, index) => ({
+        id: "songshuo-oct28-" + index,
+        title: "宋硕",
+        body: message.body,
+        richText: "",
+        meta: {},
+        time: "2021-10-28",
+        sender: message.speaker,
+        avatar: "",
+        kind: "text",
+        media: "",
+        hidden: false,
+        unlock: "",
+        password: "",
+        folder: "",
+        favorite: false,
+        outgoing: message.speaker === "我",
+        read: false,
+        likes: 0,
+        comments: [],
+      }))
+    : [];
   const gallerySource = app.id === "photos" && !creator
     ? galleryItems
-    : items;
+    : [...items, ...october28Items];
   const shown = gallerySource
     .filter((i) => creator || visible(i, state))
     .filter((i) =>
