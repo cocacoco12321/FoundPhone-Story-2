@@ -46,7 +46,13 @@ export function PhoneSkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "最近通话");
   const [digits, setDigits] = useState(""),
     [call, setCall] = useState("");
-  const list = tab === "收藏" ? items.filter((i) => i.favorite) : items;
+  const datedItems = items.map((item, index) => ({
+    ...item,
+    time: item.time.slice(0, 10) === "2022-05-27" || item.time.slice(0, 10) === "2026-05-27"
+      ? ["2022-05-27", "2022-05-26", "2022-05-24", "2022-05-22", "2022-05-20"][index % 5] + item.time.slice(10)
+      : item.time,
+  }));
+  const list = tab === "收藏" ? datedItems.filter((i) => i.favorite) : datedItems;
   return (
     <div className="catalog-skin native-phone">
       <Header p={p} />
