@@ -214,3 +214,11 @@
   background: none;
   color: #007aff;
 }
+
+/* Native Notes checklist: Drunk Baker shopping list */
+.native-note-paper .baker-checklist { display:flex; flex-direction:column; gap:12px; padding:14px 0 20px; }
+.native-note-paper .baker-check-item { display:flex; align-items:center; gap:13px; font-size:19px; line-height:1.5; color:#333; cursor:pointer; }
+.native-note-paper .baker-check-item input { appearance:none; -webkit-appearance:none; flex:none; width:26px; height:26px; border:2px solid #bdbdbd; border-radius:50%; background:#fff; cursor:pointer; display:grid; place-items:center; margin:0; }
+.native-note-paper .baker-check-item input:checked { background:#e8b53e; border-color:#e8b53e; }
+.native-note-paper .baker-check-item input:checked::after { content:"✓"; color:white; font-size:17px; font-weight:700; }
+.native-note-paper .baker-check-item input:checked + span { text-decoration:line-through; color:#999; }
