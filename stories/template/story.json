@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "仅用于界面测试，不含剧情",
-  "revision": 104,
+  "revision": 105,
   "phone": {
     "owner": "松灿",
     "date": "2022-05-27",
@@ -30,37 +30,37 @@
       "bio": "同学"
     },
     {
-      "id": "106901",
+      "id": "delivery_1",
       "name": "106901",
       "phone": "106901",
       "bio": "外卖"
     },
     {
-      "id": "955321",
+      "id": "delivery_2",
       "name": "955321",
       "phone": "955321",
       "bio": "外卖"
     },
     {
-      "id": "106555",
+      "id": "delivery_3",
       "name": "106555",
       "phone": "106555",
       "bio": "外卖"
     },
     {
-      "id": "106888",
+      "id": "delivery_4",
       "name": "106888",
       "phone": "106888",
       "bio": "外卖"
     },
     {
-      "id": "106999",
+      "id": "delivery_5",
       "name": "106999",
       "phone": "106999",
       "bio": "外卖"
     },
     {
-      "id": "106666",
+      "id": "delivery_6",
       "name": "106666",
       "phone": "106666",
       "bio": "外卖"
@@ -115,11 +115,11 @@
       "id": "chat-delivery-1",
       "app": "messages",
       "title": "106901",
-      "participants": ["owner", "106901"],
+      "participants": ["owner", "delivery_1"],
       "messages": [
         {
           "id": "msg-d1",
-          "senderId": "106901",
+          "senderId": "delivery_1",
           "body": "［淘宝闪购］您的外卖3分钟后到楼下外卖架。请尽快取餐。骑手电话请在下单平台查看。",
           "time": "2024-04-16 13:00"
         }
@@ -129,11 +129,11 @@
       "id": "chat-delivery-2",
       "app": "messages",
       "title": "955321",
-      "participants": ["owner", "955321"],
+      "participants": ["owner", "delivery_2"],
       "messages": [
         {
           "id": "msg-d2",
-          "senderId": "955321",
+          "senderId": "delivery_2",
           "body": "［淘宝闪购］您的外卖3分钟后到楼下外卖架。请尽快取餐。骑手电话请在下单平台查看。",
           "time": "2024-04-19 11:00"
         }
@@ -143,11 +143,11 @@
       "id": "chat-delivery-3",
       "app": "messages",
       "title": "106555",
-      "participants": ["owner", "106555"],
+      "participants": ["owner", "delivery_3"],
       "messages": [
         {
           "id": "msg-d3",
-          "senderId": "106555",
+          "senderId": "delivery_3",
           "body": "［淘宝闪购］您的外卖5分钟后送达请尽快取餐。骑手电话请在下单平台查看。",
           "time": "2024-05-03 12:00"
         }
@@ -157,11 +157,11 @@
       "id": "chat-delivery-4",
       "app": "messages",
       "title": "106888",
-      "participants": ["owner", "106888"],
+      "participants": ["owner", "delivery_4"],
       "messages": [
         {
           "id": "msg-d4",
-          "senderId": "106888",
+          "senderId": "delivery_4",
           "body": "［淘宝闪购］您的外卖3分钟后到楼下外卖架。请尽快取餐。骑手电话请在下单平台查看。",
           "time": "2024-05-13 13:00"
         }
@@ -171,11 +171,11 @@
       "id": "chat-delivery-5",
       "app": "messages",
       "title": "106999",
-      "participants": ["owner", "106999"],
+      "participants": ["owner", "delivery_5"],
       "messages": [
         {
           "id": "msg-d5",
-          "senderId": "106999",
+          "senderId": "delivery_5",
           "body": "［淘宝闪购］您的外卖3分钟后到楼下外卖架。请尽快取餐。骑手电话请在下单平台查看。",
           "time": "2024-05-17 12:30"
         }
@@ -185,11 +185,11 @@
       "id": "chat-delivery-6",
       "app": "messages",
       "title": "106666",
-      "participants": ["owner", "106666"],
+      "participants": ["owner", "delivery_6"],
       "messages": [
         {
           "id": "msg-d6",
-          "senderId": "106666",
+          "senderId": "delivery_6",
           "body": "［菜鸟驿站］ 您有十个奶龙已到达菜鸟驿站等待与您激情舌吻，请您凭借取件码 8-10-9100到菜乌驿站与奶龙激情舌吻，到店领取杳吻一枚。",
           "time": "2024-05-20 00:00"
         }
@@ -252,7 +252,7 @@
     "douyin": [
       {
         "id": "dy-video-1",
-        "title": "其实这里要放冬天的但是照片一直传不上来",
+        "title": "本来要放冬天照片的但传不上来",
         "body": "遛小狗",
         "sender": "ZeroC",
         "kind": "image",
