@@ -99,7 +99,7 @@ export function MymyKakao(p: SkinProps) {
     scroll = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const node = scroll.current;
-    if (node) node.scrollTop = node.scrollHeight;
+    if (node) node.scrollTop = 0;
   }, [p.thread, messages.length]);
   return (
     <div className="mymy-ui mymy-kakao" data-mymy="kakao">
@@ -117,9 +117,13 @@ export function MymyKakao(p: SkinProps) {
           <div className="msgs kk" ref={scroll}>
             {messages.map((m, i) => {
               const run = messageRun(messages, i);
+              const date = m.time.match(/^\d{4}[-./]\d{1,2}[-./]\d{1,2}/)?.[0] || "";
+              const prev = messages[i - 1]?.time.match(/^\d{4}[-./]\d{1,2}[-./]\d{1,2}/)?.[0] || "";
+              const dp = date.split(/[-./]/);
               return (
+                <div key={m.id} className="kkt-entry">
+                  {date && date !== prev && <div className="kkt-day-divider" role="separator">{dp[0]}年{Number(dp[1])}月{Number(dp[2])}日</div>}
                 <div
-                  key={m.id}
                   className={
                     "kzm " +
                     (m.outgoing ? "kzmy" : "kzot") +
@@ -129,7 +133,7 @@ export function MymyKakao(p: SkinProps) {
                   {!m.outgoing && run.first && (
                     <>
                       <div className="kzmav">
-                        <Avatar name={m.sender} src={m.avatar} />
+                        <Avatar name={m.sender} src={/宋硕|^宋$/.test(m.sender) ? import.meta.env.BASE_URL + "avatars/kkt-songshuo.jpg" : m.avatar} />
                       </div>
                       <div className="kzmn">{m.sender}</div>
                     </>
@@ -150,9 +154,7 @@ export function MymyKakao(p: SkinProps) {
                   {!m.outgoing && run.last && (
                     <span className="kzt">{m.time.slice(-5)}</span>
                   )}
-                  {m.outgoing && run.last && (
-                    <div className="kzmav kzmav-self"><Avatar name={m.sender} src={import.meta.env.BASE_URL + "avatars/kkt-me.jpg"} /></div>
-                  )}
+                </div>
                 </div>
               );
             })}
