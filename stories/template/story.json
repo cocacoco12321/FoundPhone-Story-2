@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "仅用于界面测试，不含剧情",
-  "revision": 100,
+  "revision": 102,
   "phone": {
     "owner": "松灿",
     "date": "2022-05-27",
@@ -14,7 +14,7 @@
     "passcode": "031913"
   },
   "installedApps": [
-    "appstore", "wechat", "douyin", "phone", "messages", "contacts", "photos", "camera", "safari", "notes", "calendar", "mail", "clock", "settings", "forum"
+    "appstore", "wechat", "douyin", "phone", "messages", "contacts", "photos", "camera", "safari", "notes", "calendar", "mail", "clock", "settings", "forum", "redbook", "qq", "weibo", "bilibili", "alipay", "taobao", "netease", "delivery", "whatsapp", "instagram", "tiktok", "twitter", "telegram", "discord", "youtube", "line", "snapchat", "facebook", "messenger", "reddit", "spotify", "netflix", "pinterest", "threads", "kakao"
   ],
   "contacts": [
     {
@@ -22,9 +22,144 @@
       "name": "松灿",
       "phone": "",
       "bio": "手机的主人"
+    },
+    {
+      "id": "songshuo",
+      "name": "宋硕",
+      "phone": "",
+      "bio": "同学"
     }
   ],
-  "chats": [],
+  "chats": [
+    {
+      "id": "chat-songshuo",
+      "app": "wechat",
+      "title": "宋硕",
+      "participants": ["owner", "songshuo"],
+      "messages": [
+        {
+          "id": "msg-1",
+          "senderId": "owner",
+          "body": "老师签到了吗",
+          "time": "2021-10-13 14:30"
+        },
+        {
+          "id": "msg-2",
+          "senderId": "songshuo",
+          "body": "暂时没有",
+          "time": "2021-10-13 14:31"
+        },
+        {
+          "id": "msg-3",
+          "senderId": "songshuo",
+          "body": "你不来吗？",
+          "time": "2021-10-13 14:31"
+        },
+        {
+          "id": "msg-4",
+          "senderId": "owner",
+          "body": "睡过头了",
+          "time": "2021-10-13 14:32"
+        },
+        {
+          "id": "msg-5",
+          "senderId": "owner",
+          "body": "马上来",
+          "time": "2021-10-13 14:32"
+        },
+        {
+          "id": "msg-6",
+          "senderId": "songshuo",
+          "body": "好",
+          "time": "2021-10-13 14:33"
+        }
+      ]
+    },
+    {
+      "id": "chat-delivery-1",
+      "app": "messages",
+      "title": "106900",
+      "participants": ["owner", "106901"],
+      "messages": [
+        {
+          "id": "msg-d1",
+          "senderId": "106901",
+          "body": "［淘宝闪购］您的外卖3分钟后到楼下外卖架。请尽快取餐。骑手电话请在下单平台查看。",
+          "time": "2024-04-16 13:00"
+        }
+      ]
+    },
+    {
+      "id": "chat-delivery-2",
+      "app": "messages",
+      "title": "955321",
+      "participants": ["owner", "955321"],
+      "messages": [
+        {
+          "id": "msg-d2",
+          "senderId": "955321",
+          "body": "［淘宝闪购］您的外卖3分钟后到楼下外卖架。请尽快取餐。骑手电话请在下单平台查看。",
+          "time": "2024-04-19 11:00"
+        }
+      ]
+    },
+    {
+      "id": "chat-delivery-3",
+      "app": "messages",
+      "title": "106555",
+      "participants": ["owner", "106555"],
+      "messages": [
+        {
+          "id": "msg-d3",
+          "senderId": "106555",
+          "body": "［淘宝闪购］您的外卖5分钟后送达请尽快取餐。骑手电话请在下单平台查看。",
+          "time": "2024-05-03 12:00"
+        }
+      ]
+    },
+    {
+      "id": "chat-delivery-4",
+      "app": "messages",
+      "title": "106888",
+      "participants": ["owner", "106888"],
+      "messages": [
+        {
+          "id": "msg-d4",
+          "senderId": "106888",
+          "body": "［淘宝闪购］您的外卖3分钟后到楼下外卖架。请尽快取餐。骑手电话请在下单平台查看。",
+          "time": "2024-05-13 13:00"
+        }
+      ]
+    },
+    {
+      "id": "chat-delivery-5",
+      "app": "messages",
+      "title": "106999",
+      "participants": ["owner", "106999"],
+      "messages": [
+        {
+          "id": "msg-d5",
+          "senderId": "106999",
+          "body": "［淘宝闪购］您的外卖3分钟后到楼下外卖架。请尽快取餐。骑手电话请在下单平台查看。",
+          "time": "2024-05-17 12:30"
+        }
+      ]
+    },
+    {
+      "id": "chat-delivery-6",
+      "app": "messages",
+      "title": "106666",
+      "participants": ["owner", "106666"],
+      "messages": [
+        {
+          "id": "msg-d6",
+          "senderId": "106666",
+          "body": "［菜鸟驿站］ 您有十个奶龙已到达菜鸟驿站等待与您激情舌吻，请您凭借取件码 8-10-9100到菜乌驿站与奶龙激情舌吻，到店领取杳吻一枚。",
+          "time": "2024-05-20 00:00"
+        }
+      ]
+    }
+  ],
   "content": {
     "mail": [
       {
@@ -91,6 +226,80 @@
           "comments": "89",
           "shares": "23"
         }
+      }
+    ],
+    "redbook": [
+      {
+        "id": "search-1",
+        "title": "搜索记录",
+        "body": "被掰弯",
+        "sender": "松灿",
+        "kind": "text",
+        "meta": {}
+      },
+      {
+        "id": "search-2",
+        "title": "搜索记录",
+        "body": "怎么判断性取向",
+        "sender": "松灿",
+        "kind": "text",
+        "meta": {}
+      },
+      {
+        "id": "search-3",
+        "title": "搜索记录",
+        "body": "宿舍关系",
+        "sender": "松灿",
+        "kind": "text",
+        "meta": {}
+      },
+      {
+        "id": "search-4",
+        "title": "搜索记录",
+        "body": "男生送什么礼物",
+        "sender": "松灿",
+        "kind": "text",
+        "meta": {}
+      },
+      {
+        "id": "search-5",
+        "title": "搜索记录",
+        "body": "R大美食推荐",
+        "sender": "松灿",
+        "kind": "text",
+        "meta": {}
+      },
+      {
+        "id": "search-6",
+        "title": "搜索记录",
+        "body": "第一次约会选什么地方",
+        "sender": "松灿",
+        "kind": "text",
+        "meta": {}
+      },
+      {
+        "id": "search-7",
+        "title": "搜索记录",
+        "body": "男生发型",
+        "sender": "松灿",
+        "kind": "text",
+        "meta": {}
+      },
+      {
+        "id": "search-8",
+        "title": "搜索记录",
+        "body": "怎么让头发快速长长",
+        "sender": "松灿",
+        "kind": "text",
+        "meta": {}
+      },
+      {
+        "id": "search-9",
+        "title": "搜索记录",
+        "body": "头发生长液",
+        "sender": "松灿",
+        "kind": "text",
+        "meta": {}
       }
     ]
   },
