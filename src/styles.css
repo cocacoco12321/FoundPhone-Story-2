@@ -4933,3 +4933,44 @@ label {
 .kakao-chat-content .message-row.outgoing .avatar { display: none !important; }
 .kakao-chat-content .message-row.outgoing { justify-content: flex-start !important; flex-direction: row-reverse; }
 .kakao-chat-content .chat-time { display: block !important; width: fit-content; max-width: 92%; margin: 20px auto 18px !important; padding: 7px 15px !important; border-radius: 20px; background: rgba(255,255,255,.23) !important; color: #fff !important; font-size: 13px !important; font-weight: 600; text-align: center; }
+
+/* KakaoTalk 2021–2023 narrative timeline: explicit day markers, never avatars on sent messages. */
+.ios18 .kakao-chat-content .kakao-date-divider,
+.kakao-chat-content .kakao-date-divider {
+  display: block !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+  clear: both !important;
+  width: max-content !important;
+  max-width: calc(100% - 32px) !important;
+  margin: 20px auto 24px !important;
+  padding: 8px 16px !important;
+  border-radius: 22px !important;
+  background: rgba(255,255,255,.24) !important;
+  color: #fff !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  line-height: 1.35 !important;
+  text-align: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.ios18 .kakao-chat-content .message-row.outgoing .avatar,
+.kakao-chat-content .message-row.outgoing .avatar { display: none !important; }
+.ios18 .kakao-chat-content .message-row.outgoing,
+.kakao-chat-content .message-row.outgoing { flex-direction: row-reverse !important; justify-content: flex-start !important; }
+.ios18 .kakao-chat-content .message-row:not(.outgoing) .avatar,
+.kakao-chat-content .message-row:not(.outgoing) .avatar {
+  display: block !important;
+  width: 38px !important;
+  height: 38px !important;
+  flex: 0 0 38px !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+}
+.kakao-chat-content .message-row:not(.outgoing) .avatar img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
