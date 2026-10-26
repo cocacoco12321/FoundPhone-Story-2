@@ -1069,10 +1069,26 @@ function AppContent({
         comments: [],
       }]
     : [];
+  const taobaoProducts: Item[] = app.id === "taobao" && !creator
+    ? [["RL53896","Ralph Lauren 经典棕色刺绣棒球帽","740","polo-cap.jpg"],["RL17873","Ralph Lauren 经典斜纹布立领夹克","2940","polo-jacket.jpg"],["Norrøna","Norrøna /29 羊毛保暖针织帽","600","norrona-hat.jpg"],["ATCROX","ATCROX soccer 黑白运动休闲鞋","1253","atcrox-shoes.jpg"],["Gamma","ARC'TERYX Gamma Lightweight 连帽外套","2400","arcteryx-jacket.jpg"],["ROG","ROG 夜魔 三模无线机械键盘","1619","rog-keyboard.jpg"],["ROG Extreme","ROG 夜魔 Extreme OLED 机械键盘","3599","rog-extreme.jpg"],["Naturewise","Naturewise 维生素 D3 + K2","226","naturewise-d3.jpg"]].map(([id, title, price, photo], index) => ({
+        id: "taobao-curated-" + id,
+        title,
+        body: "商品详情 · 正品保障 · 支持收藏",
+        richText: "",
+        meta: { price, photo, sold: index < 2 ? "1000+" : "300+", status: "在售" },
+        time: "",
+        sender: "淘宝精选",
+        avatar: "",
+        kind: "image" as const,
+        media: import.meta.env.BASE_URL + "taobao/" + photo,
+        hidden: false, unlock: "", password: "", folder: "", favorite: false,
+        outgoing: false, read: false, likes: 0, comments: [],
+      }))
+    : [];
   const gallerySource = app.id === "photos" && !creator
     ? galleryItems
     : app.id === "weather" && !creator ? seoulWeatherItems
-    : [...weiboMarch18, ...normalizedItems, ...october28Items, ...historicalWeChatItems, ...playlistItems];
+    : [...weiboMarch18, ...normalizedItems, ...october28Items, ...historicalWeChatItems, ...playlistItems, ...taobaoProducts];
   const shown = gallerySource
     .filter((i) => creator || visible(i, state))
     .filter((i) =>
