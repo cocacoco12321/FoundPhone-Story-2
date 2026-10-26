@@ -929,7 +929,7 @@ function AppContent({
         body: message.body,
         richText: "",
         meta: {},
-        time: "2021-10-28",
+        time: "2021-10-28 13:30",
         sender: message.speaker,
         avatar: "",
         kind: "text",
