@@ -196,7 +196,9 @@ export function validateWork(input: unknown): Work {
   return workSchema.parse(input);
 }
 export function safeMedia(value: string) {
-  if (value.startsWith("/FoundPhone-Studio/") || /^\/[0-9]{2}\.(jpg|mov)$/.test(value)) return value;
+  // Vite uses a relative base on GitHub Pages (e.g. "./01.jpg").
+  // Permit only the nine curated gallery filenames, not arbitrary external URLs.
+  if (/^(?:\.\/|\/|\/FoundPhone-Studio\/)?0[1-9]\.(?:jpg|mov)$/.test(value)) return value;
   return /^data:(image\/(png|jpeg|webp|gif)|audio\/(mpeg|mp3|wav|ogg|webm|mp4)|video\/(mp4|webm));base64,[a-zA-Z0-9+/=\s]+$/.test(
     value,
   )
