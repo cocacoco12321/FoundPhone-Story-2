@@ -4974,3 +4974,22 @@ label {
   height: 100% !important;
   object-fit: cover !important;
 }
+
+/* KKT private dialogue: visible date banners, actual Songshuo photo, no outgoing avatar. */
+.ios18 .kakao-chat-content .kkt-message-block,
+.kakao-chat-content .kkt-message-block { display: flow-root; width: 100%; }
+.ios18 .kakao-chat-content .kkt-message,
+.kakao-chat-content .kkt-message { display: flex !important; flex-direction: row !important; width: 100% !important; }
+.ios18 .kakao-chat-content .kkt-message.outgoing,
+.kakao-chat-content .kkt-message.outgoing { justify-content: flex-end !important; }
+.ios18 .kakao-chat-content .kkt-message:not(.outgoing),
+.kakao-chat-content .kkt-message:not(.outgoing) { justify-content: flex-start !important; }
+.ios18 .kakao-chat-content .kkt-message.outgoing .avatar,
+.kakao-chat-content .kkt-message.outgoing .avatar { display: none !important; }
+.ios18 .kakao-chat-content .kkt-message:not(.outgoing) .avatar,
+.kakao-chat-content .kkt-message:not(.outgoing) .avatar { display: block !important; width: 38px !important; height: 38px !important; flex: 0 0 38px !important; }
+.kakao-chat-content .kkt-message .avatar img { width: 100% !important; height: 100% !important; display: block !important; object-fit: cover !important; }
+.ios18 .kakao-chat-content .kakao-date-divider,
+.kakao-chat-content .kakao-date-divider { display: block !important; color: #333 !important; background: rgba(255,255,255,.82) !important; margin: 15px auto 20px !important; font-size: 12px !important; }
+.kakao-chat-content .kkt-message-block:has(.kkt-message .bubble) + .kkt-message-block:has(.kkt-message .bubble) { margin-top: 0; }
+.kakao-chat-content .kkt-message-block:has(.kkt-message .bubble) { min-height: 1px; }
