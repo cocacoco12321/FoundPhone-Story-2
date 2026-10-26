@@ -268,6 +268,7 @@ export function CameraSkin(p: Props) {
     mode === "视频" ? i.kind === "video" : i.kind !== "video",
   );
   const frame = frames[index % Math.max(frames.length, 1)];
+  const customCameraPhoto = import.meta.env.BASE_URL + "camera.jpg";
   return (
     <div className="catalog-skin native-camera">
       <Header p={p} />
@@ -276,7 +277,7 @@ export function CameraSkin(p: Props) {
         <span>{mode === "视频" ? "HD · 30" : "4:3"}</span>
       </div>
       <div className="camera-view">
-        {frame ? <Media item={frame} /> : <p>未设置取景画面</p>}
+        {mode === "照片" ? <img src={customCameraPhoto} alt="相机取景画面" style={{width:"100%",height:"100%",objectFit:"cover"}} onError={(e)=>{e.currentTarget.style.display="none";}} /> : frame ? <Media item={frame} /> : <p>未设置取景画面</p>}
         <div className="camera-grid" />
       </div>
       <div className="camera-mode">
