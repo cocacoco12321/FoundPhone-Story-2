@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "仅用于界面测试，不含剧情",
-  "revision": 102,
+  "revision": 103,
   "phone": {
     "owner": "松灿",
     "date": "2022-05-27",
@@ -78,7 +78,7 @@
     {
       "id": "chat-delivery-1",
       "app": "messages",
-      "title": "106900",
+      "title": "106901",
       "participants": ["owner", "106901"],
       "messages": [
         {
