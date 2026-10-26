@@ -14,7 +14,7 @@ import {
   Users,
   Video,
 } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { safeMedia, type Item } from "../schema";
 import {
   Avatar,
@@ -28,46 +28,49 @@ import {
   useContent,
   type Props,
 } from "./shared";
-// The listener chooses a local audio file; no copyrighted recording is published to GitHub.
-let localFallAudioUrl = "";
+// Publicly hosted, licensed excerpt: 00:17–01:17 (60 seconds).
+const FALL_START = 17;
+const FALL_END = 77;
 function LocalFallPlayer() {
-  const [url, setUrl] = useState(localFallAudioUrl);
-  const [playing, setPlaying] = useState(false);
   const audio = useRef<HTMLAudioElement>(null);
-  useEffect(() => {
+  const [playing, setPlaying] = useState(false);
+  const [position, setPosition] = useState(0);
+  const [ready, setReady] = useState(false);
+  const seek = (seconds: number) => {
     const player = audio.current;
     if (!player) return;
-    player.pause();
-    setPlaying(false);
-  }, [url]);
+    const next = Math.min(FALL_END, Math.max(FALL_START, FALL_START + seconds));
+    player.currentTime = next;
+    setPosition(next - FALL_START);
+  };
   return (
     <div className="local-fall-player" style={{display:"flex",flexDirection:"column",gap:7,width:"100%",padding:"7px 0"}}>
       <div style={{display:"flex",alignItems:"center",gap:8}}>
-        <button type="button" disabled={!url} onClick={async () => {
+        <button type="button" disabled={!ready} onClick={async () => {
           const player = audio.current;
           if (!player) return;
-          if (player.paused) { try { await player.play(); setPlaying(true); } catch { setPlaying(false); } }
-          else { player.pause(); setPlaying(false); }
+          if (player.paused) {
+            if (player.currentTime < FALL_START || player.currentTime >= FALL_END) seek(0);
+            try { await player.play(); } catch { setPlaying(false); }
+          } else { player.pause(); }
         }} style={{borderRadius:24,padding:"8px 12px",background:"#fff",color:"#111",border:0,fontWeight:700}}>
           {playing ? "⏸ 暂停" : "▶ 播放"}
         </button>
-        <label style={{fontSize:12,cursor:"pointer",color:"inherit"}}>
-          {url ? "更换音频" : "选择 Fall.mp3"}
-          <input type="file" accept="audio/mpeg,audio/mp3,audio/mp4,audio/x-m4a,audio/*" style={{display:"none"}} onChange={(e) => {
-            const file=e.target.files?.[0];
-            if (!file) return;
-            if (localFallAudioUrl) URL.revokeObjectURL(localFallAudioUrl);
-            localFallAudioUrl=URL.createObjectURL(file);
-            setUrl(localFallAudioUrl);
-          }}/>
-        </label>
+        <span style={{fontSize:12,fontVariantNumeric:"tabular-nums"}}>{String(Math.floor(position / 60)).padStart(2,"0")}:{String(Math.floor(position % 60)).padStart(2,"0")} / 01:00</span>
       </div>
-      <audio ref={audio} src={url || undefined} preload="metadata" controls={Boolean(url)}
-        style={{width:"100%",height:32}}
+      <input type="range" min={0} max={60} step={0.1} value={position}
+        aria-label="Fall 片段播放进度" onChange={e=>seek(Number(e.target.value))}
+        style={{width:"100%",accentColor:"#1db954"}} />
+      <audio ref={audio} src={`${import.meta.env.BASE_URL}Fall.m4a`} preload="metadata"
+        onLoadedMetadata={e=>{e.currentTarget.currentTime=FALL_START;setReady(true);}}
         onPlay={()=>setPlaying(true)} onPause={()=>setPlaying(false)}
-        onTimeUpdate={(e)=>{ if(e.currentTarget.currentTime >= 60){e.currentTarget.pause();e.currentTarget.currentTime=0;setPlaying(false);} }}
-        onEnded={()=>setPlaying(false)} />
-      {!url && <small style={{fontSize:11,opacity:.7}}>选择本机 MP3 后，可试听前 60 秒；音频不会上传到网站。</small>}
+        onTimeUpdate={e=>{
+          const player=e.currentTarget;
+          if(player.currentTime >= FALL_END){player.pause();player.currentTime=FALL_START;setPosition(0);}
+          else if(player.currentTime < FALL_START){player.currentTime=FALL_START;setPosition(0);}
+          else setPosition(player.currentTime-FALL_START);
+        }}
+        onEnded={()=>{setPlaying(false);setPosition(0);}} />
     </div>
   );
 }
