@@ -52,15 +52,23 @@ function Avatar({
   name,
   round = false,
   src = "",
+  outgoing = false,
 }: {
   name: string;
   round?: boolean;
   src?: string;
+  outgoing?: boolean;
 }) {
+  const defaultAvatar = outgoing || name === "我"
+    ? import.meta.env.BASE_URL + "avatars/me.jpg"
+    : name.includes("宋硕")
+      ? import.meta.env.BASE_URL + "avatars/songshuo.jpg"
+      : "";
+  const image = safeMedia(src) || safeMedia(defaultAvatar);
   return (
     <span className={`skin-avatar ${round ? "round" : ""}`}>
-      {safeMedia(src) && /^(?:data:image\/|.*\.(?:jpg|jpeg|png|webp)$)/i.test(safeMedia(src)) ? (
-        <img src={safeMedia(src)} alt="" />
+      {image && /^(?:data:image\/|.*\.(?:jpg|jpeg|png|webp)$)/i.test(image) ? (
+        <img src={image} alt="" onError={(event) => { event.currentTarget.style.display = "none"; }} />
       ) : (
         name.slice(0, 1)
       )}
@@ -111,7 +119,7 @@ function MessageList({
             {showDate && <div className="skin-date">{dateLabel}</div>}
             <div className={`skin-message ${i.outgoing ? "outgoing" : ""}`}>
           {!whatsapp && !i.outgoing && (
-            <Avatar name={i.sender} src={i.avatar} />
+            <Avatar name={i.sender} src={i.avatar} outgoing={i.outgoing} />
           )}
           <button
             className="skin-bubble"
