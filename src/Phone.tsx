@@ -893,7 +893,36 @@ function AppContent({
   const [unlocks, setUnlocks] = useState<string[]>([]);
   const [pwError, setPwError] = useState("");
   const [likes, setLikes] = useState<string[]>([]);
-  const shown = items
+  // Curated gallery assets, in the exact order supplied by the author.
+  const galleryItems: Item[] = Array.from({ length: 9 }, (_, index) => {
+    const n = index + 1;
+    const filename = String(n).padStart(2, "0") + (n === 6 ? ".mov" : ".jpg");
+    return {
+      id: "curated-gallery-" + n,
+      title: n === 6 ? "视频" : "照片 " + n,
+      body: "",
+      richText: "",
+      meta: {},
+      time: "2026-10-26 12:00",
+      sender: "",
+      avatar: "",
+      kind: n === 6 ? "video" : "image",
+      media: import.meta.env.BASE_URL + filename,
+      hidden: false,
+      unlock: "",
+      password: "",
+      folder: "",
+      favorite: false,
+      outgoing: false,
+      read: false,
+      likes: 0,
+      comments: [],
+    };
+  });
+  const gallerySource = app.id === "photos" && !creator
+    ? galleryItems
+    : items;
+  const shown = gallerySource
     .filter((i) => creator || visible(i, state))
     .filter((i) =>
       (i.title + i.body + i.sender).toLowerCase().includes(q.toLowerCase()),
