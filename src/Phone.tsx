@@ -2,6 +2,7 @@ import { StatusGlyph } from "./ios/StatusGlyph";
 import { SocialDetail, socialDetailApps } from "./skins/SocialDetails";
 import { ForumThread } from "./skins/ForumThread";
 import { october28Messages } from "./content/october28";
+import { sharedPlaylist } from "./content/sharedPlaylist";
 import { NativeCalculator } from "./ios/Calculator";
 import { HomeLauncher } from "./launcher/HomeLauncher";
 import { useDeviceLayout, withoutHiddenApps } from "./launcher/layout";
@@ -1255,6 +1256,22 @@ function AppContent({
                 </button>
               );
             })
+          ) : (app.id === "netease" || app.id === "spotify") && !creator ? (
+            <div style={{padding:"18px 16px 32px",overflowY:"auto"}}>
+              <div style={{fontSize:25,fontWeight:750,marginBottom:6}}>{app.id === "spotify" ? "Your Playlist" : "我的歌单"}</div>
+              <div style={{opacity:.65,fontSize:13,marginBottom:20}}>{sharedPlaylist.length} 首歌曲 · 已去重</div>
+              {sharedPlaylist.filter(song => (song.title+" "+song.artist).toLowerCase().includes(q.toLowerCase())).map((song,index)=>(
+                <div key={song.title+"|"+song.artist} style={{display:"flex",alignItems:"center",gap:12,padding:"9px 0",borderBottom:"1px solid rgba(128,128,128,.13)"}}>
+                  <div style={{width:48,height:48,borderRadius:8,flexShrink:0,display:"grid",placeItems:"center",background:app.id==="spotify"?"#1b4932":"#59242b",color:"#fff",fontSize:19}}>♫</div>
+                  <div style={{minWidth:0,flex:1}}>
+                    <div style={{fontSize:15,fontWeight:600,overflowWrap:"anywhere"}}>{song.title}</div>
+                    <div style={{fontSize:12,opacity:.65,marginTop:4,overflowWrap:"anywhere"}}>{song.artist}</div>
+                  </div>
+                  <span style={{opacity:.45,fontSize:12}}>{index+1}</span>
+                </div>
+              ))}
+              <p style={{fontSize:11,opacity:.55,marginTop:18}}>歌单展示模式 · 未接入音频播放服务</p>
+            </div>
           ) : app.engine === "media" ? (
             <>
               <div className="media-heading">
