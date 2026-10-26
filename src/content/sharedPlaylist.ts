@@ -1,5 +1,6 @@
 // Shared deduplicated playlist from the user's four screenshots.
 export const sharedPlaylist = [
+  { "title": "Fall", "artist": "Crush" },
   {
     "title": "Glimpse of Us",
     "artist": "Joji"
@@ -31,10 +32,6 @@ export const sharedPlaylist = [
   {
     "title": "그 여름밤",
     "artist": "SAM KIM"
-  },
-  {
-    "title": "Fall",
-    "artist": "Crush"
   },
   {
     "title": "넘어와 (Limbo)",
