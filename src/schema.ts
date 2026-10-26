@@ -199,6 +199,7 @@ export function safeMedia(value: string) {
   // Vite uses a relative base on GitHub Pages (e.g. "./01.jpg").
   // Permit curated gallery media under the GitHub Pages base path.
   if (/^(?:\.\/|\/|\/FoundPhone-Studio\/)?(?:0[1-9]|[1-9][0-9])\.(?:jpg|jpeg|png|webp|mov|mp4)$/.test(value)) return value;
+  if (/^(?:\.\/|\/|\/FoundPhone-Studio\/)?taobao\/[a-zA-Z0-9_-]+\.(?:jpg|jpeg|png|webp)$/.test(value)) return value;
   // Local avatar images uploaded to public/avatars/.
   if (/^(?:\.\/|\/|\/FoundPhone-Studio\/)?avatars\/[a-zA-Z0-9_-]+\.(?:jpg|jpeg|png|webp)$/.test(value)) return value;
   return /^data:(image\/(png|jpeg|webp|gif)|audio\/(mpeg|mp3|wav|ogg|webm|mp4)|video\/(mp4|webm));base64,[a-zA-Z0-9+/=\s]+$/.test(
