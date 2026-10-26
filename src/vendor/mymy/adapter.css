@@ -639,3 +639,8 @@
 .mymy-kakao .msgs.kk .kzm.kzmy .kzmav,
 .mymy-kakao .msgs.kk .kzm.kzmy .kzmav-self { display: none !important; }
 .mymy-kakao .msgs.kk .kzm.kzot .kzmav img { width: 100%; height: 100%; object-fit: cover; }
+
+/* JPG avatar image fills the actual Kakao avatar frame. */
+.mymy-kakao .kzmav .catalog-avatar { display: block; width: 32px; height: 32px; overflow: hidden; border-radius: 11px; }
+.mymy-kakao .kzmav .catalog-avatar img,
+.mymy-kakao .kzkcr .catalog-avatar img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
