@@ -2,7 +2,7 @@ import { StatusGlyph } from "./ios/StatusGlyph";
 import { SocialDetail, socialDetailApps } from "./skins/SocialDetails";
 import { NativeCalculator } from "./ios/Calculator";
 import { HomeLauncher } from "./launcher/HomeLauncher";
-import { useDeviceLayout } from "./launcher/layout";
+import { useDeviceLayout, withoutHiddenApps } from "./launcher/layout";
 import "./launcher/launcher.css";
 import { NativeDetail, nativeDetailApps } from "./ios/Details";
 import "./ios/details.css";
@@ -489,7 +489,7 @@ function PhoneRuntime({
                 storeOpen={app === "appstore"}
                 closeStore={() => setApp("")}
                 work={work}
-                layout={deviceLayout.layout}
+                layout={withoutHiddenApps(deviceLayout.layout)}
                 change={deviceLayout.change}
                 importLayout={deviceLayout.importLayout}
                 error={deviceLayout.error}
