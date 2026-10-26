@@ -905,8 +905,7 @@ function AppContent({
   const [pwError, setPwError] = useState("");
   const [likes, setLikes] = useState<string[]>([]);
   // Curated gallery assets, in the exact order supplied by the author.
-  const galleryItems: Item[] = [...Array.from({ length: 18 }, (_, index) => index + 1), 19, 20, 21, 23, 25, 26]
-    .filter((n) => ![10, 11, 12, 13].includes(n))
+  const galleryItems: Item[] = [1, 2, 3, 4, 5, 7, 8, 9, 12, 13, 14, 15, 16, 18, 19, 20, 21, 23, 25, 26]
     .map((n) => {
     const filename = String(n).padStart(2, "0") + ([6, 17].includes(n) ? ".mov" : ".jpg");
     return {
