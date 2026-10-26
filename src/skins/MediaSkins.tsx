@@ -2,14 +2,12 @@ import { AudioPlayer, useTrack } from "../audio";
 import { useSkinState } from "../skinState";
 import {
   Bookmark,
-  Check,
   Compass,
   Heart,
   Home,
   MessageCircle,
   Music,
   Play,
-  Plus,
   Search,
   SkipForward,
   User,
@@ -509,7 +507,7 @@ export function NetflixSkin(p: Props) {
             <button onClick={()=>setSelected(null)} style={{color:"#fff",padding:"10px 0",marginBottom:10}}>〈 返回浏览</button>
             <div style={{height:250}}>{poster(detail,true)}</div>
             <h2 style={{fontSize:26,margin:"18px 0 8px"}}>{detail.title}</h2>
-            <div style={{color:"#aaa",fontSize:12,marginBottom:16}}>{detail.year}　{detail.rating}　{detail.duration}　{detail.genre}</div>
+            <div style={{color:"#aaa",fontSize:12,marginBottom:16}}>{detail.year} {detail.rating} {detail.duration} {detail.genre}</div>
             <p style={{fontSize:14,lineHeight:1.8}}>{detail.synopsis}</p>
             <button onClick={()=>toggle(detail.id)} style={{background:"#eee",color:"#111",borderRadius:5,padding:"12px 16px",marginTop:14,fontWeight:700,width:"100%"}}>{saved.includes(detail.id)?"✓ 已加入我的片单":"＋ 加入我的片单"}</button>
             <p style={{fontSize:11,color:"#888",marginTop:16}}>影视资料展示 · 未提供在线播放</p>
