@@ -1297,9 +1297,9 @@ function AppContent({
                 className={`message-row ${i.outgoing ? "outgoing" : ""}`}
                 onClick={() => (creator ? onEdit(i) : onRead(i.id))}
               >
-                <span className="avatar">{app.id === "kakao" && kakaoAvatar(i.sender, i.outgoing) ? (
+                {!(app.id === "kakao" && i.outgoing) && <span className="avatar">{app.id === "kakao" && kakaoAvatar(i.sender, i.outgoing) ? (
                   <img src={kakaoAvatar(i.sender, i.outgoing)} alt={i.sender} style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:"inherit"}} onError={(e) => { e.currentTarget.style.display = "none"; e.currentTarget.parentElement?.setAttribute("title", "头像图片加载失败"); }} />
-                ) : i.sender.slice(0, 1)}</span>
+                ) : i.sender.slice(0, 1)}</span>}
                 <span className="bubble">
                   {i.kind === "image" ||
                   i.kind === "audio" ||
