@@ -632,3 +632,10 @@
 /* The owner avatar is visible on the right of KakaoTalk outgoing bubbles. */
 .mymy-ui .kzm.kzmy .kzmav-self { position: relative; inset: auto; flex: 0 0 34px; margin-left: 4px; }
 .mymy-ui .kzm.kzmy .kzmav-self img { width: 34px; height: 34px; object-fit: cover; border-radius: 12px; }
+
+/* Real Mymy Kakao thread date separators and avatar behavior. */
+.mymy-kakao .msgs.kk .kkt-entry { display: contents; }
+.mymy-kakao .msgs.kk .kkt-day-divider { display: block; width: fit-content; margin: 15px auto 22px; padding: 6px 14px; background: rgba(255,255,255,.55); color: #334454; font-size: 12px; border-radius: 20px; text-align: center; clear: both; }
+.mymy-kakao .msgs.kk .kzm.kzmy .kzmav,
+.mymy-kakao .msgs.kk .kzm.kzmy .kzmav-self { display: none !important; }
+.mymy-kakao .msgs.kk .kzm.kzot .kzmav img { width: 100%; height: 100%; object-fit: cover; }
