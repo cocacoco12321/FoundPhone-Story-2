@@ -628,3 +628,7 @@
   width: 25px;
   height: 25px;
 }
+
+/* The owner avatar is visible on the right of KakaoTalk outgoing bubbles. */
+.mymy-ui .kzm.kzmy .kzmav-self { position: relative; inset: auto; flex: 0 0 34px; margin-left: 4px; }
+.mymy-ui .kzm.kzmy .kzmav-self img { width: 34px; height: 34px; object-fit: cover; border-radius: 12px; }
