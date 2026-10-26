@@ -865,7 +865,7 @@ function kakaoAvatar(sender: string, outgoing = false): string {
     : /珍浩/.test(sender) ? "zhenhao"
     : /宋硕|^宋$/.test(sender) ? "songshuo"
     : /^(我|成)$/.test(sender) ? "me" : "";
-  return name ? import.meta.env.BASE_URL + "kakao-avatars/" + name + ".jpg" : "";
+  return name ? import.meta.env.BASE_URL + "avatars/" + (name === "songshuo" || name === "me" ? "kkt-" : "") + name + ".jpg" : "";
 }
 function AppContent({
   app,
