@@ -865,6 +865,7 @@ function Media({ item }: { item: Item }) {
   );
 }
 function kakaoAvatar(sender: string, outgoing = false): string {
+  if (/^605/.test(sender)) return import.meta.env.BASE_URL + "avatars/kkt-songshuo.jpg";
   const name = outgoing ? "me" : /炫宇/.test(sender) ? "xuanyu"
     : /珍浩/.test(sender) ? "zhenhao"
     : /宋硕|^宋$/.test(sender) ? "songshuo"
