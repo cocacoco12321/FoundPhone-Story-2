@@ -980,7 +980,9 @@ function AppContent({
         sender: "我不知道你在说什么",
         avatar: import.meta.env.BASE_URL + "avatars/weibo-avatar.jpg",
       }))
-    : items;
+    : app.id === "kakao" && !creator
+      ? items.map(item => ({ ...item, avatar: kakaoAvatar(item.sender, item.outgoing) || item.avatar }))
+      : items;
   // Feed the actual music skins, not the generic fallback screen.
   const playlistItems: Item[] = (app.id === "spotify" || app.id === "netease") && !creator
     ? sharedPlaylist.map((song, index) => ({
