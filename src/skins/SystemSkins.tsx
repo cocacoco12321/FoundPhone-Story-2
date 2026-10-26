@@ -52,7 +52,20 @@ export function PhoneSkin(p: Props) {
       ? ["2022-05-27", "2022-05-26", "2022-05-24", "2022-05-22", "2022-05-20"][index % 5] + item.time.slice(10)
       : item.time,
   }));
-  const list = tab === "收藏" ? datedItems.filter((i) => i.favorite) : datedItems;
+  const extraCalls: Item[] = [
+    { id: "extra-songyinshuo-0527", title: "宋银硕", number: "198273677", date: "2022-05-27 19:32", status: "通话记录" },
+    { id: "extra-songyinshuo-0516", title: "宋银硕", number: "198273677", date: "2022-05-16 21:08", status: "通话记录" },
+    { id: "extra-delivery-0514", title: "外卖", number: "955321", date: "2022-05-14 12:36", status: "通话记录" },
+    { id: "extra-delivery-0511", title: "外卖", number: "106555", date: "2022-05-11 18:22", status: "通话记录" },
+    { id: "extra-delivery-0509", title: "外卖", number: "955321", date: "2022-05-09 13:17", status: "通话记录" },
+  ].map(({ id, title, number, date, status }) => ({
+    id, title, body: "", richText: "", meta: { number, status },
+    time: date, sender: number, avatar: "", kind: "call" as const, media: "",
+    hidden: false, unlock: "", password: "", folder: "", favorite: false,
+    outgoing: false, read: false, likes: 0, comments: [],
+  }));
+  const allCalls = [...datedItems, ...extraCalls].sort((a, b) => b.time.localeCompare(a.time));
+  const list = tab === "收藏" ? allCalls.filter((i) => i.favorite) : allCalls;
   return (
     <div className="catalog-skin native-phone">
       <Header p={p} />
