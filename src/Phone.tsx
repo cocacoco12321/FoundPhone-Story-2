@@ -860,6 +860,13 @@ function Media({ item }: { item: Item }) {
     </div>
   );
 }
+function kakaoAvatar(sender: string, outgoing = false): string {
+  const name = outgoing ? "me" : /炫宇/.test(sender) ? "xuanyu"
+    : /珍浩/.test(sender) ? "zhenhao"
+    : /宋硕|^宋$/.test(sender) ? "songshuo"
+    : /^(我|成)$/.test(sender) ? "me" : "";
+  return name ? import.meta.env.BASE_URL + "kakao-avatars/" + name + ".jpg" : "";
+}
 function AppContent({
   app,
   name,
@@ -1152,7 +1159,9 @@ function AppContent({
                 className={`message-row ${i.outgoing ? "outgoing" : ""}`}
                 onClick={() => (creator ? onEdit(i) : onRead(i.id))}
               >
-                <span className="avatar">{i.sender.slice(0, 1)}</span>
+                <span className="avatar">{app.id === "kakao" && kakaoAvatar(i.sender, i.outgoing) ? (
+                  <img src={kakaoAvatar(i.sender, i.outgoing)} alt={i.sender} style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:"inherit"}} onError={(e) => { e.currentTarget.style.display = "none"; }} />
+                ) : i.sender.slice(0, 1)}</span>
                 <span className="bubble">
                   {i.kind === "image" ||
                   i.kind === "audio" ||
