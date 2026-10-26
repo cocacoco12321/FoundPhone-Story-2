@@ -61,6 +61,14 @@ function Back({ onClick }: { onClick: () => void }) {
     </button>
   );
 }
+function kakaoPhoto(name: string): string {
+  const base = import.meta.env.BASE_URL + "avatars/";
+  if (name.includes("605") || name === "群聊") return "";
+  if (name.includes("宋硕") || name === "宋") return base + "kkt-songshuo.jpg";
+  if (name.includes("珍浩") || name === "珍") return base + "zhenhao.jpg";
+  if (name.includes("炫宇") || name === "炫") return base + "xuanyu.jpg";
+  return "";
+}
 export function MymyKakao(p: SkinProps) {
   const [tab, setTab] = useSkinState<string>(p, "mymyTab", "聊天"),
     [sent, setSent] = useSkinState<string[]>(p, "mymyKktSent", []),
@@ -133,7 +141,7 @@ export function MymyKakao(p: SkinProps) {
                   {!m.outgoing && run.first && (
                     <>
                       <div className="kzmav">
-                        <Avatar name={m.sender} src={/宋硕|^宋$/.test(m.sender) ? import.meta.env.BASE_URL + "avatars/kkt-songshuo.jpg" : m.avatar} />
+                        <Avatar name={m.sender} src={kakaoPhoto(m.sender) || m.avatar} />
                       </div>
                       <div className="kzmn">{m.sender}</div>
                     </>
@@ -274,7 +282,7 @@ export function MymyKakao(p: SkinProps) {
                     key={g.title}
                     onClick={() => p.onThread(g.title)}
                   >
-                    <Avatar name={last.sender || g.title} src={last.avatar} />
+                    {kakaoPhoto(g.title) ? <Avatar name={g.title} src={kakaoPhoto(g.title)} /> : <span className="catalog-avatar round" aria-label="群聊">群</span>}
                     <span className="kzkn">
                       <b>{g.title}</b>
                       <small>{tab === "好友" ? last.sender : last.body}</small>
