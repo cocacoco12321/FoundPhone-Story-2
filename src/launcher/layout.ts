@@ -164,25 +164,23 @@ export function useDeviceLayout(authored: Work, creator = false) {
     }),
     [error, setError] = useState("");
   const storedLayout = stored.workId === base.id ? stored : defaultLayout(base);
-  // Restore Weibo and Xiaohongshu on existing devices, including saved layouts
-  // where they were previously hidden or moved into a folder.
+  // Keep requested apps visible on all devices, including older saved layouts.
+  const pinnedApps = ["bilibili","weather","netflix","redbook","netease","spotify","music"];
   const layout = useMemo(() => ({
     ...storedLayout,
-    apps: storedLayout.apps.map((app) =>
-      app.id === "weibo" || app.id === "xiaohongshu"
+    apps: [
+      ...storedLayout.apps.map((app) => pinnedApps.includes(app.id)
         ? { ...app, installed: true, visible: true, dock: false, folder: "" }
-        : app,
-    ),
-    order: [
-      "weibo", "xiaohongshu",
-      ...storedLayout.order.filter((id) => id !== "weibo" && id !== "xiaohongshu"),
+        : app),
+      ...base.apps.filter((app) => pinnedApps.includes(app.id) && !storedLayout.apps.some((existing) => existing.id === app.id))
+        .map((app) => ({ ...app, installed: true, visible: true, dock: false, folder: "" })),
     ],
-    positions: Object.fromEntries(
-      Object.entries(storedLayout.positions).filter(
-        ([id]) => id !== "weibo" && id !== "xiaohongshu",
-      ),
-    ),
-  }), [storedLayout]);
+    order: [
+      ...pinnedApps,
+      ...storedLayout.order.filter((id) => !pinnedApps.includes(id)),
+    ],
+    positions: Object.fromEntries(Object.entries(storedLayout.positions).filter(([id]) => !pinnedApps.includes(id))),
+  }), [storedLayout, base.apps]);
   useEffect(() => {
     if (creator) return;
     try {
