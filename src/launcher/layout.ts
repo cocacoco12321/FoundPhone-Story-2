@@ -147,7 +147,7 @@ export function validateLayout(raw: unknown, input: Work) {
     if (!actual || actual.x !== requested.x || actual.y !== requested.y)
       throw Error("桌面位置冲突或超出范围");
   }
-  return withoutHiddenApps(layout);
+  return layout;
 }
 export function useDeviceLayout(authored: Work, creator = false) {
   const base = useMemo(() => ensureAppStore(authored), [authored]);
