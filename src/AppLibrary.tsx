@@ -14,6 +14,7 @@ import {
 import { Modal } from "./Editors";
 import { AppIcon } from "./Phone";
 import { registry, getApp } from "./registry";
+import { isHiddenApp } from "./launcher/layout";
 import { type Work } from "./schema";
 import {
   category,
@@ -61,7 +62,7 @@ export function AppManager({
       })),
   ];
   const filtered = catalog.filter(
-    (a) =>
+    (a) => !isHiddenApp(a) &&
       (a.name + getApp(a.id).name)
         .toLowerCase()
         .includes(query.toLowerCase()) &&
