@@ -278,7 +278,8 @@ function PhoneRuntime({
   // Hide the JD app even when an older story is stored in the browser.
   const isJdApp = (a: { id: string; name: string }) =>
     a.name.includes("京东") || ["jd", "jingdong", "jdcom"].includes(a.id.toLowerCase());
-  const installedApps = work.apps.filter((a) => a.installed && !isJdApp(a));
+  const excludedApps = new Set(["whatsapp", "instagram", "tiktok", "twitter", "telegram", "discord", "youtube", "line", "snapchat", "facebook", "messenger", "reddit"]);
+  const installedApps = work.apps.filter((a) => a.installed && !isJdApp(a) && !excludedApps.has(a.id.toLowerCase()));
   const apps = installedApps.filter((a) => a.visible);
   const unlock = (pin = "") => {
     if (!work.phone.passcode || pin === work.phone.passcode) {
