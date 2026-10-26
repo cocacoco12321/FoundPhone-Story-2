@@ -1165,16 +1165,16 @@ function AppContent({
           {shown
             .filter((i) => i.title === thread)
             .map((i, index, messages) => {
-              const date = i.time?.slice(0, 10) || "";
-              const previousDate = messages[index - 1]?.time?.slice(0, 10);
+              const date = (i.time || "").match(/\\d{4}[-./]\\d{1,2}[-./]\\d{1,2}/)?.[0] || "";
+              const previousDate = (messages[index - 1]?.time || "").match(/\\d{4}[-./]\\d{1,2}[-./]\\d{1,2}/)?.[0] || "";
               const showDate = Boolean(date && date !== previousDate);
-              const parts = date.split("-");
-              const dateLabel = parts.length === 3
+              const parts = date.split(/[-./]/);
+              const dateLabel = date
                 ? `${parts[0]}年${Number(parts[1])}月${Number(parts[2])}日`
-                : date;
+                : "";
               return (
-                <div key={i.id}>
-                  {showDate && <div className="chat-time">{dateLabel}</div>}
+                <div key={i.id} style={{width:"100%"}}>
+                  {showDate && <div className="chat-time" style={{display:"block",textAlign:"center",margin:"16px auto 12px",padding:"6px 12px",width:"fit-content",borderRadius:12,background:app.id === "kakao"?"rgba(60,55,50,.14)":undefined,color:app.id === "kakao"?"#4d4b49":undefined,fontSize:12}}>{dateLabel}</div>}
               <button
                 key={i.id}
                 className={`message-row ${i.outgoing ? "outgoing" : ""}`}
@@ -1244,8 +1244,8 @@ function AppContent({
                     onRead(t);
                   }}
                 >
-                  <span className="avatar" style={{ background: app.color }}>
-                    {t.slice(0, 1)}
+                  <span className="avatar" style={{ background: app.color, overflow:"hidden" }}>
+                    {app.id === "kakao" && kakaoAvatar(t) ? <img src={kakaoAvatar(t)} alt={t} style={{width:"100%",height:"100%",objectFit:"cover"}} /> : t.slice(0, 1)}
                   </span>
                   <span>
                     <strong>{t}</strong>
