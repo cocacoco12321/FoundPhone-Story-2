@@ -298,17 +298,33 @@ export function YouTubeSkin(p: Props) {
     </div>
   );
 }
+const footballBiliVideos: Item[] = [
+  ["正面交锋！姆巴佩双响，拉菲尼亚破门难救主！巴萨1比2皇马｜7分钟让你明白为什么亿万人热爱足球", "足球解说研究所", "07:18", "128.6万", "足球"],
+  ["国家德比高燃回顾！皇马vs巴萨，每一次反击都让人屏住呼吸", "绿茵录像厅", "12:46", "86.4万", "足球"],
+  ["【全场集锦】欧冠经典之夜！绝杀、扑救、逆转一口气看完", "欧冠观察室", "09:32", "72.1万", "足球"],
+  ["【比赛直播间】今晚焦点战｜赛前阵容分析·实时文字互动", "足球前线LIVE", "直播", "24.8万", "直播"],
+  ["【战术复盘】为什么这次高位逼抢能改变整场比赛？", "战术板Football", "15:20", "39.7万", "足球"],
+  ["【球迷现场】看台视角直击国家德比！欢呼声震撼全场", "看台第一排", "05:41", "51.2万", "足球"],
+].map(([title, sender, duration, views, folder], index) => ({
+  id: "bili-football-" + index,
+  title, body: "足球赛事解说与精彩回顾。此为故事内模拟视频条目，非真实直播信号。",
+  richText: "", meta: { duration, views }, time: "20:30", sender,
+  avatar: "", kind: "video" as const, media: "", hidden: false,
+  unlock: "", password: "", folder, favorite: false, outgoing: false,
+  read: false, likes: 3200 + index * 517, comments: [],
+}));
 export function BilibiliSkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "首页");
   const [category, setCategory] = useState("推荐");
+  const feed = [...footballBiliVideos, ...items.filter((i) => !footballBiliVideos.some((v) => v.title === i.title))];
   const list =
     tab === "历史"
       ? items.filter((i) => i.folder === "历史")
       : tab === "动态"
         ? items.filter((i) => i.folder === "动态")
         : category === "推荐"
-          ? items
-          : items.filter((i) => i.folder === category);
+          ? feed
+          : feed.filter((i) => i.folder === category);
   return (
     <div className="catalog-skin bilibili-ui">
       <Header p={p} />
@@ -317,7 +333,7 @@ export function BilibiliSkin(p: Props) {
         <SearchBox value={q} set={setQ} />
       </div>
       <div className="bili-categories">
-        {["推荐", "动画", "音乐", "生活"].map((c) => (
+        {["推荐", "足球", "直播", "动画", "音乐", "生活"].map((c) => (
           <button
             key={c}
             className={category === c ? "selected" : ""}
@@ -332,7 +348,11 @@ export function BilibiliSkin(p: Props) {
           {list.map((i) => (
             <button key={i.id} onClick={() => p.onItem(i)}>
               <div>
-                <Media item={i} />
+                {i.id.startsWith("bili-football-") ? (
+                  <div style={{ height: "100%", minHeight: 106, background: "linear-gradient(135deg,#103c36,#1c7663 58%,#0d282a)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, fontWeight: 800, fontSize: 18 }}>
+                    <span>⚽</span><span>{i.folder === "直播" ? "LIVE · 足球直播间" : "FOOTBALL · 精彩解说"}</span>
+                  </div>
+                ) : <Media item={i} />}
                 <small>
                   <Play size={10} />
                   {meta(i, "views", "—")}
