@@ -2,6 +2,7 @@ import { StatusGlyph } from "./ios/StatusGlyph";
 import { SocialDetail, socialDetailApps } from "./skins/SocialDetails";
 import { ForumThread } from "./skins/ForumThread";
 import { october28Messages } from "./content/october28";
+import { historicalWeChatMessages } from "./content/historicalWeChat";
 import { sharedPlaylist } from "./content/sharedPlaylist";
 import { NativeCalculator } from "./ios/Calculator";
 import { HomeLauncher } from "./launcher/HomeLauncher";
@@ -953,6 +954,29 @@ function AppContent({
         comments: [],
       }))
     : [];
+  const historicalWeChatItems: Item[] = app.id === "wechat" && !creator
+    ? historicalWeChatMessages.map((message, index) => ({
+        id: "songshuo-history-" + index,
+        title: "宋硕",
+        body: message.body,
+        richText: "",
+        meta: message.kind === "voice" ? { voiceMessage: "true" } : message.kind === "receipt" ? { transferReceipt: "true" } : {},
+        time: message.time,
+        sender: message.speaker === "宋" ? "宋硕" : "我",
+        avatar: "",
+        kind: message.kind === "transfer" ? "transfer" : "text",
+        media: "",
+        hidden: false,
+        unlock: "",
+        password: "",
+        folder: "",
+        favorite: false,
+        outgoing: message.speaker === "我",
+        read: false,
+        likes: 0,
+        comments: [],
+      }))
+    : [];
   const weiboMarch18: Item[] = app.id === "weibo" && !creator ? [{
     id: "weibo-20230318-together",
     title: "在一起了。",
@@ -1048,7 +1072,7 @@ function AppContent({
   const gallerySource = app.id === "photos" && !creator
     ? galleryItems
     : app.id === "weather" && !creator ? seoulWeatherItems
-    : [...weiboMarch18, ...normalizedItems, ...october28Items, ...playlistItems];
+    : [...weiboMarch18, ...normalizedItems, ...october28Items, ...historicalWeChatItems, ...playlistItems];
   const shown = gallerySource
     .filter((i) => creator || visible(i, state))
     .filter((i) =>
