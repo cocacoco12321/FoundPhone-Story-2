@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronLeft, MessageCircle, Heart, Share2 } from "lucide-react";
+import { ChevronLeft, MessageCircle, Heart } from "lucide-react";
 
 const floors = [
   {
@@ -259,7 +259,7 @@ const floors = [
     "depth": 2,
     "author": "匿名37884",
     "body": "懂你意思",
-    "replyTo": 35
+    "replyTo": 36
   }
 ] as const;
 
