@@ -14,7 +14,27 @@
     "passcode": "031913"
   },
   "installedApps": [
-    "appstore", "wechat", "kakao", "douyin", "phone", "messages", "contacts", "photos", "camera", "safari", "notes", "calendar", "mail", "clock", "settings", "forum", "redbook", "qq", "weibo", "taobao", "netease"
+    "appstore",
+    "wechat",
+    "kakao",
+    "douyin",
+    "phone",
+    "messages",
+    "contacts",
+    "photos",
+    "camera",
+    "safari",
+    "notes",
+    "calendar",
+    "mail",
+    "clock",
+    "settings",
+    "forum",
+    "redbook",
+    "qq",
+    "weibo",
+    "taobao",
+    "netease"
   ],
   "contacts": [
     {
@@ -83,7 +103,10 @@
       "id": "wechat-songshuo",
       "app": "wechat",
       "title": "宋硕",
-      "participants": ["owner", "songshuo"],
+      "participants": [
+        "owner",
+        "songshuo"
+      ],
       "messages": [
         {
           "id": "w-msg-1",
@@ -187,7 +210,12 @@
       "id": "kakao-group-605",
       "app": "kakao",
       "title": "605（4）",
-      "participants": ["owner", "songshuo", "jinhao", "xuanyu"],
+      "participants": [
+        "owner",
+        "songshuo",
+        "jinhao",
+        "xuanyu"
+      ],
       "messages": [
         {
           "id": "k-msg-1",
@@ -327,7 +355,10 @@
       "id": "chat-delivery-1",
       "app": "messages",
       "title": "106901",
-      "participants": ["owner", "delivery_1"],
+      "participants": [
+        "owner",
+        "delivery_1"
+      ],
       "messages": [
         {
           "id": "msg-d1",
@@ -341,7 +372,10 @@
       "id": "chat-delivery-2",
       "app": "messages",
       "title": "955321",
-      "participants": ["owner", "delivery_2"],
+      "participants": [
+        "owner",
+        "delivery_2"
+      ],
       "messages": [
         {
           "id": "msg-d2",
@@ -355,7 +389,10 @@
       "id": "chat-delivery-3",
       "app": "messages",
       "title": "106555",
-      "participants": ["owner", "delivery_3"],
+      "participants": [
+        "owner",
+        "delivery_3"
+      ],
       "messages": [
         {
           "id": "msg-d3",
@@ -369,7 +406,10 @@
       "id": "chat-delivery-6",
       "app": "messages",
       "title": "106666",
-      "participants": ["owner", "delivery_6"],
+      "participants": [
+        "owner",
+        "delivery_6"
+      ],
       "messages": [
         {
           "id": "msg-d6",
@@ -580,16 +620,7 @@
         "meta": {}
       }
     ],
-    "forum": [
-      {
-        "id": "forum-post-1",
-        "title": "两个室友好像在一起了怎么办？",
-        "body": "两个室友好像在一起了怎么办？",
-        "sender": "匿名78278321",
-        "kind": "text",
-        "meta": {}
-      }
-    ]
+    "forum": []
   },
   "variables": {},
   "events": [],
