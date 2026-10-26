@@ -3,9 +3,9 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "仅用于界面测试，不含剧情",
-  "revision": 106,
+  "revision": 107,
   "phone": {
-    "owner": "松灿",
+    "owner": "成灿",
     "date": "2022-05-27",
     "time": "09:01",
     "battery": 73,
@@ -14,7 +14,7 @@
     "passcode": "031913"
   },
   "installedApps": [
-    "appstore", "wechat", "kakao", "douyin", "phone", "messages", "contacts", "photos", "camera", "safari", "notes", "calendar", "mail", "clock", "settings", "forum", "redbook", "qq", "weibo", "bilibili", "alipay", "taobao", "netease", "delivery"
+    "appstore", "wechat", "kakao", "douyin", "phone", "messages", "contacts", "photos", "camera", "safari", "notes", "calendar", "mail", "clock", "settings", "forum", "redbook", "qq", "weibo", "taobao", "netease"
   ],
   "contacts": [
     {
@@ -42,6 +42,18 @@
       "bio": "学长"
     },
     {
+      "id": "mom",
+      "name": "妈",
+      "phone": "1388888888",
+      "bio": "家人"
+    },
+    {
+      "id": "canrong",
+      "name": "灿荣",
+      "phone": "1399999999",
+      "bio": "朋友"
+    },
+    {
       "id": "delivery_1",
       "name": "106901",
       "phone": "106901",
@@ -57,24 +69,6 @@
       "id": "delivery_3",
       "name": "106555",
       "phone": "106555",
-      "bio": "外卖"
-    },
-    {
-      "id": "delivery_4",
-      "name": "106888",
-      "phone": "106888",
-      "bio": "外卖"
-    },
-    {
-      "id": "delivery_5",
-      "name": "106999",
-      "phone": "106999",
-      "bio": "外卖"
-    },
-    {
-      "id": "delivery_6",
-      "name": "106666",
-      "phone": "106666",
       "bio": "外卖"
     }
   ],
@@ -324,34 +318,6 @@
       ]
     },
     {
-      "id": "chat-delivery-4",
-      "app": "messages",
-      "title": "106888",
-      "participants": ["owner", "delivery_4"],
-      "messages": [
-        {
-          "id": "msg-d4",
-          "senderId": "delivery_4",
-          "body": "［淘宝闪购］您的外卖3分钟后到楼下外卖架。请尽快取餐。骑手电话请在下单平台查看。",
-          "time": "2024-05-13 13:00"
-        }
-      ]
-    },
-    {
-      "id": "chat-delivery-5",
-      "app": "messages",
-      "title": "106999",
-      "participants": ["owner", "delivery_5"],
-      "messages": [
-        {
-          "id": "msg-d5",
-          "senderId": "delivery_5",
-          "body": "［淘宝闪购］您的外卖3分钟后到楼下外卖架。请尽快取餐。骑手电话请在下单平台查看。",
-          "time": "2024-05-17 12:30"
-        }
-      ]
-    },
-    {
       "id": "chat-delivery-6",
       "app": "messages",
       "title": "106666",
@@ -367,6 +333,52 @@
     }
   ],
   "content": {
+    "phone": [
+      {
+        "id": "call-1",
+        "title": "呼出",
+        "body": "106901",
+        "sender": "妈",
+        "kind": "text",
+        "meta": {
+          "duration": "3分21秒",
+          "time": "2024-04-16 13:05"
+        }
+      },
+      {
+        "id": "call-2",
+        "title": "呼入",
+        "body": "1399999999",
+        "sender": "灿荣",
+        "kind": "text",
+        "meta": {
+          "duration": "2分13秒",
+          "time": "2024-04-19 11:15"
+        }
+      },
+      {
+        "id": "call-3",
+        "title": "呼出",
+        "body": "955321",
+        "sender": "外卖",
+        "kind": "text",
+        "meta": {
+          "duration": "12秒",
+          "time": "2024-05-03 12:10"
+        }
+      },
+      {
+        "id": "call-4",
+        "title": "呼入",
+        "body": "106555",
+        "sender": "外卖",
+        "kind": "text",
+        "meta": {
+          "duration": "15秒",
+          "time": "2024-05-13 13:10"
+        }
+      }
+    ],
     "mail": [
       {
         "id": "mail-1",
@@ -378,63 +390,6 @@
       }
     ],
     "notes": [
-      {
-        "id": "note-1",
-        "title": "3000字论文",
-        "body": "3000字论文",
-        "sender": "成灿",
-        "kind": "text",
-        "meta": {}
-      },
-      {
-        "id": "note-2",
-        "title": "买Drunk Baker",
-        "body": "买Drunk Baker",
-        "sender": "成灿",
-        "kind": "text",
-        "meta": {}
-      },
-      {
-        "id": "note-3",
-        "title": "预定餐馆",
-        "body": "预定餐馆",
-        "sender": "成灿",
-        "kind": "text",
-        "meta": {}
-      },
-      {
-        "id": "note-4",
-        "title": "找代课",
-        "body": "找代课",
-        "sender": "成灿",
-        "kind": "text",
-        "meta": {}
-      },
-      {
-        "id": "note-5",
-        "title": "学习报告",
-        "body": "学习报告",
-        "sender": "成灿",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "douyin": [
-      {
-        "id": "dy-video-1",
-        "title": "我的第一条抖音",
-        "body": "遛小狗",
-        "sender": "ZeroC",
-        "kind": "image",
-        "meta": {
-          "imageUrl": "https://raw.githubusercontent.com/cocacoco12321/FoundPhone-Studio/refs/heads/main/public/douyin.jpg",
-          "likes": "1256",
-          "comments": "89",
-          "shares": "23"
-        }
-      }
-    ],
-    "redbook": [
       {
         "id": "search-1",
         "title": "搜索记录",
@@ -506,8 +461,77 @@
         "sender": "成灿",
         "kind": "text",
         "meta": {}
+      },
+      {
+        "id": "note-1",
+        "title": "3000字论文",
+        "body": "3000字论文",
+        "sender": "成灿",
+        "kind": "text",
+        "meta": {}
+      },
+      {
+        "id": "note-2",
+        "title": "买Drunk Baker",
+        "body": "买Drunk Baker",
+        "sender": "成灿",
+        "kind": "text",
+        "meta": {}
+      },
+      {
+        "id": "note-3",
+        "title": "预定餐馆",
+        "body": "预定餐馆",
+        "sender": "成灿",
+        "kind": "text",
+        "meta": {}
+      },
+      {
+        "id": "note-4",
+        "title": "找代课",
+        "body": "找代课",
+        "sender": "成灿",
+        "kind": "text",
+        "meta": {}
+      },
+      {
+        "id": "note-5",
+        "title": "学习报告",
+        "body": "学习报告",
+        "sender": "成灿",
+        "kind": "text",
+        "meta": {}
       }
-    ]
+    ],
+    "weibo": [
+      {
+        "id": "weibo-1",
+        "title": "我不知道你在说什么",
+        "body": "我不知道自己怎么了也不知道该怎么办，为什么会这样我要怎么面对他。",
+        "sender": "我不知道你在说什么",
+        "kind": "text",
+        "meta": {
+          "time": "2022-03-15 02:14",
+          "private": true
+        }
+      }
+    ],
+    "douyin": [
+      {
+        "id": "dy-video-1",
+        "title": "要放冬天的图传不上来",
+        "body": "遛小狗",
+        "sender": "ZeroC",
+        "kind": "image",
+        "meta": {
+          "imageUrl": "https://raw.githubusercontent.com/cocacoco12321/FoundPhone-Studio/refs/heads/main/public/douyin.jpg",
+          "likes": "1256",
+          "comments": "89",
+          "shares": "23"
+        }
+      }
+    ],
+    "redbook": []
   },
   "variables": {},
   "events": [],
