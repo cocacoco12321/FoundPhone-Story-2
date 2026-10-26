@@ -127,6 +127,17 @@ function MessageList({
           >
             {["image", "audio", "video"].includes(i.kind) ? (
               <ItemMedia item={i} />
+            ) : i.meta?.voiceMessage === "true" ? (
+              <div className="wx-voice-message" title={i.body}>
+                <span aria-hidden="true">)))</span>
+                <strong>8″</strong>
+                <small style={{display:"block",fontSize:10,opacity:.75}}>语音消息 · {i.body}</small>
+              </div>
+            ) : i.meta?.transferReceipt === "true" ? (
+              <div className="skin-transfer" style={{background:"#eaf5e8",color:"#36743b"}}>
+                <strong>✓ 已收款</strong>
+                <small>¥ 28.00</small>
+              </div>
             ) : i.kind === "transfer" ? (
               <div className="skin-transfer">
                 ¥ {i.body}
