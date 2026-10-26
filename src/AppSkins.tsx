@@ -136,7 +136,7 @@ function MessageList({
               i.body
             )}
             <small className={whatsapp ? undefined : "wx-message-time"}>
-              {i.time.slice(-5)}{" "}
+              {/\\d{2}:\\d{2}$/.test(i.time) ? i.time.slice(-5) : ""}
               {whatsapp && i.outgoing && <CheckCheck size={11} />}
             </small>
           </button>
