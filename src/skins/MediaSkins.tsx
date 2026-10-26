@@ -14,7 +14,7 @@ import {
   Users,
   Video,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { safeMedia, type Item } from "../schema";
 import {
   Avatar,
@@ -28,6 +28,49 @@ import {
   useContent,
   type Props,
 } from "./shared";
+// The listener chooses a local audio file; no copyrighted recording is published to GitHub.
+let localFallAudioUrl = "";
+function LocalFallPlayer() {
+  const [url, setUrl] = useState(localFallAudioUrl);
+  const [playing, setPlaying] = useState(false);
+  const audio = useRef<HTMLAudioElement>(null);
+  useEffect(() => {
+    const player = audio.current;
+    if (!player) return;
+    player.pause();
+    setPlaying(false);
+  }, [url]);
+  return (
+    <div className="local-fall-player" style={{display:"flex",flexDirection:"column",gap:7,width:"100%",padding:"7px 0"}}>
+      <div style={{display:"flex",alignItems:"center",gap:8}}>
+        <button type="button" disabled={!url} onClick={async () => {
+          const player = audio.current;
+          if (!player) return;
+          if (player.paused) { try { await player.play(); setPlaying(true); } catch { setPlaying(false); } }
+          else { player.pause(); setPlaying(false); }
+        }} style={{borderRadius:24,padding:"8px 12px",background:"#fff",color:"#111",border:0,fontWeight:700}}>
+          {playing ? "⏸ 暂停" : "▶ 播放"}
+        </button>
+        <label style={{fontSize:12,cursor:"pointer",color:"inherit"}}>
+          {url ? "更换音频" : "选择 Fall.mp3"}
+          <input type="file" accept="audio/mpeg,audio/mp3,audio/mp4,audio/x-m4a,audio/*" style={{display:"none"}} onChange={(e) => {
+            const file=e.target.files?.[0];
+            if (!file) return;
+            if (localFallAudioUrl) URL.revokeObjectURL(localFallAudioUrl);
+            localFallAudioUrl=URL.createObjectURL(file);
+            setUrl(localFallAudioUrl);
+          }}/>
+        </label>
+      </div>
+      <audio ref={audio} src={url || undefined} preload="metadata" controls={Boolean(url)}
+        style={{width:"100%",height:32}}
+        onPlay={()=>setPlaying(true)} onPause={()=>setPlaying(false)}
+        onTimeUpdate={(e)=>{ if(e.currentTarget.currentTime >= 60){e.currentTarget.pause();e.currentTarget.currentTime=0;setPlaying(false);} }}
+        onEnded={()=>setPlaying(false)} />
+      {!url && <small style={{fontSize:11,opacity:.7}}>选择本机 MP3 后，可试听前 60 秒；音频不会上传到网站。</small>}
+    </div>
+  );
+}
 function TrackPlayer({
   item,
   p,
@@ -46,7 +89,9 @@ function TrackPlayer({
           <small>{item.sender}</small>
         </span>
       </button>
-      {item.kind === "audio" && safeMedia(item.media) ? (
+      {item.title === "Fall" && item.sender === "Crush" ? (
+        <LocalFallPlayer />
+      ) : item.kind === "audio" && safeMedia(item.media) ? (
         <AudioPlayer p={p} item={item} />
       ) : (
         <button onClick={() => p.onItem(item)}>查看</button>
