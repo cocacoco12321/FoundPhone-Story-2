@@ -1110,10 +1110,19 @@ function AppContent({
         detailView
       ) : app.engine === "messaging" && thread ? (
         <div className="chat-content">
-          <div className="chat-time">2026 年 9 月 1 日</div>
           {shown
             .filter((i) => i.title === thread)
-            .map((i) => (
+            .map((i, index, messages) => {
+              const date = i.time?.slice(0, 10) || "";
+              const previousDate = messages[index - 1]?.time?.slice(0, 10);
+              const showDate = Boolean(date && date !== previousDate);
+              const parts = date.split("-");
+              const dateLabel = parts.length === 3
+                ? `${parts[0]}年${Number(parts[1])}月${Number(parts[2])}日`
+                : date;
+              return (
+                <div key={i.id}>
+                  {showDate && <div className="chat-time">{dateLabel}</div>}
               <button
                 key={i.id}
                 className={`message-row ${i.outgoing ? "outgoing" : ""}`}
@@ -1141,7 +1150,9 @@ function AppContent({
                   )}
                 </span>
               </button>
-            ))}
+                </div>
+              );
+            })}
           {creator ? (
             <button className="chat-compose" onClick={onAdd}>
               ＋ 添加一条消息
