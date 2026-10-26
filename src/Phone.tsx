@@ -964,7 +964,7 @@ function AppContent({
         time: message.time,
         sender: message.speaker === "宋" ? "宋硕" : "我",
         avatar: "",
-        kind: message.kind === "transfer" ? "transfer" : "text",
+        kind: (message.kind === "transfer" ? "transfer" : "text") as Item["kind"],
         media: "",
         hidden: false,
         unlock: "",
