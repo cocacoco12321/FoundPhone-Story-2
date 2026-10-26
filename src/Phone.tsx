@@ -1066,6 +1066,7 @@ function AppContent({
       onEdit(i);
       return;
     }
+    if (app.id === "douyin") return;
     setDetail(i);
     if (!i.password || unlocks.includes(i.id)) onRead(i.id);
   };
