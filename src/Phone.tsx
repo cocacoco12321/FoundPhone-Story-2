@@ -1,3 +1,4 @@
+import { kakaoScreenshotMessages } from "./content/kakaoScreenshot";
 import { StatusGlyph } from "./ios/StatusGlyph";
 import { SocialDetail, socialDetailApps } from "./skins/SocialDetails";
 import { ForumThread } from "./skins/ForumThread";
@@ -1087,6 +1088,7 @@ function AppContent({
     : [];
   const gallerySource = app.id === "photos" && !creator
     ? galleryItems
+    : app.id === "kakao" && !creator ? kakaoScreenshotMessages
     : app.id === "weather" && !creator ? seoulWeatherItems
     : [...weiboMarch18, ...normalizedItems, ...october28Items, ...historicalWeChatItems, ...playlistItems, ...taobaoProducts];
   const shown = gallerySource
