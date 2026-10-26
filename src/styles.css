@@ -4927,15 +4927,4 @@ label {
   transform: rotate(135deg);
 }
 
-/* Use the uploaded portrait photo for both the iPhone lock screen and home screen.
-   The image lives in public/wallpaper.jpg and Vite serves it under BASE_URL. */
-.ios18 .phone-screen:not(.in-app) {
-  background-image: url("../public/wallpaper.jpg");
-  background-image: url("/FoundPhone-Studio/wallpaper.jpg");
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-.ios18 .phone-screen:not(.in-app) .wallpaper-orb {
-  display: none;
-}
+.ios18 .phone-screen:not(.in-app) .wallpaper-orb { display: none; }
