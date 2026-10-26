@@ -981,9 +981,58 @@ function AppContent({
         avatar: import.meta.env.BASE_URL + "avatars/weibo-avatar.jpg",
       }))
     : items;
+  // Feed the actual music skins, not the generic fallback screen.
+  const playlistItems: Item[] = (app.id === "spotify" || app.id === "netease") && !creator
+    ? sharedPlaylist.map((song, index) => ({
+        id: "shared-song-" + index,
+        title: song.title,
+        body: song.artist,
+        richText: "",
+        meta: { artist: song.artist },
+        time: "",
+        sender: song.artist,
+        avatar: "",
+        kind: "audio",
+        media: "",
+        hidden: false,
+        unlock: "",
+        password: "",
+        folder: app.id === "spotify" ? "SUNGCHAN's Sleepytime" : "SUNGCHAN's Sleepytime",
+        favorite: true,
+        outgoing: false,
+        read: false,
+        likes: 0,
+        comments: [],
+      }))
+    : [];
+  // Seoul is the requested city; do not label another city's measurements as Seoul's.
+  const seoulWeatherItems: Item[] = app.id === "weather" && !creator
+    ? [{
+        id: "seoul-weather",
+        title: "首尔",
+        body: "Seoul, South Korea",
+        richText: "",
+        meta: { locationLabel: "韩国 · Seoul", condition: "实时天气尚未连接" },
+        time: "",
+        sender: "",
+        avatar: "",
+        kind: "text",
+        media: "",
+        hidden: false,
+        unlock: "",
+        password: "",
+        folder: "",
+        favorite: false,
+        outgoing: false,
+        read: false,
+        likes: 0,
+        comments: [],
+      }]
+    : [];
   const gallerySource = app.id === "photos" && !creator
     ? galleryItems
-    : [...weiboMarch18, ...normalizedItems, ...october28Items];
+    : app.id === "weather" && !creator ? seoulWeatherItems
+    : [...weiboMarch18, ...normalizedItems, ...october28Items, ...playlistItems];
   const shown = gallerySource
     .filter((i) => creator || visible(i, state))
     .filter((i) =>
