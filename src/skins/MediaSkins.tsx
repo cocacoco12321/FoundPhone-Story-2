@@ -471,75 +471,81 @@ export function TikTokSkin(p: Props) {
     </div>
   );
 }
+const netflixCatalogue = [
+  { id:"truman", title:"楚门的世界", original:"The Truman Show", year:"1998", type:"电影", duration:"1小时43分钟", genre:"剧情 · 科幻", rating:"PG", synopsis:"楚门逐渐发现，自己看似平凡的人生，可能是一场精心安排的真人秀。", colors:["#156d93","#071a30"], symbol:"☀", shelf:"值得重温" },
+  { id:"about-time", title:"时空恋旅人", original:"About Time", year:"2013", type:"电影", duration:"2小时3分钟", genre:"爱情 · 奇幻", rating:"12", synopsis:"拥有穿越时间能力的蒂姆，在爱情与家人的日常里，慢慢懂得珍惜每一个普通的瞬间。", colors:["#9b3843","#23112c"], symbol:"♥", shelf:"浪漫电影之夜" },
+  { id:"spirited", title:"千与千寻", original:"Spirited Away", year:"2001", type:"电影", duration:"2小时5分钟", genre:"动画 · 奇幻", rating:"PG", synopsis:"误入神灵世界的千寻，为了救出父母，在奇妙而陌生的汤屋中展开冒险。", colors:["#3b776a","#142d35"], symbol:"✦", shelf:"动画精选" },
+  { id:"reply1988", title:"请回答1988", original:"Reply 1988", year:"2015", type:"剧集", duration:"20集", genre:"家庭 · 青春", rating:"15", synopsis:"1988年的首尔双门洞，五个家庭的邻里日常、青春与成长故事。", colors:["#b16d42","#402c2c"], symbol:"88", shelf:"温暖治愈的剧集" },
+  { id:"hospital", title:"机智医生生活", original:"Hospital Playlist", year:"2020", type:"剧集", duration:"2季", genre:"医疗 · 友情", rating:"15", synopsis:"五位相识多年的医生，在医院与音乐之间分享友情、生活和彼此的故事。", colors:["#55878a","#173d51"], symbol:"♫", shelf:"温暖治愈的剧集" },
+  { id:"littlewomen", title:"小妇人", original:"Little Women", year:"2019", type:"电影", duration:"2小时15分钟", genre:"剧情 · 成长", rating:"U", synopsis:"四姐妹在成长与生活的选择中，寻找各自的梦想和自由。", colors:["#98745c","#392b34"], symbol:"✿", shelf:"值得重温" },
+];
 export function NetflixSkin(p: Props) {
-  const { tab, setTab, q, setQ, items } = useContent(p, "首页");
-  const [saved, setSaved] = useSkinState<string[]>(p, "saved", []);
-  const list =
-    tab === "我的片单"
-      ? items.filter((i) => i.favorite || saved.includes(i.id))
-      : items;
-  const featured = list[0];
+  const { tab, setTab, q, setQ } = useContent(p, "首页");
+  const [saved, setSaved] = useSkinState<string[]>(p, "curatedNetflixSaved", []);
+  const [selected, setSelected] = useState<string | null>(null);
+  const list = netflixCatalogue.filter(movie =>
+    (tab !== "我的片单" || saved.includes(movie.id)) &&
+    (movie.title + movie.original + movie.genre).toLowerCase().includes(q.toLowerCase())
+  );
+  const featured = netflixCatalogue[0];
+  const detail = netflixCatalogue.find(movie => movie.id === selected);
+  const poster = (movie: typeof featured, wide = false) => (
+    <div style={{width:"100%",height:"100%",minHeight:wide?215:175,display:"flex",flexDirection:"column",justifyContent:"space-between",padding:wide?22:13,boxSizing:"border-box",borderRadius:wide?12:9,color:"#fff",background:`radial-gradient(circle at 75% 20%, ${movie.colors[0]} 0%, transparent 60%), linear-gradient(150deg,${movie.colors[0]},${movie.colors[1]})`,position:"relative",overflow:"hidden"}}>
+      <span style={{fontSize:10,fontWeight:800,letterSpacing:2,color:"#e50914"}}>N <span style={{color:"#fff",opacity:.75}}>CINEMA</span></span>
+      <span style={{position:"absolute",top:"24%",right:"10%",fontSize:wide?85:54,opacity:.2,fontFamily:"Georgia,serif"}}>{movie.symbol}</span>
+      <div style={{position:"relative",textShadow:"0 2px 9px #0008"}}>
+        <div style={{fontSize:wide?27:16,fontWeight:850,lineHeight:1.25}}>{movie.title}</div>
+        <div style={{fontSize:wide?12:9,opacity:.82,marginTop:6}}>{movie.original}</div>
+      </div>
+    </div>
+  );
+  const toggle = (id:string) => setSaved(saved.includes(id)?saved.filter(x=>x!==id):[...saved,id]);
   return (
-    <div className="catalog-skin netflix-ui">
+    <div className="catalog-skin netflix-ui" style={{background:"#111",color:"#fff"}}>
       <Header p={p} />
       <div className="catalog-scroll">
-        <SearchBox value={q} set={setQ} />
-        {featured && tab === "首页" && (
-          <div className="netflix-feature">
-            <Media item={featured} />
-            <div>
-              <strong>{featured.title}</strong>
-              <small>
-                {meta(featured, "year")} · {meta(featured, "genre")} ·{" "}
-                {meta(featured, "duration")}
-              </small>
-              <button onClick={() => p.onItem(featured)}>
-                <Play size={16} />
-                播放 / 详情
-              </button>
-              <button
-                onClick={() =>
-                  setSaved(
-                    saved.includes(featured.id)
-                      ? saved.filter((id) => id !== featured.id)
-                      : [...saved, featured.id],
-                  )
-                }
-              >
-                {saved.includes(featured.id) ? (
-                  <Check size={16} />
-                ) : (
-                  <Plus size={16} />
-                )}
-                我的片单
-              </button>
-            </div>
+        {detail ? (
+          <div style={{padding:"16px 16px 35px"}}>
+            <button onClick={()=>setSelected(null)} style={{color:"#fff",padding:"10px 0",marginBottom:10}}>〈 返回浏览</button>
+            <div style={{height:250}}>{poster(detail,true)}</div>
+            <h2 style={{fontSize:26,margin:"18px 0 8px"}}>{detail.title}</h2>
+            <div style={{color:"#aaa",fontSize:12,marginBottom:16}}>{detail.year}　{detail.rating}　{detail.duration}　{detail.genre}</div>
+            <p style={{fontSize:14,lineHeight:1.8}}>{detail.synopsis}</p>
+            <button onClick={()=>toggle(detail.id)} style={{background:"#eee",color:"#111",borderRadius:5,padding:"12px 16px",marginTop:14,fontWeight:700,width:"100%"}}>{saved.includes(detail.id)?"✓ 已加入我的片单":"＋ 加入我的片单"}</button>
+            <p style={{fontSize:11,color:"#888",marginTop:16}}>影视资料展示 · 未提供在线播放</p>
+          </div>
+        ) : (
+          <div style={{padding:"12px 14px 28px"}}>
+            <SearchBox value={q} set={setQ} />
+            {tab === "首页" && !q && (
+              <div style={{marginTop:15,marginBottom:24}}>
+                <div style={{height:235}}>{poster(featured,true)}</div>
+                <div style={{display:"flex",gap:8,marginTop:10}}>
+                  <button onClick={()=>setSelected(featured.id)} style={{flex:1,background:"#f5f5f5",color:"#111",padding:12,borderRadius:5,fontWeight:750}}>▶ 查看详情</button>
+                  <button onClick={()=>toggle(featured.id)} style={{flex:1,background:"#333",color:"#fff",padding:12,borderRadius:5}}>{saved.includes(featured.id)?"✓ 已收藏":"＋ 我的片单"}</button>
+                </div>
+              </div>
+            )}
+            {(tab==="我的片单"?["我的片单"]:["为你推荐","值得重温","浪漫电影之夜","动画精选","温暖治愈的剧集"]).map(section=>{
+              const movies=section==="为你推荐"||section==="我的片单"?list:list.filter(x=>x.shelf===section);
+              return movies.length?(
+                <section key={section} style={{marginBottom:24}}>
+                  <h3 style={{fontSize:18,margin:"0 0 12px",fontWeight:800}}>{section}</h3>
+                  <div style={{display:"flex",gap:11,overflowX:"auto",paddingBottom:6}}>
+                    {movies.map(movie=><button key={movie.id} onClick={()=>setSelected(movie.id)} style={{width:128,minWidth:128,textAlign:"left",color:"#fff"}}>
+                      <div style={{height:181}}>{poster(movie)}</div>
+                      <strong style={{display:"block",fontSize:12,marginTop:8}}>{movie.title}</strong>
+                      <small style={{color:"#aaa",fontSize:10}}>{movie.year} · {movie.type}</small>
+                    </button>)}
+                  </div>
+                </section>
+              ):null;
+            })}
+            {!list.length && <p style={{color:"#aaa",padding:25,textAlign:"center"}}>暂无符合条件的影片</p>}
           </div>
         )}
-        {groupItems(list, "影片").map((g) => (
-          <section className="netflix-shelf" key={g}>
-            <h3>{g}</h3>
-            <div>
-              {list
-                .filter((i) => (i.folder || "影片") === g)
-                .map((i) => (
-                  <button key={i.id} onClick={() => p.onItem(i)}>
-                    <Media item={i} />
-                    <strong>{i.title}</strong>
-                  </button>
-                ))}
-            </div>
-          </section>
-        ))}
-        <Empty items={list} />
       </div>
-      <Tabs
-        tabs={["首页", "我的片单"]}
-        value={tab}
-        set={setTab}
-        icons={[<Home />, <Bookmark />]}
-      />
+      <Tabs tabs={["首页","我的片单"]} value={tab} set={t=>{setTab(t);setSelected(null)}} icons={[<Home />,<Bookmark />]}/>
     </div>
   );
 }
-
