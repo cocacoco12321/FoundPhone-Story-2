@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "仅用于界面测试，不含剧情",
-  "revision": 111,
+  "revision": 113,
   "phone": {
     "owner": "成灿",
     "date": "2022-05-27",
@@ -508,25 +508,24 @@
     ],
     "redbook": [
       {
-        "id": "redbook-search",
+        "id": "redbook-search-history",
         "title": "搜索记录",
-        "body": "搜索记录",
+        "body": "",
         "sender": "成灿",
-        "kind": "text",
+        "kind": "search_history",
         "meta": {
-          "isSearchHistory": true,
-          "searchQueries": [
-            "被掰弯",
-            "怎么判断性取向",
-            "宿舍关系",
-            "男生送什么礼物",
-            "R大美食推荐",
-            "第一次约会选什么地方",
-            "男生发型",
-            "怎么让头发快速长长",
-            "头发生长液"
-          ]
+          "queries": "被掰弯,怎么判断性取向,宿舍关系,男生送什么礼物,R大美食推荐,第一次约会选什么地方,男生发型,怎么让头发快速长长,头发生长液"
         }
+      }
+    ],
+    "forum": [
+      {
+        "id": "forum-post-1",
+        "title": "两个室友好像在一起了怎么办？",
+        "body": "两个室友好像在一起了怎么办？",
+        "sender": "匿名78278321",
+        "kind": "text",
+        "meta": {}
       }
     ]
   },
