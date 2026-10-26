@@ -196,7 +196,7 @@ export function validateWork(input: unknown): Work {
   return workSchema.parse(input);
 }
 export function safeMedia(value: string) {
-  if (/^(?:\\/FoundPhone-Studio)?\\/\\d{2}\\.(?:jpg|mov)$/.test(value)) return value;
+  if (value.startsWith("/FoundPhone-Studio/") || /^\/[0-9]{2}\.(jpg|mov)$/.test(value)) return value;
   return /^data:(image\/(png|jpeg|webp|gif)|audio\/(mpeg|mp3|wav|ogg|webm|mp4)|video\/(mp4|webm));base64,[a-zA-Z0-9+/=\s]+$/.test(
     value,
   )
