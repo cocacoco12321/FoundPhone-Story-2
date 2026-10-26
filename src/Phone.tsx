@@ -1282,8 +1282,8 @@ function AppContent({
           {shown
             .filter((i) => i.title === thread)
             .map((i, index, messages) => {
-              const date = (i.time || "").match(/\\d{4}[-./]\\d{1,2}[-./]\\d{1,2}/)?.[0] || "";
-              const previousDate = (messages[index - 1]?.time || "").match(/\\d{4}[-./]\\d{1,2}[-./]\\d{1,2}/)?.[0] || "";
+              const date = (i.time || "").match(/\d{4}[-./]\d{1,2}[-./]\d{1,2}/)?.[0] || "";
+              const previousDate = (messages[index - 1]?.time || "").match(/\d{4}[-./]\d{1,2}[-./]\d{1,2}/)?.[0] || "";
               const showDate = Boolean(date && date !== previousDate);
               const parts = date.split(/[-./]/);
               const dateLabel = date
@@ -1295,6 +1295,7 @@ function AppContent({
               <button
                 key={i.id}
                 className={`message-row ${i.outgoing ? "outgoing" : ""}`}
+                style={app.id === "kakao" && i.outgoing ? { justifyContent: "flex-end" } : undefined}
                 onClick={() => (creator ? onEdit(i) : onRead(i.id))}
               >
                 {!(app.id === "kakao" && i.outgoing) && <span className="avatar">{app.id === "kakao" && kakaoAvatar(i.sender, i.outgoing) ? (
