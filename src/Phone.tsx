@@ -1014,7 +1014,21 @@ function AppContent({
         title: "首尔",
         body: "Seoul, South Korea",
         richText: "",
-        meta: { locationLabel: "韩国 · Seoul", condition: "实时天气尚未连接" },
+        meta: {
+          locationLabel: "首尔特别市", temperature: "14", high: "16", low: "6",
+          condition: "大部晴朗无云", wind: "26公里/时", sunrise: "06:44",
+          hourly: JSON.stringify([
+            { time: "现在", temperature: "14" }, { time: "1时", temperature: "14" },
+            { time: "2时", temperature: "13" }, { time: "3时", temperature: "12" },
+            { time: "4时", temperature: "11" }, { time: "5时", temperature: "10" },
+          ]),
+          daily: JSON.stringify([
+            { label: "今天", low: "6", high: "16", condition: "晴" },
+            { label: "周三", low: "1", high: "12", condition: "晴" },
+            { label: "周四", low: "5", high: "12", condition: "雨" },
+            { label: "周五", low: "9", high: "18", condition: "晴" },
+          ]),
+        },
         time: "",
         sender: "",
         avatar: "",
