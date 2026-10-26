@@ -266,7 +266,7 @@ function PhoneRuntime({
       if (!recent.includes(id) && id !== app) appSnapshots.current.delete(id);
   };
   const open = (id: string) => {
-    if (!work.apps.some((a) => a.id === id && a.installed)) return;
+    if (!work.apps.some((a) => a.id === id && a.installed && !a.name.includes("京东") && !["jd", "jingdong", "jdcom"].includes(a.id.toLowerCase()))) return;
     setApp(id);
     setKeyboard(false);
     setRecent((v) => [id, ...v.filter((a) => a !== id)].slice(0, 8));
@@ -275,7 +275,10 @@ function PhoneRuntime({
     onOpen?.(id);
     event("openApp", id);
   };
-  const installedApps = work.apps.filter((a) => a.installed);
+  // Hide the JD app even when an older story is stored in the browser.
+  const isJdApp = (a: { id: string; name: string }) =>
+    a.name.includes("京东") || ["jd", "jingdong", "jdcom"].includes(a.id.toLowerCase());
+  const installedApps = work.apps.filter((a) => a.installed && !isJdApp(a));
   const apps = installedApps.filter((a) => a.visible);
   const unlock = (pin = "") => {
     if (!work.phone.passcode || pin === work.phone.passcode) {
