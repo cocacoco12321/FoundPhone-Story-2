@@ -870,7 +870,7 @@ function kakaoAvatar(sender: string, outgoing = false): string {
     : /珍浩/.test(sender) ? "zhenhao.jpg"
     : /宋硕|^宋$/.test(sender) ? "kkt-songshuo.jpg"
     : "";
-  return file ? "https://raw.githubusercontent.com/cocacoco12321/FoundPhone-Studio/main/public/avatars/" + file : "";
+  return file ? `${import.meta.env.BASE_URL}avatars/${file}` : "";
 }
 
 function AppContent({
@@ -1291,12 +1291,12 @@ function AppContent({
                 ? `${parts[0]}年${Number(parts[1])}月${Number(parts[2])}日`
                 : "";
               return (
-                <div key={i.id} style={{width:"100%", display:"flow-root"}}>
+                <div key={i.id} className={app.id === "kakao" ? "kkt-message-block" : undefined} style={{width:"100%", display:"flow-root"}}>
                   {showDate && <div className={app.id === "kakao" ? "kakao-date-divider" : "chat-time"} role="separator" aria-label={dateLabel}>{dateLabel}</div>}
               <button
                 key={i.id}
-                className={`message-row ${i.outgoing ? "outgoing" : ""}`}
-                style={app.id === "kakao" && i.outgoing ? { justifyContent: "flex-end" } : undefined}
+                className={`message-row ${i.outgoing ? "outgoing" : ""} ${app.id === "kakao" ? "kkt-message" : ""}`}
+                style={app.id === "kakao" ? { justifyContent: i.outgoing ? "flex-end" : "flex-start", flexDirection: "row" } : undefined}
                 onClick={() => (creator ? onEdit(i) : onRead(i.id))}
               >
                 {!(app.id === "kakao" && i.outgoing) && <span className="avatar">{app.id === "kakao" && kakaoAvatar(i.sender, i.outgoing) ? (
