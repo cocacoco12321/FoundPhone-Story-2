@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "仅用于界面测试，不含剧情",
-  "revision": 108,
+  "revision": 109,
   "phone": {
     "owner": "成灿",
     "date": "2022-05-27",
@@ -69,6 +69,12 @@
       "id": "delivery_3",
       "name": "106555",
       "phone": "106555",
+      "bio": "外卖"
+    },
+    {
+      "id": "delivery_6",
+      "name": "106666",
+      "phone": "106666",
       "bio": "外卖"
     }
   ],
@@ -337,7 +343,7 @@
       {
         "id": "call-1",
         "title": "呼出",
-        "body": "106901",
+        "body": "1388888888",
         "sender": "妈",
         "kind": "text",
         "meta": {
@@ -511,15 +517,14 @@
         "sender": "我不知道你在说什么",
         "kind": "text",
         "meta": {
-          "time": "2022-03-15 02:14",
-          "private": “true”
+          "time": "2022-03-15 02:14"
         }
       }
     ],
     "douyin": [
       {
         "id": "dy-video-1",
-        "title": "要放冬天的图传不上来",
+        "title": "我的第一条抖音",
         "body": "遛小狗",
         "sender": "ZeroC",
         "kind": "image",
