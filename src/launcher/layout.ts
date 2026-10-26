@@ -40,7 +40,7 @@ export const hiddenAppIds = new Set([
 ]);
 export const isHiddenApp = (app: { id: string; name: string }) =>
   hiddenAppIds.has(app.id.toLowerCase()) || app.name.includes("京东");
-function withoutHiddenApps(layout: DeviceLayout): DeviceLayout {
+export function withoutHiddenApps(layout: DeviceLayout): DeviceLayout {
   return {
     ...layout,
     apps: layout.apps.filter((app) => !isHiddenApp(app)),
@@ -76,7 +76,7 @@ export function defaultLayout(input: Work): DeviceLayout {
     version: 1,
     workId: w.id,
     previewLayoutRevision: w.id === "ui-test-phone-v2" ? 1 : 0,
-    apps: structuredClone(w.apps.filter((app) => !isHiddenApp(app)))
+    apps: structuredClone(w.apps)
       .sort((a, b) => (a.id === "appstore" ? -1 : b.id === "appstore" ? 1 : 0))
       .map((a) =>
         a.id === "appstore"
@@ -163,7 +163,7 @@ export function useDeviceLayout(authored: Work, creator = false) {
       }
     }),
     [error, setError] = useState("");
-  const layout = withoutHiddenApps(stored.workId === base.id ? stored : defaultLayout(base));
+  const layout = stored.workId === base.id ? stored : defaultLayout(base);
   useEffect(() => {
     if (creator) return;
     try {
@@ -184,8 +184,8 @@ export function useDeviceLayout(authored: Work, creator = false) {
     if (creator) return base;
     const known = new Map(base.apps.map((a) => [a.id, a]));
     const apps = [
-      ...layout.apps.filter((a) => known.has(a.id) && !isHiddenApp(a)),
-      ...base.apps.filter((a) => !isHiddenApp(a) && !layout.apps.some((b) => b.id === a.id)),
+      ...layout.apps.filter((a) => known.has(a.id)),
+      ...base.apps.filter((a) => !layout.apps.some((b) => b.id === a.id)),
     ];
     return {
       ...base,
