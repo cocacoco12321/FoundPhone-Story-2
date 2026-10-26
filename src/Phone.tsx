@@ -1,5 +1,6 @@
 import { StatusGlyph } from "./ios/StatusGlyph";
 import { SocialDetail, socialDetailApps } from "./skins/SocialDetails";
+import { ForumThread } from "./skins/ForumThread";
 import { NativeCalculator } from "./ios/Calculator";
 import { HomeLauncher } from "./launcher/HomeLauncher";
 import { useDeviceLayout, withoutHiddenApps } from "./launcher/layout";
@@ -1014,6 +1015,7 @@ function AppContent({
       )}
     </div>
   ) : null;
+  if (app.id === "forum" && !creator) return <ForumThread onBack={onBack} />;
   if (Skin)
     return (
       <>
