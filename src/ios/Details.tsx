@@ -32,6 +32,7 @@ export function NativeDetail({
   item: Item;
   back: () => void;
 }) {
+  const [bakerChecked, setBakerChecked] = useState<boolean[]>(Array(6).fill(false));
   const [favorite, setFavorite] = useState(item.favorite),
     [copied, setCopied] = useState(false),
     [call, setCall] = useState(false);
@@ -149,7 +150,16 @@ export function NativeDetail({
           <div className="native-detail-scroll native-note-paper">
             <time>{item.time}</time>
             <h1>{item.title}</h1>
-            <RichText value={item.richText} fallback={item.body} />
+            {item.title.includes("Drunk Baker") ? (
+              <div className="baker-checklist">
+                {["柠檬蛋糕","提拉米苏黑巧布朗尼","孔泰奶酪压扁可颂","两只小狗抹茶咸酪蛋糕","香蕉巧克力巴斯克蛋糕","九层伯爵茶巧克力蛋糕"].map((label,index)=>(
+                  <label className="baker-check-item" key={label}>
+                    <input type="checkbox" checked={bakerChecked[index]} onChange={(e)=>setBakerChecked(previous=>previous.map((value,i)=>i===index?e.target.checked:value))} />
+                    <span>{label}</span>
+                  </label>
+                ))}
+              </div>
+            ) : <RichText value={item.richText} fallback={item.body} />}
           </div>
           <footer className="native-detail-toolbar">
             <button aria-label="返回文件夹" onClick={back}>
