@@ -26,6 +26,8 @@ jobs:
       - run: npm run story:validate
       - run: npm run story:test
       - run: npm run build
+        env:
+          VITE_UMAMI_WEBSITE_ID: e651e3fa-3e7f-40f2-8c82-b771b075119c
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
