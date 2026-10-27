@@ -1250,6 +1250,27 @@ function AppContent({
     likes: 0,
     comments: [],
   }] : [];
+  const weiboJanuary19: Item[] = app.id === "weibo" && !creator ? [{
+    id: "weibo-20240119-charlie",
+    title: "放假和恩硕一起回家了",
+    body: "放假和恩硕一起回家了，查理比我想象的还要大一点，刚进家门它就像一团大白云一样扑过来，胆子比冬天大不少，我摸了它几下它就把头靠过来还伸舌头要舔我，鹅卵石说这说明它喜欢我。\\n\\n吃完饭和恩硕一起去公园遛了狗，湖边草坪上零零散散地坐着人，爸妈带着小孩搭帐篷放风筝，还有很多和查理一样疯跑的小狗，阳光晒得人暖烘烘的，我一遍一遍地叫着宋银硕的名字他一遍一遍笑着答应，预感他快要不耐烦的时候我凑在他耳边说了句我爱你，他耳朵一下子变得和查理一样粉红。",
+    richText: "",
+    meta: {},
+    time: "2024-01-19",
+    sender: "我不知道你在说什么",
+    avatar: import.meta.env.BASE_URL + "avatars/weibo-avatar.jpg",
+    kind: "text",
+    media: "",
+    hidden: false,
+    unlock: "",
+    password: "",
+    folder: "",
+    favorite: false,
+    outgoing: false,
+    read: false,
+    likes: 0,
+    comments: [],
+  }] : [];
   const normalizedItems = app.id === "weibo" && !creator
     ? items.map(item => ({
         ...item,
@@ -1342,7 +1363,7 @@ function AppContent({
     : app.id === "safari" && !creator ? [...safariStoryHistory, ...normalizedItems.filter((i) => i.folder === "历史记录" || i.favorite || i.folder !== "历史记录")]
     : app.id === "kakao" && !creator ? [...kakaoScreenshotMessages, ...forumKakaoMessages()]
     : app.id === "weather" && !creator ? seoulWeatherItems
-    : [...weiboMarch18, ...normalizedItems, ...october28Items, ...historicalWeChatItems, ...playlistItems, ...taobaoProducts];
+    : [...weiboMarch18, ...weiboJanuary19, ...normalizedItems, ...october28Items, ...historicalWeChatItems, ...playlistItems, ...taobaoProducts];
   const shown = gallerySource
     .filter((i) => app.id === "kakao" && !creator ? true : creator || visible(i, state))
     .filter((i) => app.id === "kakao" && !creator ? true : (i.title + i.body + i.sender).toLowerCase().includes(q.toLowerCase()));
