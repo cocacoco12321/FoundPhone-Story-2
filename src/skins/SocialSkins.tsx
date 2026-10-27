@@ -326,7 +326,7 @@ export function FacebookSkin(p: Props) {
   );
 }
 const redbookCoverByTitle: Record<string, string> = {
-  "被掰弯": "xhs/sexuality.jpeg",
+  "被掰弯": "xhs/bent-meme.jpeg",
   "怎么判断性取向": "xhs/sexuality.jpeg",
   "宿舍关系": "xhs/dorm.jpeg",
   "男生送什么礼物": "xhs/gifts.jpeg",
