@@ -232,5 +232,5 @@ export function forumKakaoMessages(): Item[] {
   ];
   const count = stage >= 3 ? 4 : stage >= 1 ? 2 : 0;
   return lines.slice(0, count).map(([body,time],i) =>
-    make("forum-songshuo-"+i,"宋硕","宋硕",body,"2024-04-14 "+time));
+    make("forum-songshuo-"+i,"宋硕","宋硕",body,"2024-05-27 "+time));
 }
