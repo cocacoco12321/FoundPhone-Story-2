@@ -1,3 +1,4 @@
+import { StoryCallLayer } from "../../story/ForumCall";
 /* React/data adapters for dudwo5/Mymy UI templates: kt/ktn/KHD/bub,
  * igHome/igProfile/igDM/igSheet, xHome. See NOTICE.txt for permission.
  * Author content, DOM globals, timers and media dependencies are excluded. */
@@ -110,7 +111,8 @@ export function MymyKakao(p: SkinProps) {
     if (node) node.scrollTop = p.thread === "宋硕" ? node.scrollHeight : 0;
   }, [p.thread, messages.length]);
   return (
-    <div className="mymy-ui mymy-kakao" data-mymy="kakao">
+    <div className="mymy-ui mymy-kakao" data-mymy="kakao" style={{position:"relative"}}>
+      <StoryCallLayer />
       {p.thread ? (
         <>
           <header className="kzth">
