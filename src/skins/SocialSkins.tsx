@@ -325,6 +325,17 @@ export function FacebookSkin(p: Props) {
     </div>
   );
 }
+const redbookCoverByTitle: Record<string, string> = {
+  "被掰弯": "xhs/sexuality.jpeg",
+  "怎么判断性取向": "xhs/sexuality.jpeg",
+  "宿舍关系": "xhs/dorm.jpeg",
+  "男生送什么礼物": "xhs/gifts.jpeg",
+  "R大美食推荐": "xhs/food.jpeg",
+  "第一次约会选什么地方": "xhs/date.jpeg",
+  "男生发型": "xhs/hairstyles.jpeg",
+  "怎么让头发快速长长": "xhs/hair-growth.jpeg",
+  "头发生长液": "xhs/hair-serum.jpeg",
+};
 export function RedbookSkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "发现");
   const list =
@@ -352,7 +363,9 @@ export function RedbookSkin(p: Props) {
         <div className="redbook-masonry">
           {list.map((i) => (
             <button key={i.id} onClick={() => p.onItem(i)}>
-              <Media item={i} />
+              {redbookCoverByTitle[i.title] ? (
+                <img loading="lazy" alt={i.title} src={import.meta.env.BASE_URL + redbookCoverByTitle[i.title]} style={{display:"block",width:"100%",aspectRatio:"1 / 1",objectFit:"cover",borderRadius:"8px 8px 0 0"}} />
+              ) : <Media item={i} />}
               <strong>{i.title}</strong>
               <div>
                 <Avatar name={i.sender} />
