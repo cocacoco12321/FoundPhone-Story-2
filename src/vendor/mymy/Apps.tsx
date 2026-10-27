@@ -85,7 +85,7 @@ export function MymyKakao(p: SkinProps) {
             !Array.isArray(entry) ||
             entry.length !== 3 ||
             !entry.every((v) => typeof v === "string") ||
-            entry[0] !== p.thread
+            entry[0] !== p.thread || (p.thread === "宋硕" && entry[1] === "?" && Number(sessionStorage.getItem("foundphone-forum-stage") || 0) >= 1)
           )
             return [];
           return [
@@ -107,7 +107,7 @@ export function MymyKakao(p: SkinProps) {
     scroll = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const node = scroll.current;
-    if (node) node.scrollTop = 0;
+    if (node) node.scrollTop = p.thread === "宋硕" ? node.scrollHeight : 0;
   }, [p.thread, messages.length]);
   return (
     <div className="mymy-ui mymy-kakao" data-mymy="kakao">
@@ -178,7 +178,7 @@ export function MymyKakao(p: SkinProps) {
                   JSON.stringify([
                     p.thread,
                     draft.trim(),
-                    p.virtualTime || "09:41",
+                    p.thread === "宋硕" && Number(sessionStorage.getItem("foundphone-forum-stage") || 0) >= 1 ? "2024-05-27 23:48" : (p.virtualTime || "09:41"),
                   ]),
                 ]);
                 setDraft("");
