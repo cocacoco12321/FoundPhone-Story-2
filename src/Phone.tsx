@@ -701,6 +701,7 @@ function PhoneRuntime({
                   onEdit={(item) => onEdit?.(app, item)}
                   onAdd={() => onAdd?.(app)}
                   onBack={() => setApp("")}
+                  onOpenKakaoSongshuo={() => { try { sessionStorage.setItem("foundphone-kkt-open-songshuo", "1"); } catch { /* storage unavailable */ } setApp("kakao"); }}
                   onSettings={onSettings}
                   onUi={(key, value) => {
                     const current = runtimeRef.current;
@@ -1118,6 +1119,7 @@ function AppContent({
   onEdit,
   onAdd,
   onBack,
+  onOpenKakaoSongshuo,
   onSettings,
   onUi,
   work,
@@ -1131,12 +1133,17 @@ function AppContent({
   onEdit: (item: Item) => void;
   onAdd: () => void;
   onBack: () => void;
+  onOpenKakaoSongshuo?: () => void;
   onSettings?: () => void;
   onUi?: (key: string, value: UiValue) => void;
   work: Work;
 }) {
   const [detail, setDetail] = useState<Item | null>(null);
-  const [thread, setThread] = useState("");
+  const [thread, setThread] = useState(() => {
+    if (app.id !== "kakao") return "";
+    try { if (sessionStorage.getItem("foundphone-kkt-open-songshuo") === "1") { sessionStorage.removeItem("foundphone-kkt-open-songshuo"); return "宋硕"; } } catch { /* storage unavailable */ }
+    return "";
+  });
   const [tab, setTab] = useState(app.tabs[0]);
   const [q, setQ] = useState("");
   const [pw, setPw] = useState("");
@@ -1419,7 +1426,7 @@ function AppContent({
       )}
     </div>
   ) : null;
-  if (app.id === "forum" && !creator) return <ForumThread onBack={onBack} />;
+  if (app.id === "forum" && !creator) return <ForumThread onBack={onBack} onOpenKakao={onOpenKakaoSongshuo} />;
   if (Skin)
     return (
       <>
