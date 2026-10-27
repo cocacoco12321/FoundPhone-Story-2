@@ -269,7 +269,7 @@ export function ForumThread({ onBack }: { onBack: () => void }) {
   const [notice, setNotice] = useState(0);
   const [spoken, setSpoken] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const setStoryStage = (next: number) => { setStage(next); try { sessionStorage.setItem("foundphone-forum-stage", String(next)); } catch {} };
+  const setStoryStage = (next: number) => { setStage(next); try { sessionStorage.setItem("foundphone-forum-stage", String(next)); } catch { /* Storage may be unavailable in private browsing. */ } };
   useEffect(() => {
     if (!opened || stage !== 0) return;
     const root = scrollRef.current;
@@ -356,7 +356,12 @@ export function ForumThread({ onBack }: { onBack: () => void }) {
       </div>}
       {stage === 4 && <div style={{position:"absolute",inset:0,zIndex:70,background:"#151e2c",color:"white",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"space-between",padding:"95px 22px 60px",textAlign:"center"}}>
         <div><div style={{fontSize:30}}>宋银硕</div><div style={{opacity:.65,marginTop:12}}>通话中</div></div>
-        <div style={{fontSize:23,lineHeight:1.8}}>{spoken>=1?"炫宇哥发现我们在谈恋爱了":""}{spoken>=2&&<div style={{marginTop:20}}>继续瞒下去还是坦白好？</div>}</div>
+        <div role="status" aria-live="polite" style={{width:"100%",padding:"22px 18px",boxSizing:"border-box",background:"rgba(255,255,255,.12)",border:"1px solid rgba(255,255,255,.28)",borderRadius:22,boxShadow:"0 12px 32px #0004",minHeight:190,display:"flex",flexDirection:"column",justifyContent:"center",gap:20}}>
+          <div style={{fontSize:13,color:"#d5e2f8",fontWeight:700,letterSpacing:2}}>宋银硕正在说话</div>
+          {spoken===0 && <div style={{fontSize:19,color:"#d9e1ed"}}>正在连接语音…</div>}
+          {spoken>=1 && <div style={{fontSize:26,fontWeight:750,lineHeight:1.55,color:"#ffffff",textShadow:"0 2px 8px #0008"}}>炫宇哥发现我们在谈恋爱了</div>}
+          {spoken>=2 && <div style={{fontSize:26,fontWeight:750,lineHeight:1.55,color:"#ffffff",textShadow:"0 2px 8px #0008"}}>继续瞒下去还是坦白好？</div>}
+        </div>
         <button onClick={()=>setStoryStage(5)} style={{background:"#e44850",border:0,color:"white",padding:"18px 35px",borderRadius:36}}>挂断</button>
       </div>}
       {opened && <form onSubmit={e=>{e.preventDefault();if(draft.trim()){setExtra(old=>[...old,draft.trim()]);setDraft("")}}} style={{display:"flex",gap:8,padding:"10px 12px",background:"white",borderTop:"1px solid #eee"}}>
