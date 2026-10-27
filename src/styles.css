@@ -5023,3 +5023,10 @@ label {
   flex: 0 0 auto;
   margin-left: auto !important;
 }
+
+/* WeChat contact list: keep each avatar and label grouped at the left. */
+.wechat-ui .wx-contact { justify-content: flex-start; text-align: left; gap: 12px; }
+.wechat-ui .wx-contact .skin-avatar { flex: 0 0 44px; width: 44px; height: 44px; }
+.wechat-ui .wx-contact .wx-contact-name { flex: 0 1 auto; text-align: left; margin: 0; }
+.wechat-ui .wx-profile { justify-content: flex-start; text-align: left; }
+.wechat-ui .wx-profile .skin-avatar { flex-shrink: 0; }
