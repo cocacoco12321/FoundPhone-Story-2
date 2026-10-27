@@ -1,4 +1,4 @@
-import { kakaoScreenshotMessages } from "./content/kakaoScreenshot";
+import { kakaoScreenshotMessages, forumKakaoMessages } from "./content/kakaoScreenshot";
 
 // Fictional Safari history entries for the found-phone story.
 const safariStoryHistory: Item[] = [
@@ -1326,7 +1326,7 @@ function AppContent({
   const gallerySource = app.id === "photos" && !creator
     ? galleryItems
     : app.id === "safari" && !creator ? [...safariStoryHistory, ...normalizedItems.filter((i) => i.folder === "历史记录" || i.favorite || i.folder !== "历史记录")]
-    : app.id === "kakao" && !creator ? kakaoScreenshotMessages
+    : app.id === "kakao" && !creator ? [...kakaoScreenshotMessages, ...forumKakaoMessages()]
     : app.id === "weather" && !creator ? seoulWeatherItems
     : [...weiboMarch18, ...normalizedItems, ...october28Items, ...historicalWeChatItems, ...playlistItems, ...taobaoProducts];
   const shown = gallerySource
