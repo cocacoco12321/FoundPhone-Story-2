@@ -336,6 +336,7 @@ const redbookCoverByTitle: Record<string, string> = {
   "怎么让头发快速长长": "xhs/hair-growth.jpeg",
   "头发生长液": "xhs/hair-serum.jpeg",
 };
+const redbookLikeCount = (id: string) => 15 + (Array.from(id).reduce((sum, char) => sum * 31 + char.charCodeAt(0), 7) >>> 0) % 36;
 export function RedbookSkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "发现");
   const list =
@@ -371,7 +372,7 @@ export function RedbookSkin(p: Props) {
                 <Avatar name={i.sender} />
                 <small>{i.sender}</small>
                 <Heart size={12} />
-                <small>{i.likes}</small>
+                <small>{redbookLikeCount(String(i.id))}</small>
               </div>
             </button>
           ))}
