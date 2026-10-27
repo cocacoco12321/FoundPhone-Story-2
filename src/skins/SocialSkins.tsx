@@ -91,7 +91,7 @@ function WeiboActions({ p, item }: { p: Props; item: Item }) {
 export function WeiboSkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "关注");
   const [feed, setFeed] = useState("全部");
-  const list = feed === "全部" ? items : items.filter((i) => i.folder === feed);
+  const list = [...(feed === "全部" ? items : items.filter((i) => i.folder === feed))].sort((a, b) => Date.parse(a.time) - Date.parse(b.time));
   return (
     <div className="catalog-skin weibo-ui">
       <Header p={p} />
