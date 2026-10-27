@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { Phone } from "../Phone";
+import { initAnalytics, trackGame } from "../analytics";
 import { validateWork, type Work } from "../schema";
 import "../styles.css";
 import "./player.css";
@@ -8,6 +9,7 @@ function StoryPlayer() {
   const [work, setWork] = useState<Work | null>(null),
     [error, setError] = useState("");
   useEffect(() => {
+    initAnalytics();
     const abort = new AbortController();
     fetch(
       new URLSearchParams(location.search).get("preview") === "test"
@@ -52,6 +54,10 @@ function StoryPlayer() {
         document.title =
           w.title === "捡手机" ? "捡手机" : w.title + " · 捡手机";
         setWork(w);
+        // The analytics script may be blocked or not yet configured; gameplay continues.
+        const reportStart = () => trackGame("game_start");
+        if (window.umami) reportStart();
+        else window.addEventListener("load", reportStart, { once: true });
       })
       .catch((e) => {
         if (e.name !== "AbortError") setError(String(e));
