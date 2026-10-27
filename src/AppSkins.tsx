@@ -314,10 +314,7 @@ export function WeChatSkin(p: SkinProps) {
         </>
       ) : moments ? (
         <div className="wx-moments">
-          <div className="wx-moment-cover">
-            <Camera size={32} />
-            <span>朋友圈</span>
-          </div>
+          <div className="wx-moment-cover" style={{ backgroundImage: `url(${import.meta.env.BASE_URL}IMG_2442.jpeg)`, backgroundSize: "cover", backgroundPosition: "center" }} />
           {posts.map((i) => (
             <button
               key={i.id}
