@@ -1141,7 +1141,7 @@ function AppContent({
   const [detail, setDetail] = useState<Item | null>(null);
   const [thread, setThread] = useState(() => {
     if (app.id !== "kakao") return "";
-    try { if (sessionStorage.getItem("foundphone-kkt-open-songshuo") === "1") { sessionStorage.removeItem("foundphone-kkt-open-songshuo"); return "宋硕"; } } catch { /* storage unavailable */ }
+    try { if (sessionStorage.getItem("foundphone-kkt-open-songshuo") === "1") { sessionStorage.removeItem("foundphone-kkt-open-songshuo"); sessionStorage.setItem("foundphone-kkt-scroll-bottom", "1"); return "宋硕"; } } catch { /* storage unavailable */ }
     return "";
   });
   const [tab, setTab] = useState(app.tabs[0]);
