@@ -223,14 +223,14 @@ export const kakaoScreenshotMessages: Item[] = [
 export function forumKakaoMessages(): Item[] {
   if (typeof window === "undefined") return [];
   let stage = 0;
-  try { stage = Number(window.sessionStorage.getItem("foundphone-forum-stage") || 0); } catch { return []; }
+  try { stage = Number(window.sessionStorage.getItem("foundphone-forum-message-count") || 0); } catch { return []; }
   const lines = [
     ["你在哪？", "23:47"],
     ["我有事和你商量", "23:48"],
     ["我们被发现了", "23:49"],
     ["要不要坦白？", "23:50"],
   ];
-  const count = stage >= 3 ? 4 : stage >= 1 ? 2 : 0;
+  const count = Math.min(4, Math.max(0, stage));
   return lines.slice(0, count).map(([body,time],i) =>
     make("forum-songshuo-"+i,"宋硕","宋硕",body,"2024-05-27 "+time));
 }
