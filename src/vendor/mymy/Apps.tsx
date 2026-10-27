@@ -108,7 +108,13 @@ export function MymyKakao(p: SkinProps) {
     scroll = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const node = scroll.current;
-    if (node) node.scrollTop = p.thread === "宋硕" ? node.scrollHeight : 0;
+    if (!node) return;
+    let fromStory = false;
+    try {
+      fromStory = p.thread === "宋硕" && sessionStorage.getItem("foundphone-kkt-scroll-bottom") === "1";
+      if (fromStory) sessionStorage.removeItem("foundphone-kkt-scroll-bottom");
+    } catch { /* session storage unavailable */ }
+    node.scrollTop = fromStory ? node.scrollHeight : 0;
   }, [p.thread, messages.length]);
   return (
     <div className="mymy-ui mymy-kakao" data-mymy="kakao" style={{position:"relative"}}>
