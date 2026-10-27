@@ -1183,6 +1183,27 @@ function AppContent({
       comments: [],
     };
   });
+  galleryItems.unshift({
+    id: "curated-gallery-2476",
+    title: "合照",
+    body: "",
+    richText: "",
+    meta: {},
+    time: "2024-01-19",
+    sender: "",
+    avatar: "",
+    kind: "image",
+    media: import.meta.env.BASE_URL + "IMG_2476.jpg",
+    hidden: false,
+    unlock: "",
+    password: "",
+    folder: "",
+    favorite: false,
+    outgoing: false,
+    read: false,
+    likes: 0,
+    comments: [],
+  });
   const october28Items: Item[] = app.id === "wechat" && !creator
     ? october28Messages.map((message, index) => ({
         id: "songshuo-oct28-" + index,
