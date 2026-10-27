@@ -226,7 +226,7 @@ export function forumKakaoMessages(): Item[] {
   try { stage = Number(window.sessionStorage.getItem("foundphone-forum-stage") || 0); } catch { return []; }
   const lines = [
     ["你在哪？", "23:47"],
-    ["我有事找你", "23:48"],
+    ["我有事和你商量", "23:48"],
     ["我们被发现了", "23:49"],
     ["要不要坦白？", "23:50"],
   ];
