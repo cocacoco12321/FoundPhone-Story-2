@@ -180,6 +180,19 @@ const privateLines: Line[] = [
  ["2024-04-13","14:09","宋硕","被发现就真完了",false],
  ["2024-04-13","14:10","我","哎呀知道了！",true]
 ];
+const zhenhaoLines: Line[] = [
+ ["2024-03-10","16:12","珍浩哥","成灿啊",false],
+ ["2024-03-10","16:12","珍浩哥","你觉得送女生什么节日礼物比较好",false],
+ ["2024-03-10","16:13","我","送点实用的？",true],
+ ["2024-03-10","16:13","我","护肤品化妆品之类的",true],
+ ["2024-03-10","16:14","珍浩哥","我也不太知道她缺什么",false],
+ ["2024-03-10","16:15","我","可以找机会问一下",true],
+ ["2024-03-10","16:16","珍浩哥","直接问没问题吗",false],
+ ["2024-03-10","16:17","我","问了才能知道对方想要什么吧",true],
+ ["2024-03-10","16:17","我","如果是我的话我会问的",true],
+ ["2024-03-10","16:18","珍浩哥","好的谢谢了",false],
+ ["2024-03-10","16:19","我","不客气哥",true]
+];
 const make = (id:string,title:string,sender:string,body:string,time:string,outgoing=false):Item => ({
  id,title,body,richText:"",meta:{},time,sender,avatar:"",kind:"text",media:"",
  hidden:false,unlock:"",password:"",folder:"",favorite:false,outgoing,read:true,likes:0,comments:[]
@@ -187,5 +200,6 @@ const make = (id:string,title:string,sender:string,body:string,time:string,outgo
 export const kakaoScreenshotMessages: Item[] = [
  ...lines.map(([date,time,sender,body,outgoing],i)=>make("kkt-605-"+i,"605 (4",sender,body,date+" "+time,outgoing)),
  ...privateLines.map(([date,time,sender,body,outgoing],i)=>make("kkt-songshuo-"+i,"宋硕",sender,body,date+" "+time,outgoing)),
- ...["珍浩哥","炫宇哥"].map((name,i)=>make("kkt-contact-"+i,name,name,"", "2021-11-09 21:56"))
+ ...zhenhaoLines.map(([date,time,sender,body,outgoing],i)=>make("kkt-zhenhao-"+i,"珍浩哥",sender,body,date+" "+time,outgoing)),
+ ...["炫宇哥"].map((name,i)=>make("kkt-contact-"+i,name,name,"", "2021-11-09 21:56"))
 ];
