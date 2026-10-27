@@ -397,24 +397,20 @@ export function BilibiliSkin(p: Props) {
             <button key={i.id} onClick={() => p.onItem(i)}>
               <div>
                 {i.id.startsWith("bili-football-") ? (
-                  <div style={{ height: "100%", minHeight: 106, position: "relative", overflow: "hidden", borderRadius: 5, background: [
-                    "linear-gradient(160deg,#26444d 5%,#123323 52%,#51744a 53%,#143d2e)",
-                    "linear-gradient(135deg,#252b53,#8a4c39 48%,#172d32)",
-                    "linear-gradient(155deg,#182840,#3b6e80 48%,#142d33)",
-                    "linear-gradient(135deg,#1b3341,#164d42 55%,#091c24)",
-                    "linear-gradient(130deg,#282c40,#5e6354 60%,#17352b)",
-                    "linear-gradient(155deg,#223a47,#76805b 55%,#1e4036)"
-                  ][Number(i.id.replace("bili-football-","")) % 6] }}>
-                    <svg viewBox="0 0 240 135" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style={{position:"absolute",inset:0,opacity:.85}}>
-                      <path d="M0 112 L240 92 L240 135 L0 135Z" fill="#265b3c"/>
-                      <path d="M0 116 L240 97 M100 105 L100 135 M170 99 L170 135" stroke="#d5e7d3" strokeWidth="1.4" opacity=".5"/>
-                      <ellipse cx="116" cy="89" rx="58" ry="15" fill="#081d1d" opacity=".35"/>
-                      <circle cx={65 + Number(i.id.replace("bili-football-","")) * 17} cy="70" r="12" fill={Number(i.id.replace("bili-football-","")) % 2 ? "#e9edf1" : "#d03c40"}/>
-                      <path d="M72 84 l-15 24 m15 -24 l20 18 m-21 -17 l-18 9" stroke={Number(i.id.replace("bili-football-","")) % 2 ? "#e9edf1" : "#d03c40"} strokeWidth="10" strokeLinecap="round"/>
-                      <circle cx="156" cy="72" r="11" fill="#f1d9b2"/>
-                      <path d="M156 85 l-8 23 m8 -23 l19 18 m-19 -18 l-17 13" stroke="#e8e8e8" strokeWidth="10" strokeLinecap="round"/>
-                      <circle cx="128" cy="110" r="5" fill="#fafafa"/>
-                    </svg>
+                  <div style={{height:"100%",minHeight:106,position:"relative",overflow:"hidden",borderRadius:5}}>
+                    <img
+                      src={import.meta.env.BASE_URL + "bili/" + ({
+                        "bili-football-0":"raphinha.jpeg",
+                        "bili-football-1":"clasico.jpeg",
+                        "bili-football-2":"champions.jpeg",
+                        "bili-football-3":"live.jpeg",
+                        "bili-football-4":"tactics.jpeg",
+                        "bili-football-5":"fans.jpeg"
+                      } as Record<string,string>)[i.id]}
+                      alt={i.title}
+                      loading="lazy"
+                      style={{width:"100%",height:"100%",minHeight:106,aspectRatio:"16 / 9",objectFit:"cover",display:"block"}}
+                    />
                     {i.folder === "直播" && <span style={{position:"absolute",top:7,left:7,background:"#fb4772",color:"#fff",fontSize:10,fontWeight:800,borderRadius:3,padding:"2px 5px"}}>直播间</span>}
                   </div>
                 ) : <Media item={i} />}
