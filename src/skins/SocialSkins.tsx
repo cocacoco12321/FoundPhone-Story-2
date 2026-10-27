@@ -302,7 +302,7 @@ export function FacebookSkin(p: Props) {
           </div>
         ) : (
           <>
-            <div className="fb-cover" />
+            <div className="fb-cover" style={{ backgroundImage: `url(${import.meta.env.BASE_URL}IMG_2442.jpeg)`, backgroundSize: "cover", backgroundPosition: "center" }} />
             <div className="fb-profile">
               <Avatar name={p.owner ?? "我"} />
               <h1>{p.owner ?? "我"}</h1>
