@@ -373,6 +373,13 @@ function PhoneRuntime({
   onRuntime?: (s: Runtime) => void;
 }) {
   const [app, setApp] = useState("");
+  const [,refreshForumMessages] = useState(0);
+  useEffect(() => {
+    const refresh = () => refreshForumMessages(value => value + 1);
+    window.addEventListener("foundphone-forum-messages-updated",refresh);
+    return () => window.removeEventListener("foundphone-forum-messages-updated",refresh);
+  }, []);
+
   const [homeRequest, setHomeRequest] = useState(0);
   const [locked, setLocked] = useState(!creator);
   const [pinOpen, setPinOpen] = useState(false);
