@@ -266,7 +266,7 @@ const floors = [
 
 export function ForumThread({ onBack, onOpenKakao }: { onBack: () => void; onOpenKakao?: () => void }) {
   const [opened, setOpened] = useState(false);
-  const [stage, setStage] = useState(() => { try { return Number(sessionStorage.getItem("foundphone-forum-stage") || 0); } catch { return 0; } });
+  const [stage, setStage] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   useEffect(()=>{
     if(!opened||stage!==0)return;
@@ -289,7 +289,7 @@ export function ForumThread({ onBack, onOpenKakao }: { onBack: () => void; onOpe
   return (
     <div style={{position:"relative",height:"100%",display:"flex",flexDirection:"column",background:"#f3f5f7",color:"#20242b",fontFamily:"-apple-system,BlinkMacSystemFont,sans-serif"}}>
       <div style={{height:52,display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 16px",background:"white",borderBottom:"1px solid #eceef0"}}>
-        <button onClick={opened?()=>setOpened(false):onBack} style={{border:0,background:"transparent",display:"flex",alignItems:"center",gap:4,color:"#333"}}><ChevronLeft size={20}/> {opened?"论坛":"返回"}</button>
+        <button onClick={opened?()=>{setOpened(false);setStage(0);}:onBack} style={{border:0,background:"transparent",display:"flex",alignItems:"center",gap:4,color:"#333"}}><ChevronLeft size={20}/> {opened?"论坛":"返回"}</button>
         <strong style={{fontSize:17}}>论坛</strong><span style={{width:42}}/>
       </div>
       <div ref={scrollRef} style={{overflowY:"auto",flex:1}}>
