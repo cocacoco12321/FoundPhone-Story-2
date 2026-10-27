@@ -412,9 +412,9 @@ export function WeChatSkin(p: SkinProps) {
                 >
                   <Avatar
                     name={c}
-                    src={p.items.find((i) => i.sender === c)?.avatar}
+                    src={c === (p.owner || "成灿") || c === "成灿" ? import.meta.env.BASE_URL + "avatars/me.jpg" : c.includes("宋") ? import.meta.env.BASE_URL + "avatars/songshuo.jpg" : p.items.find((i) => i.sender === c)?.avatar}
                   />
-                  {c}
+                  <span className="wx-contact-name">{c}</span>
                 </button>
               ))}
             </>
@@ -446,10 +446,10 @@ export function WeChatSkin(p: SkinProps) {
           ) : (
             <>
               <div className="wx-profile">
-                <Avatar name={p.owner || "机主"} />
+                <Avatar name={p.owner || "机主"} src={import.meta.env.BASE_URL + "avatars/me.jpg"} />
                 <div>
                   <h2>{p.owner || "机主"}</h2>
-                  <small>微信号：未设置</small>
+                  <small>微信号：zeroc0913319</small>
                   <button
                     className="wx-profile-status"
                     onClick={() => setUtility("状态")}
