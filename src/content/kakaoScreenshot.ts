@@ -193,6 +193,21 @@ const zhenhaoLines: Line[] = [
  ["2024-03-10","16:18","珍浩哥","好的谢谢了",false],
  ["2024-03-10","16:19","我","不客气哥",true]
 ];
+const xuanyuLines: Line[] = [
+ ["2023-06-10","17:24","炫宇哥","成灿我看到有你的快递",false],
+ ["2023-06-10","17:24","炫宇哥","就帮你拿了",false],
+ ["2023-06-10","17:25","我","谢谢哥！",true],
+ ["2023-10-19","11:43","我","哥我点了披萨外卖",true],
+ ["2023-10-19","11:43","我","可以下了课回寝室一起吃",true],
+ ["2023-10-19","11:44","炫宇哥","我爱死你了",false],
+ ["2023-10-19","11:45","我","我正好有优惠券",true],
+ ["2023-10-19","11:46","炫宇哥","我下课就来",false],
+ ["2023-10-19","11:46","我","ok等你",true],
+ ["2024-01-26","10:18","炫宇哥","下午的课换教室了",false],
+ ["2024-01-26","10:18","炫宇哥","不在204",false],
+ ["2024-01-26","10:19","炫宇哥","在307",false],
+ ["2024-01-26","10:20","我","好的谢谢哥",true]
+];
 const make = (id:string,title:string,sender:string,body:string,time:string,outgoing=false):Item => ({
  id,title,body,richText:"",meta:{},time,sender,avatar:"",kind:"text",media:"",
  hidden:false,unlock:"",password:"",folder:"",favorite:false,outgoing,read:true,likes:0,comments:[]
@@ -201,5 +216,5 @@ export const kakaoScreenshotMessages: Item[] = [
  ...lines.map(([date,time,sender,body,outgoing],i)=>make("kkt-605-"+i,"605 (4",sender,body,date+" "+time,outgoing)),
  ...privateLines.map(([date,time,sender,body,outgoing],i)=>make("kkt-songshuo-"+i,"宋硕",sender,body,date+" "+time,outgoing)),
  ...zhenhaoLines.map(([date,time,sender,body,outgoing],i)=>make("kkt-zhenhao-"+i,"珍浩哥",sender,body,date+" "+time,outgoing)),
- ...["炫宇哥"].map((name,i)=>make("kkt-contact-"+i,name,name,"", "2021-11-09 21:56"))
+ ...xuanyuLines.map(([date,time,sender,body,outgoing],i)=>make("kkt-xuanyu-"+i,"炫宇哥",sender,body,date+" "+time,outgoing))
 ];
