@@ -399,7 +399,7 @@ export function BilibiliSkin(p: Props) {
                 {i.id.startsWith("bili-football-") ? (
                   <div style={{height:"100%",minHeight:106,position:"relative",overflow:"hidden",borderRadius:5}}>
                     <img
-                      src={import.meta.env.BASE_URL + "bili/" + ({
+                      src={import.meta.env.BASE_URL + ({
                         "bili-football-0":"raphinha.jpeg",
                         "bili-football-1":"clasico.jpeg",
                         "bili-football-2":"champions.jpeg",
