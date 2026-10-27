@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, MessageCircle, Heart } from "lucide-react";
 
 const floors = [
@@ -265,17 +265,50 @@ const floors = [
 
 export function ForumThread({ onBack }: { onBack: () => void }) {
   const [opened, setOpened] = useState(false);
+  const [stage, setStage] = useState(() => { try { return Number(sessionStorage.getItem("foundphone-forum-stage") || 0); } catch { return 0; } });
+  const [notice, setNotice] = useState(0);
+  const [spoken, setSpoken] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const setStoryStage = (next: number) => { setStage(next); try { sessionStorage.setItem("foundphone-forum-stage", String(next)); } catch {} };
+  useEffect(() => {
+    if (!opened || stage !== 0) return;
+    const root = scrollRef.current;
+    const target = root?.querySelector("#forum-floor-37");
+    if (!root || !target) return;
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) {
+        observer.disconnect();
+        setStoryStage(1);
+        setNotice(1);
+      }
+    }, { root, threshold: 0.6 });
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, [opened, stage]);
+  useEffect(() => {
+    if (stage !== 1) return;
+    const first = window.setTimeout(() => setNotice(2), 1100);
+    const call = window.setTimeout(() => { setNotice(0); setStoryStage(2); }, 2200);
+    return () => { window.clearTimeout(first); window.clearTimeout(call); };
+  }, [stage]);
+  useEffect(() => {
+    if (stage !== 4 || spoken >= 2) return;
+    const timer = window.setTimeout(() => setSpoken(n => n + 1), 1700);
+    return () => window.clearTimeout(timer);
+  }, [stage, spoken]);
+  const reject = () => { setStoryStage(3); setNotice(3); window.setTimeout(() => setNotice(4), 1200); };
+
   const [liked, setLiked] = useState<number[]>([]);
   const [draft, setDraft] = useState("");
   const [extra, setExtra] = useState<string[]>([]);
   const all = [...floors.map(f => ({...f, replyTo: f.replyTo as number | null})), ...extra.map((body,i)=>({floor:floors.length+i+1,depth:0,author:"我",body,replyTo:null}))];
   return (
-    <div style={{height:"100%",display:"flex",flexDirection:"column",background:"#f3f5f7",color:"#20242b",fontFamily:"-apple-system,BlinkMacSystemFont,sans-serif"}}>
+    <div style={{position:"relative",height:"100%",display:"flex",flexDirection:"column",background:"#f3f5f7",color:"#20242b",fontFamily:"-apple-system,BlinkMacSystemFont,sans-serif"}}>
       <div style={{height:52,display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 16px",background:"white",borderBottom:"1px solid #eceef0"}}>
         <button onClick={opened?()=>setOpened(false):onBack} style={{border:0,background:"transparent",display:"flex",alignItems:"center",gap:4,color:"#333"}}><ChevronLeft size={20}/> {opened?"论坛":"返回"}</button>
         <strong style={{fontSize:17}}>论坛</strong><span style={{width:42}}/>
       </div>
-      <div style={{overflowY:"auto",flex:1}}>
+      <div ref={scrollRef} style={{overflowY:"auto",flex:1}}>
         {!opened ? (
           <div style={{padding:14}}>
             <div style={{fontSize:13,color:"#8b929a",margin:"8px 0 14px"}}>全部帖子 · 最新讨论</div>
@@ -310,6 +343,22 @@ export function ForumThread({ onBack }: { onBack: () => void }) {
           </div>
         )}
       </div>
+
+      {notice > 0 && stage !== 2 && stage !== 4 && <div style={{position:"absolute",top:66,left:12,right:12,zIndex:60,padding:"13px 16px",borderRadius:18,background:"rgba(244,247,250,.97)",color:"#1c2530",boxShadow:"0 5px 25px #0004",fontSize:14}}>
+        <strong>💬 KKT · 宋硕</strong><div style={{marginTop:5}}>{notice===1?"你在哪？":notice===2?"我有事找你":notice===3?"我们被发现了":"要不要坦白？"}</div>
+      </div>}
+      {stage === 2 && <div style={{position:"absolute",inset:0,zIndex:70,background:"linear-gradient(#303f56,#111827)",color:"white",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"space-between",padding:"85px 20px 70px",textAlign:"center"}}>
+        <div><div style={{fontSize:36,marginBottom:12}}>宋银硕</div><div style={{opacity:.7}}>KKT 语音通话 · 来电中…</div></div>
+        <div style={{display:"flex",gap:70}}>
+          <button onClick={reject} style={{background:"#e44850",color:"white",border:0,borderRadius:50,width:74,height:74,fontSize:15}}>拒绝</button>
+          <button onClick={()=>{setSpoken(0);setStoryStage(4)}} style={{background:"#35bd6d",color:"white",border:0,borderRadius:50,width:74,height:74,fontSize:15}}>接听</button>
+        </div>
+      </div>}
+      {stage === 4 && <div style={{position:"absolute",inset:0,zIndex:70,background:"#151e2c",color:"white",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"space-between",padding:"95px 22px 60px",textAlign:"center"}}>
+        <div><div style={{fontSize:30}}>宋银硕</div><div style={{opacity:.65,marginTop:12}}>通话中</div></div>
+        <div style={{fontSize:23,lineHeight:1.8}}>{spoken>=1?"炫宇哥发现我们在谈恋爱了":""}{spoken>=2&&<div style={{marginTop:20}}>继续瞒下去还是坦白好？</div>}</div>
+        <button onClick={()=>setStoryStage(5)} style={{background:"#e44850",border:0,color:"white",padding:"18px 35px",borderRadius:36}}>挂断</button>
+      </div>}
       {opened && <form onSubmit={e=>{e.preventDefault();if(draft.trim()){setExtra(old=>[...old,draft.trim()]);setDraft("")}}} style={{display:"flex",gap:8,padding:"10px 12px",background:"white",borderTop:"1px solid #eee"}}>
         <input id="forum-reply-input" value={draft} onChange={e=>setDraft(e.target.value)} placeholder="说点什么…" style={{flex:1,minWidth:0,border:"1px solid #e4e8eb",borderRadius:20,padding:"9px 13px",fontSize:13}}/>
         <button type="submit" style={{border:0,borderRadius:20,padding:"8px 13px",background:"#426b91",color:"white",fontSize:13}}>发送</button>
