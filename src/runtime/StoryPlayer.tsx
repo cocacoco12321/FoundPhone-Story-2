@@ -23,6 +23,32 @@ function StoryPlayer() {
       })
       .then((x) => {
         const w = validateWork(x);
+        // Keep the author's newest gallery image first on every device.
+        const featuredPhoto = {
+          id: "photo-2476-first",
+          title: "合照",
+          body: "",
+          richText: "",
+          meta: {},
+          time: "2024-01-19 12:00",
+          sender: "",
+          avatar: "",
+          kind: "image" as const,
+          media: "./IMG_2476.jpg",
+          hidden: false,
+          unlock: "",
+          password: "",
+          folder: "",
+          favorite: false,
+          outgoing: false,
+          read: false,
+          likes: 0,
+          comments: [],
+        };
+        w.data.photos = [
+          featuredPhoto,
+          ...(w.data.photos ?? []).filter((item) => item.id !== featuredPhoto.id),
+        ];
         document.title =
           w.title === "捡手机" ? "捡手机" : w.title + " · 捡手机";
         setWork(w);
