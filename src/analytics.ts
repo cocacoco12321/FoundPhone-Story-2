@@ -12,6 +12,7 @@ export function initAnalytics() {
   script.defer = true;
   script.src = "https://cloud.umami.is/script.js";
   script.dataset.websiteId = id;
+  script.addEventListener("load", () => trackGame("game_start"), { once: true });
   document.head.appendChild(script);
 }
 export function trackGame(event: "game_start" | "app_open" | "content_open", app?: string) {
