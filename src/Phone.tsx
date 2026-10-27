@@ -1,4 +1,5 @@
 import { kakaoScreenshotMessages, forumKakaoMessages } from "./content/kakaoScreenshot";
+import { trackGame } from "./analytics";
 
 // Fictional Safari history entries for the found-phone story.
 const safariStoryHistory: Item[] = [
@@ -520,6 +521,7 @@ function PhoneRuntime({
     setFolder("");
     setPanel("");
     onOpen?.(id);
+    if (!creator) trackGame("app_open", id);
     event("openApp", id);
   };
   // Hide the JD app even when an older story is stored in the browser.
@@ -1401,6 +1403,7 @@ function AppContent({
     }
     if (app.id === "douyin") return;
     setDetail(i);
+    trackGame("content_open", app.id);
     if (!i.password || unlocks.includes(i.id)) onRead(i.id);
   };
   const chats = [...new Set(shown.map((i) => i.title))];
