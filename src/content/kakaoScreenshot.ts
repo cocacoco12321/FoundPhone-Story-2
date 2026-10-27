@@ -218,3 +218,19 @@ export const kakaoScreenshotMessages: Item[] = [
  ...zhenhaoLines.map(([date,time,sender,body,outgoing],i)=>make("kkt-zhenhao-"+i,"珍浩哥",sender,body,date+" "+time,outgoing)),
  ...xuanyuLines.map(([date,time,sender,body,outgoing],i)=>make("kkt-xuanyu-"+i,"炫宇哥",sender,body,date+" "+time,outgoing))
 ];
+
+/** Story events are only appended after the reader reaches the final forum floor. */
+export function forumKakaoMessages(): Item[] {
+  if (typeof window === "undefined") return [];
+  let stage = 0;
+  try { stage = Number(window.sessionStorage.getItem("foundphone-forum-stage") || 0); } catch { return []; }
+  const lines = [
+    ["你在哪？", "23:47"],
+    ["我有事找你", "23:48"],
+    ["我们被发现了", "23:49"],
+    ["要不要坦白？", "23:50"],
+  ];
+  const count = stage >= 3 ? 4 : stage >= 1 ? 2 : 0;
+  return lines.slice(0, count).map(([body,time],i) =>
+    make("forum-songshuo-"+i,"宋硕","宋硕",body,"2024-04-14 "+time));
+}
