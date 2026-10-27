@@ -283,6 +283,7 @@ export function ForumThread({ onBack, onOpenKakao }: { onBack: () => void; onOpe
   },[opened,stage]);
 
   const [liked, setLiked] = useState<number[]>([]);
+  const likeCount = (floor: number) => 10 + ((floor * 17 + 23) % 61);
   const [draft, setDraft] = useState("");
   const [extra, setExtra] = useState<string[]>([]);
   const all = [...floors.map(f => ({...f, replyTo: f.replyTo as number | null})), ...extra.map((body,i)=>({floor:floors.length+i+1,depth:0,author:"我",body,replyTo:null}))];
@@ -319,7 +320,7 @@ export function ForumThread({ onBack, onOpenKakao }: { onBack: () => void; onOpe
                 {f.replyTo!==null && <div style={{fontSize:12,color:"#7d8c9b",background:"#f3f6f8",padding:"6px 9px",borderRadius:6,marginBottom:9}}>↳ 回复 {f.replyTo}楼</div>}
                 <div style={{fontSize:14,lineHeight:1.75,whiteSpace:"pre-wrap",overflowWrap:"anywhere"}}>{f.body}</div>
                 <div style={{display:"flex",justifyContent:"flex-end",gap:15,marginTop:11}}>
-                  <button onClick={()=>setLiked(old=>old.includes(f.floor)?old.filter(n=>n!==f.floor):[...old,f.floor])} style={{border:0,background:"transparent",color:liked.includes(f.floor)?"#d95a6d":"#9aa2aa",display:"flex",gap:4,alignItems:"center",fontSize:12}}><Heart size={14} fill={liked.includes(f.floor)?"currentColor":"none"}/> {liked.includes(f.floor)?"已赞":"赞"}</button>
+                  <button onClick={()=>setLiked(old=>old.includes(f.floor)?old.filter(n=>n!==f.floor):[...old,f.floor])} style={{border:0,background:"transparent",color:liked.includes(f.floor)?"#d95a6d":"#9aa2aa",display:"flex",gap:4,alignItems:"center",fontSize:12}}><Heart size={14} fill={liked.includes(f.floor)?"currentColor":"none"}/> {likeCount(f.floor) + (liked.includes(f.floor) ? 1 : 0)}</button>
                   <button onClick={()=>{setDraft("回复 "+f.floor+"楼：");document.getElementById("forum-reply-input")?.focus()}} style={{border:0,background:"transparent",color:"#9aa2aa",display:"flex",gap:4,alignItems:"center",fontSize:12}}><MessageCircle size={14}/> 回复</button>
                 </div>
               </article>
