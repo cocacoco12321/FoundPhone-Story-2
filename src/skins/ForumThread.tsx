@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, MessageCircle, Heart, Phone, PhoneOff, Mic, Volume2, Grid3X3, UserRound } from "lucide-react";
+import { ChevronLeft, MessageCircle, Heart } from "lucide-react";
 
 const floors = [
   {
@@ -263,13 +263,10 @@ const floors = [
   }
 ] as const;
 
-export function ForumThread({ onBack, onOpenKakao }: { onBack: () => void; onOpenKakao?: () => void }) {
+export function ForumThread({ onBack }: { onBack: () => void }) {
   const [opened, setOpened] = useState(false);
   const [stage, setStage] = useState(() => { try { return Number(sessionStorage.getItem("foundphone-forum-stage") || 0); } catch { return 0; } });
-  const [notice, setNotice] = useState(0);
-  const [spoken, setSpoken] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const setStoryStage = (next: number) => { setStage(next); try { sessionStorage.setItem("foundphone-forum-stage", String(next)); } catch { /* Storage may be unavailable in private browsing. */ } };
   useEffect(() => {
     if (!opened || stage !== 0) return;
     const root = scrollRef.current;
@@ -278,25 +275,14 @@ export function ForumThread({ onBack, onOpenKakao }: { onBack: () => void; onOpe
     const observer = new IntersectionObserver(entries => {
       if (entries.some(entry => entry.isIntersecting)) {
         observer.disconnect();
-        setStoryStage(1);
-        setNotice(1);
+        try { sessionStorage.setItem("foundphone-forum-stage","1"); } catch { /* unavailable */ }
+        setStage(1);
+        window.dispatchEvent(new Event("foundphone-forum-reveal"));
       }
-    }, { root, threshold: 0.6 });
+    }, {root,threshold:.6});
     observer.observe(target);
     return () => observer.disconnect();
-  }, [opened, stage]);
-  useEffect(() => {
-    if (stage !== 1) return;
-    const first = window.setTimeout(() => setNotice(2), 3200);
-    const call = window.setTimeout(() => { setNotice(0); setStoryStage(2); }, 6600);
-    return () => { window.clearTimeout(first); window.clearTimeout(call); };
-  }, [stage]);
-  useEffect(() => {
-    if (stage !== 4 || spoken >= 2) return;
-    const timer = window.setTimeout(() => setSpoken(n => n + 1), spoken === 0 ? 900 : 3700);
-    return () => window.clearTimeout(timer);
-  }, [stage, spoken]);
-  const reject = () => { setStoryStage(3); setNotice(3); window.setTimeout(() => setNotice(4), 3300); };
+  },[opened,stage]);
 
   const [liked, setLiked] = useState<number[]>([]);
   const [draft, setDraft] = useState("");
@@ -346,36 +332,6 @@ export function ForumThread({ onBack, onOpenKakao }: { onBack: () => void; onOpe
 
 
 
-      {notice > 0 && stage !== 2 && stage !== 4 && <button type="button" onClick={() => { setNotice(0); onOpenKakao?.(); }} aria-label="打开 KKT 宋硕聊天" style={{position:"absolute",top:70,left:12,right:12,zIndex:90,width:"calc(100% - 24px)",padding:"14px 15px",borderRadius:20,background:"rgba(248,249,252,.93)",backdropFilter:"blur(28px) saturate(1.6)",WebkitBackdropFilter:"blur(28px) saturate(1.6)",color:"#20252c",border:"1px solid rgba(255,255,255,.95)",boxShadow:"0 10px 34px rgba(20,28,42,.24), inset 0 1px 1px #fff",display:"flex",alignItems:"center",gap:12,textAlign:"left",cursor:"pointer"}}>
-        <div style={{width:43,height:43,borderRadius:13,background:"linear-gradient(145deg,#f9eaa0,#edcc57)",color:"#332b15",fontWeight:750,fontSize:22,display:"grid",placeItems:"center",flexShrink:0,boxShadow:"inset 0 1px 1px #fff9,0 2px 5px #0002"}}>K</div>
-        <div style={{minWidth:0,flex:1}}>
-          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:5}}><strong style={{fontSize:14,fontWeight:700}}>KKT · 宋硕</strong><span style={{fontSize:12,color:"#78818e"}}>现在</span></div>
-          <div style={{fontSize:17,fontWeight:550,lineHeight:1.45}}>{notice===1?"你在哪？":notice===2?"我有事找你":notice===3?"我们被发现了":"要不要坦白？"}</div>
-          <div style={{fontSize:11,color:"#858d97",marginTop:4}}>轻点查看聊天</div>
-        </div>
-      </button>}
-      {stage === 2 && <div style={{position:"absolute",inset:0,zIndex:70,background:"radial-gradient(ellipse at 50% 15%,#727d8a 0%,#4c5562 32%,#252c37 75%,#181e27 100%)",color:"#fff",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"space-between",padding:"82px 22px 65px",textAlign:"center"}}>
-        <div><div style={{width:96,height:96,borderRadius:"50%",background:"linear-gradient(145deg,#b6bbc4,#737e8d)",boxShadow:"0 8px 25px #10172255,inset 0 2px 4px #fff5",display:"grid",placeItems:"center",margin:"0 auto 22px"}}><UserRound size={47} color="#f1f3f5"/></div><div style={{fontSize:34,fontWeight:450,letterSpacing:1}}>宋银硕</div><div style={{opacity:.72,fontSize:15,marginTop:10}}>KKT 语音通话 · 来电中…</div></div>
-        <div style={{display:"flex",gap:75,alignItems:"center"}}>
-          <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:12}}><button type="button" onClick={reject} aria-label="拒绝来电" style={{display:"grid",placeItems:"center",background:"linear-gradient(145deg,#ff7771,#ef3c36 72%,#d62a27)",boxShadow:"0 7px 18px #100c0c55,inset 0 2px 3px #ffffff77,inset 0 -3px 4px #a91d1d66",color:"#fff",border:"1px solid #ff969155",borderRadius:"50%",width:76,height:76,cursor:"pointer"}}><PhoneOff size={30} strokeWidth={2.5}/></button><span style={{fontSize:14,color:"#e7e9ed"}}>拒绝</span></div>
-          <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:12}}><button type="button" onClick={()=>{setSpoken(0);setStoryStage(4)}} aria-label="接听来电" style={{display:"grid",placeItems:"center",background:"linear-gradient(145deg,#7af29b,#32c964 72%,#1ca34c)",boxShadow:"0 7px 18px #081b1255,inset 0 2px 3px #ffffff99,inset 0 -3px 4px #117d3566",color:"#fff",border:"1px solid #abffc155",borderRadius:"50%",width:76,height:76,cursor:"pointer"}}><Phone size={31} strokeWidth={2.5}/></button><span style={{fontSize:14,color:"#e7e9ed"}}>接听</span></div>
-        </div>
-      </div>}
-      {stage === 4 && <div style={{position:"absolute",inset:0,zIndex:70,background:"radial-gradient(ellipse at 50% 15%,#727d8a 0%,#4c5562 32%,#252c37 75%,#181e27 100%)",color:"#fff",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"space-between",padding:"76px 24px 55px",textAlign:"center"}}>
-        <div><div style={{width:84,height:84,borderRadius:"50%",background:"linear-gradient(145deg,#b6bbc4,#737e8d)",boxShadow:"0 8px 25px #10172255,inset 0 2px 4px #fff5",display:"grid",placeItems:"center",margin:"0 auto 19px"}}><UserRound size={42} color="#f1f3f5"/></div><div style={{fontSize:32,fontWeight:450}}>宋银硕</div><div style={{opacity:.72,fontSize:14,marginTop:10}}>通话中</div></div>
-        <div role="status" aria-live="polite" style={{width:"100%",minHeight:105,boxSizing:"border-box",padding:"17px 16px",borderRadius:19,background:"rgba(20,26,35,.34)",border:"1px solid #ffffff25",backdropFilter:"blur(14px)",display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",boxShadow:"0 8px 20px #10172225"}}>
-          <div style={{fontSize:12,opacity:.7,marginBottom:10}}>通话字幕</div>
-          <div style={{fontSize:18,fontWeight:500,lineHeight:1.6,color:"#fff",maxWidth:290}}>{spoken===0?"正在连接…":spoken===1?"炫宇哥发现我们在谈恋爱了":"继续瞒下去还是坦白好？"}</div>
-        </div>
-        <div style={{width:"100%",display:"flex",flexDirection:"column",alignItems:"center",gap:25}}>
-          <div style={{display:"flex",width:"100%",justifyContent:"space-around",opacity:.85}}>
-            <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:8}}><Mic size={25}/><span style={{fontSize:12}}>静音</span></div>
-            <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:8}}><Grid3X3 size={25}/><span style={{fontSize:12}}>键盘</span></div>
-            <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:8}}><Volume2 size={25}/><span style={{fontSize:12}}>扬声器</span></div>
-          </div>
-          <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:9}}><button type="button" onClick={()=>setStoryStage(5)} aria-label="挂断电话" style={{display:"grid",placeItems:"center",background:"linear-gradient(145deg,#ff7771,#ef3c36 72%,#d62a27)",boxShadow:"0 7px 18px #100c0c55,inset 0 2px 3px #ffffff77",border:"1px solid #ff969155",color:"#fff",width:72,height:72,borderRadius:"50%",cursor:"pointer"}}><PhoneOff size={30}/></button><span style={{fontSize:13}}>挂断</span></div>
-        </div>
-      </div>}
       {opened && <form onSubmit={e=>{e.preventDefault();if(draft.trim()){setExtra(old=>[...old,draft.trim()]);setDraft("")}}} style={{display:"flex",gap:8,padding:"10px 12px",background:"white",borderTop:"1px solid #eee"}}>
         <input id="forum-reply-input" value={draft} onChange={e=>setDraft(e.target.value)} placeholder="说点什么…" style={{flex:1,minWidth:0,border:"1px solid #e4e8eb",borderRadius:20,padding:"9px 13px",fontSize:13}}/>
         <button type="submit" style={{border:0,borderRadius:20,padding:"8px 13px",background:"#426b91",color:"white",fontSize:13}}>发送</button>
