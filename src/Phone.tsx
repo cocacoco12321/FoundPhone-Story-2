@@ -1,4 +1,239 @@
 import { kakaoScreenshotMessages } from "./content/kakaoScreenshot";
+
+// Fictional Safari history entries for the found-phone story.
+const safariStoryHistory: Item[] = [
+  {
+    "id": "story-safari-history-1",
+    "title": "小型犬喜欢吃什么冻干",
+    "body": "",
+    "richText": "",
+    "meta": {
+      "url": "搜索记录"
+    },
+    "time": "2024-01-11 19:12",
+    "sender": "",
+    "avatar": "",
+    "kind": "text",
+    "media": "",
+    "hidden": false,
+    "unlock": "",
+    "password": "",
+    "folder": "历史记录",
+    "favorite": false,
+    "outgoing": false,
+    "read": true,
+    "likes": 0,
+    "comments": []
+  },
+  {
+    "id": "story-safari-history-2",
+    "title": "怎么点外卖最省钱",
+    "body": "",
+    "richText": "",
+    "meta": {
+      "url": "搜索记录"
+    },
+    "time": "2024-01-11 20:15",
+    "sender": "",
+    "avatar": "",
+    "kind": "text",
+    "media": "",
+    "hidden": false,
+    "unlock": "",
+    "password": "",
+    "folder": "历史记录",
+    "favorite": false,
+    "outgoing": false,
+    "read": true,
+    "likes": 0,
+    "comments": []
+  },
+  {
+    "id": "story-safari-history-3",
+    "title": "大型犬怎么抱",
+    "body": "",
+    "richText": "",
+    "meta": {
+      "url": "搜索记录"
+    },
+    "time": "2024-01-11 21:18",
+    "sender": "",
+    "avatar": "",
+    "kind": "text",
+    "media": "",
+    "hidden": false,
+    "unlock": "",
+    "password": "",
+    "folder": "历史记录",
+    "favorite": false,
+    "outgoing": false,
+    "read": true,
+    "likes": 0,
+    "comments": []
+  },
+  {
+    "id": "story-safari-history-4",
+    "title": "怎么避免斜方肌代偿",
+    "body": "",
+    "richText": "",
+    "meta": {
+      "url": "搜索记录"
+    },
+    "time": "2024-01-12 19:21",
+    "sender": "",
+    "avatar": "",
+    "kind": "text",
+    "media": "",
+    "hidden": false,
+    "unlock": "",
+    "password": "",
+    "folder": "历史记录",
+    "favorite": false,
+    "outgoing": false,
+    "read": true,
+    "likes": 0,
+    "comments": []
+  },
+  {
+    "id": "story-safari-history-5",
+    "title": "小型犬大型犬可以做朋友吗",
+    "body": "",
+    "richText": "",
+    "meta": {
+      "url": "搜索记录"
+    },
+    "time": "2024-01-12 20:24",
+    "sender": "",
+    "avatar": "",
+    "kind": "text",
+    "media": "",
+    "hidden": false,
+    "unlock": "",
+    "password": "",
+    "folder": "历史记录",
+    "favorite": false,
+    "outgoing": false,
+    "read": true,
+    "likes": 0,
+    "comments": []
+  },
+  {
+    "id": "story-safari-history-6",
+    "title": "漂头发后发质受损怎么办",
+    "body": "",
+    "richText": "",
+    "meta": {
+      "url": "搜索记录"
+    },
+    "time": "2024-01-12 21:27",
+    "sender": "",
+    "avatar": "",
+    "kind": "text",
+    "media": "",
+    "hidden": false,
+    "unlock": "",
+    "password": "",
+    "folder": "历史记录",
+    "favorite": false,
+    "outgoing": false,
+    "read": true,
+    "likes": 0,
+    "comments": []
+  },
+  {
+    "id": "story-safari-history-7",
+    "title": "怎么给男朋友制造惊喜",
+    "body": "",
+    "richText": "",
+    "meta": {
+      "url": "搜索记录"
+    },
+    "time": "2024-01-13 19:30",
+    "sender": "",
+    "avatar": "",
+    "kind": "text",
+    "media": "",
+    "hidden": false,
+    "unlock": "",
+    "password": "",
+    "folder": "历史记录",
+    "favorite": false,
+    "outgoing": false,
+    "read": true,
+    "likes": 0,
+    "comments": []
+  },
+  {
+    "id": "story-safari-history-8",
+    "title": "期末考三天速成计划",
+    "body": "",
+    "richText": "",
+    "meta": {
+      "url": "搜索记录"
+    },
+    "time": "2024-01-13 20:33",
+    "sender": "",
+    "avatar": "",
+    "kind": "text",
+    "media": "",
+    "hidden": false,
+    "unlock": "",
+    "password": "",
+    "folder": "历史记录",
+    "favorite": false,
+    "outgoing": false,
+    "read": true,
+    "likes": 0,
+    "comments": []
+  },
+  {
+    "id": "story-safari-history-9",
+    "title": "期末考怎么两天极速复习",
+    "body": "",
+    "richText": "",
+    "meta": {
+      "url": "搜索记录"
+    },
+    "time": "2024-01-13 21:36",
+    "sender": "",
+    "avatar": "",
+    "kind": "text",
+    "media": "",
+    "hidden": false,
+    "unlock": "",
+    "password": "",
+    "folder": "历史记录",
+    "favorite": false,
+    "outgoing": false,
+    "read": true,
+    "likes": 0,
+    "comments": []
+  },
+  {
+    "id": "story-safari-history-10",
+    "title": "期末考一天冲刺",
+    "body": "",
+    "richText": "",
+    "meta": {
+      "url": "搜索记录"
+    },
+    "time": "2024-01-14 19:39",
+    "sender": "",
+    "avatar": "",
+    "kind": "text",
+    "media": "",
+    "hidden": false,
+    "unlock": "",
+    "password": "",
+    "folder": "历史记录",
+    "favorite": false,
+    "outgoing": false,
+    "read": true,
+    "likes": 0,
+    "comments": []
+  }
+];
+
 import { StatusGlyph } from "./ios/StatusGlyph";
 import { SocialDetail, socialDetailApps } from "./skins/SocialDetails";
 import { ForumThread } from "./skins/ForumThread";
@@ -1090,6 +1325,7 @@ function AppContent({
     : [];
   const gallerySource = app.id === "photos" && !creator
     ? galleryItems
+    : app.id === "safari" && !creator ? [...safariStoryHistory, ...normalizedItems.filter((i) => i.folder === "历史记录" || i.favorite || i.folder !== "历史记录")]
     : app.id === "kakao" && !creator ? kakaoScreenshotMessages
     : app.id === "weather" && !creator ? seoulWeatherItems
     : [...weiboMarch18, ...normalizedItems, ...october28Items, ...historicalWeChatItems, ...playlistItems, ...taobaoProducts];
