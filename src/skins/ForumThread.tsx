@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, MessageCircle, Heart } from "lucide-react";
+import { ChevronLeft, MessageCircle, Heart, Phone, PhoneOff, Mic, Volume2, Grid3X3, UserRound } from "lucide-react";
 
 const floors = [
   {
@@ -263,7 +263,7 @@ const floors = [
   }
 ] as const;
 
-export function ForumThread({ onBack }: { onBack: () => void }) {
+export function ForumThread({ onBack, onOpenKakao }: { onBack: () => void; onOpenKakao?: () => void }) {
   const [opened, setOpened] = useState(false);
   const [stage, setStage] = useState(() => { try { return Number(sessionStorage.getItem("foundphone-forum-stage") || 0); } catch { return 0; } });
   const [notice, setNotice] = useState(0);
@@ -345,29 +345,36 @@ export function ForumThread({ onBack }: { onBack: () => void }) {
       </div>
 
 
-      {notice > 0 && stage !== 2 && stage !== 4 && <div role="alert" aria-live="assertive" style={{position:"absolute",top:76,left:10,right:10,zIndex:90,padding:"17px 18px",borderRadius:20,background:"#fee500",color:"#191919",border:"2px solid #e8c900",boxShadow:"0 9px 28px #0006",display:"flex",alignItems:"center",gap:13}}>
-        <div style={{width:44,height:44,borderRadius:13,background:"#3a3424",color:"#fee500",fontWeight:800,fontSize:23,display:"grid",placeItems:"center",flexShrink:0}}>K</div>
-        <div style={{minWidth:0,flex:1,textAlign:"left"}}>
-          <div style={{fontSize:14,fontWeight:750,marginBottom:5}}>KKT · 宋硕 <span style={{fontSize:11,fontWeight:400,opacity:.7}}>现在</span></div>
-          <div style={{fontSize:19,fontWeight:650,lineHeight:1.45}}>{notice===1?"你在哪？":notice===2?"我有事找你":notice===3?"我们被发现了":"要不要坦白？"}</div>
+
+      {notice > 0 && stage !== 2 && stage !== 4 && <button type="button" onClick={() => { setNotice(0); onOpenKakao?.(); }} aria-label="打开 KKT 宋硕聊天" style={{position:"absolute",top:70,left:12,right:12,zIndex:90,width:"calc(100% - 24px)",padding:"14px 15px",borderRadius:20,background:"rgba(248,249,252,.93)",backdropFilter:"blur(28px) saturate(1.6)",WebkitBackdropFilter:"blur(28px) saturate(1.6)",color:"#20252c",border:"1px solid rgba(255,255,255,.95)",boxShadow:"0 10px 34px rgba(20,28,42,.24), inset 0 1px 1px #fff",display:"flex",alignItems:"center",gap:12,textAlign:"left",cursor:"pointer"}}>
+        <div style={{width:43,height:43,borderRadius:13,background:"linear-gradient(145deg,#f9eaa0,#edcc57)",color:"#332b15",fontWeight:750,fontSize:22,display:"grid",placeItems:"center",flexShrink:0,boxShadow:"inset 0 1px 1px #fff9,0 2px 5px #0002"}}>K</div>
+        <div style={{minWidth:0,flex:1}}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:5}}><strong style={{fontSize:14,fontWeight:700}}>KKT · 宋硕</strong><span style={{fontSize:12,color:"#78818e"}}>现在</span></div>
+          <div style={{fontSize:17,fontWeight:550,lineHeight:1.45}}>{notice===1?"你在哪？":notice===2?"我有事找你":notice===3?"我们被发现了":"要不要坦白？"}</div>
+          <div style={{fontSize:11,color:"#858d97",marginTop:4}}>轻点查看聊天</div>
+        </div>
+      </button>}
+      {stage === 2 && <div style={{position:"absolute",inset:0,zIndex:70,background:"radial-gradient(ellipse at 50% 15%,#727d8a 0%,#4c5562 32%,#252c37 75%,#181e27 100%)",color:"#fff",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"space-between",padding:"82px 22px 65px",textAlign:"center"}}>
+        <div><div style={{width:96,height:96,borderRadius:"50%",background:"linear-gradient(145deg,#b6bbc4,#737e8d)",boxShadow:"0 8px 25px #10172255,inset 0 2px 4px #fff5",display:"grid",placeItems:"center",margin:"0 auto 22px"}}><UserRound size={47} color="#f1f3f5"/></div><div style={{fontSize:34,fontWeight:450,letterSpacing:1}}>宋银硕</div><div style={{opacity:.72,fontSize:15,marginTop:10}}>KKT 语音通话 · 来电中…</div></div>
+        <div style={{display:"flex",gap:75,alignItems:"center"}}>
+          <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:12}}><button type="button" onClick={reject} aria-label="拒绝来电" style={{display:"grid",placeItems:"center",background:"linear-gradient(145deg,#ff7771,#ef3c36 72%,#d62a27)",boxShadow:"0 7px 18px #100c0c55,inset 0 2px 3px #ffffff77,inset 0 -3px 4px #a91d1d66",color:"#fff",border:"1px solid #ff969155",borderRadius:"50%",width:76,height:76,cursor:"pointer"}}><PhoneOff size={30} strokeWidth={2.5}/></button><span style={{fontSize:14,color:"#e7e9ed"}}>拒绝</span></div>
+          <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:12}}><button type="button" onClick={()=>{setSpoken(0);setStoryStage(4)}} aria-label="接听来电" style={{display:"grid",placeItems:"center",background:"linear-gradient(145deg,#7af29b,#32c964 72%,#1ca34c)",boxShadow:"0 7px 18px #081b1255,inset 0 2px 3px #ffffff99,inset 0 -3px 4px #117d3566",color:"#fff",border:"1px solid #abffc155",borderRadius:"50%",width:76,height:76,cursor:"pointer"}}><Phone size={31} strokeWidth={2.5}/></button><span style={{fontSize:14,color:"#e7e9ed"}}>接听</span></div>
         </div>
       </div>}
-      {stage === 2 && <div style={{position:"absolute",inset:0,zIndex:70,background:"linear-gradient(160deg,#646a76 0%,#2b303b 55%,#171a22 100%)",color:"white",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"space-between",padding:"90px 22px 65px",textAlign:"center"}}>
-        <div><div style={{width:94,height:94,borderRadius:"50%",background:"#9ba3ae",display:"grid",placeItems:"center",fontSize:40,margin:"0 auto 22px"}}>宋</div><div style={{fontSize:32,fontWeight:500}}>宋银硕</div><div style={{opacity:.8,fontSize:16,marginTop:10}}>KKT 语音通话 · 来电</div></div>
-        <div style={{display:"flex",gap:76,alignItems:"center"}}>
-          <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:10}}><button onClick={reject} aria-label="拒绝来电" style={{background:"#ff453a",color:"white",border:0,borderRadius:"50%",width:72,height:72,fontSize:30,transform:"rotate(135deg)"}}>☎</button><span style={{fontSize:14}}>拒绝</span></div>
-          <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:10}}><button onClick={()=>{setSpoken(0);setStoryStage(4)}} aria-label="接听来电" style={{background:"#30d158",color:"white",border:0,borderRadius:"50%",width:72,height:72,fontSize:30}}>☎</button><span style={{fontSize:14}}>接听</span></div>
+      {stage === 4 && <div style={{position:"absolute",inset:0,zIndex:70,background:"radial-gradient(ellipse at 50% 15%,#727d8a 0%,#4c5562 32%,#252c37 75%,#181e27 100%)",color:"#fff",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"space-between",padding:"76px 24px 55px",textAlign:"center"}}>
+        <div><div style={{width:84,height:84,borderRadius:"50%",background:"linear-gradient(145deg,#b6bbc4,#737e8d)",boxShadow:"0 8px 25px #10172255,inset 0 2px 4px #fff5",display:"grid",placeItems:"center",margin:"0 auto 19px"}}><UserRound size={42} color="#f1f3f5"/></div><div style={{fontSize:32,fontWeight:450}}>宋银硕</div><div style={{opacity:.72,fontSize:14,marginTop:10}}>通话中</div></div>
+        <div role="status" aria-live="polite" style={{width:"100%",minHeight:105,boxSizing:"border-box",padding:"17px 16px",borderRadius:19,background:"rgba(20,26,35,.34)",border:"1px solid #ffffff25",backdropFilter:"blur(14px)",display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",boxShadow:"0 8px 20px #10172225"}}>
+          <div style={{fontSize:12,opacity:.7,marginBottom:10}}>通话字幕</div>
+          <div style={{fontSize:18,fontWeight:500,lineHeight:1.6,color:"#fff",maxWidth:290}}>{spoken===0?"正在连接…":spoken===1?"炫宇哥发现我们在谈恋爱了":"继续瞒下去还是坦白好？"}</div>
         </div>
-      </div>}
-      {stage === 4 && <div style={{position:"absolute",inset:0,zIndex:70,background:"linear-gradient(160deg,#646a76 0%,#2b303b 55%,#171a22 100%)",color:"white",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"space-between",padding:"90px 22px 58px",textAlign:"center"}}>
-        <div><div style={{width:86,height:86,borderRadius:"50%",background:"#9ba3ae",display:"grid",placeItems:"center",fontSize:37,margin:"0 auto 20px"}}>宋</div><div style={{fontSize:32,fontWeight:500}}>宋银硕</div><div style={{opacity:.75,fontSize:15,marginTop:9}}>通话中</div></div>
-        <div role="status" aria-live="polite" style={{width:"100%",minHeight:116,boxSizing:"border-box",padding:"20px 16px",borderRadius:17,background:"rgba(20,23,30,.4)",display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
-          <div style={{fontSize:12,opacity:.75,marginBottom:12}}>实时通话字幕</div>
-          <div style={{fontSize:19,fontWeight:500,lineHeight:1.65,color:"#fff",maxWidth:300}}>
-            {spoken===0?"正在连接…":spoken===1?"炫宇哥发现我们在谈恋爱了":"继续瞒下去还是坦白好？"}
+        <div style={{width:"100%",display:"flex",flexDirection:"column",alignItems:"center",gap:25}}>
+          <div style={{display:"flex",width:"100%",justifyContent:"space-around",opacity:.85}}>
+            <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:8}}><Mic size={25}/><span style={{fontSize:12}}>静音</span></div>
+            <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:8}}><Grid3X3 size={25}/><span style={{fontSize:12}}>键盘</span></div>
+            <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:8}}><Volume2 size={25}/><span style={{fontSize:12}}>扬声器</span></div>
           </div>
+          <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:9}}><button type="button" onClick={()=>setStoryStage(5)} aria-label="挂断电话" style={{display:"grid",placeItems:"center",background:"linear-gradient(145deg,#ff7771,#ef3c36 72%,#d62a27)",boxShadow:"0 7px 18px #100c0c55,inset 0 2px 3px #ffffff77",border:"1px solid #ff969155",color:"#fff",width:72,height:72,borderRadius:"50%",cursor:"pointer"}}><PhoneOff size={30}/></button><span style={{fontSize:13}}>挂断</span></div>
         </div>
-        <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:9}}><button onClick={()=>setStoryStage(5)} aria-label="挂断电话" style={{background:"#ff453a",border:0,color:"white",width:70,height:70,borderRadius:"50%",fontSize:29,transform:"rotate(135deg)"}}>☎</button><span style={{fontSize:13}}>挂断</span></div>
       </div>}
       {opened && <form onSubmit={e=>{e.preventDefault();if(draft.trim()){setExtra(old=>[...old,draft.trim()]);setDraft("")}}} style={{display:"flex",gap:8,padding:"10px 12px",background:"white",borderTop:"1px solid #eee"}}>
         <input id="forum-reply-input" value={draft} onChange={e=>setDraft(e.target.value)} placeholder="说点什么…" style={{flex:1,minWidth:0,border:"1px solid #e4e8eb",borderRadius:20,padding:"9px 13px",fontSize:13}}/>
