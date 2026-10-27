@@ -1094,10 +1094,8 @@ function AppContent({
     : app.id === "weather" && !creator ? seoulWeatherItems
     : [...weiboMarch18, ...normalizedItems, ...october28Items, ...historicalWeChatItems, ...playlistItems, ...taobaoProducts];
   const shown = gallerySource
-    .filter((i) => creator || visible(i, state))
-    .filter((i) =>
-      (i.title + i.body + i.sender).toLowerCase().includes(q.toLowerCase()),
-    );
+    .filter((i) => app.id === "kakao" && !creator ? true : creator || visible(i, state))
+    .filter((i) => app.id === "kakao" && !creator ? true : (i.title + i.body + i.sender).toLowerCase().includes(q.toLowerCase()));
   const filtered =
     tab === "收藏"
       ? shown.filter((i) => i.favorite)
