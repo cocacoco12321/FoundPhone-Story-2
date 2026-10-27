@@ -367,7 +367,7 @@ export function BilibiliSkin(p: Props) {
   const feed = [...footballBiliVideos, ...items.filter((i) => !footballBiliVideos.some((v) => v.title === i.title))];
   const list =
     tab === "历史"
-      ? items.filter((i) => i.folder === "历史")
+      ? footballBiliVideos
       : tab === "动态"
         ? items.filter((i) => i.folder === "动态")
         : category === "推荐"
