@@ -28,6 +28,10 @@ function StoryPlayer() {
         const w = validateWork(x);
         w.phone.passcode = "0000";
         w.phone.wallpaper = "sage";
+        w.apps = w.apps.filter((a) => a.id !== "weibo");
+        for (const [id, name] of [["twitter", "Twitter"], ["podcasts", "播客"]] as const) {
+          if (!w.apps.some((a) => a.id === id)) w.apps.push({ id, name, installed: true, visible: true, dock: false, folder: "", icon: "" });
+        }
         // Keep the author's newest gallery image first on every device.
         const featuredPhoto = {
           id: "photo-2476-first",
