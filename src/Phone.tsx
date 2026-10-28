@@ -326,7 +326,7 @@ export function AppIcon({
     <span className={`app-icon-wrap ${small ? "small" : ""}`}>
       <span className="app-icon" style={{ background: a.color }}>
         {id === "podcasts" ? (
-          <span style={{ color: "#fff", fontSize: small ? 23 : 31, fontWeight: 700, lineHeight: 1 }}>◉</span>
+          <svg viewBox="0 0 64 64" width={small ? 35 : 49} height={small ? 35 : 49} aria-label="Podcasts" role="img"><circle cx="32" cy="24" r="5" fill="white"/><path d="M25 38 Q20 31 22 22 A11 11 0 0 1 42 22 Q44 31 39 38 M19 43 Q9 35 11 22 A21 21 0 0 1 53 22 Q55 35 45 43" fill="none" stroke="white" strokeWidth="4" strokeLinecap="round"/><path d="M26 35 Q32 31 38 35 L36 51 Q35 57 32 57 Q29 57 28 51 Z" fill="white"/></svg>
         ) : custom ? (
           safeMedia(custom) ? (
             <img src={safeMedia(custom)} alt="自定义图标" />
@@ -693,13 +693,30 @@ function PhoneRuntime({
               />
             ) : app === "podcasts" ? (
               <AppWindow key="podcasts" className="app-screen engine-media skin-podcasts" creator={creator} origin={launchOrigin}>
-                <div style={{ padding: 22, height: "100%", background: "#faf8ff", color: "#22172f", overflowY: "auto" }}>
-                  <h2 style={{ fontSize: 28, margin: "14px 0 8px" }}>播客</h2>
-                  <p style={{ color: "#7c688e" }}>正在播放 · 示例音频</p>
-                  <div style={{ background: "linear-gradient(140deg,#a967ee,#5c24a3)", borderRadius: 22, height: 185, display: "grid", placeItems: "center", color: "white", fontSize: 72, margin: "22px 0" }}>◉</div>
-                  <h3 style={{ margin: "12px 0 5px" }}>声音测试</h3>
-                  <p style={{ color: "#7c688e", fontSize: 13 }}>可播放的示例音效；之后可以替换成你的播客音频。</p>
-                  <audio controls preload="none" style={{ width: "100%", marginTop: 20 }} src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3" />
+                <div style={{ padding: "24px 20px 80px", height: "100%", background: "#f9f7fc", color: "#20162b", overflowY: "auto" }}>
+                  <h2 style={{ fontSize: 30, margin: "10px 0 8px" }}>播客</h2>
+                  <p style={{ color: "#8d7a9b", marginBottom: 24 }}>资料库 · 我的节目</p>
+                  {(work.data.podcasts ?? []).length === 0 ? (
+                    <div style={{ textAlign: "center", padding: "45px 12px", color: "#7c668d" }}>
+                      <div style={{ width: 108, height: 108, margin: "0 auto 22px", borderRadius: 24, background: "linear-gradient(140deg,#c05bf5,#7129bd)", display: "grid", placeItems: "center", color: "white", fontSize: 55 }}>◉</div>
+                      <h3 style={{ color: "#261c30" }}>还没有播客节目</h3>
+                      <p style={{ lineHeight: 1.6 }}>之后可以在故事数据的 podcasts 栏目添加节目名称、封面与 MP3 音频，点击即可播放。</p>
+                    </div>
+                  ) : (work.data.podcasts ?? []).map((episode) => (
+                    <section key={episode.id} style={{ background: "white", borderRadius: 18, padding: 14, marginBottom: 15, boxShadow: "0 3px 14px #3014450b" }}>
+                      <div style={{ display: "flex", gap: 13, alignItems: "center" }}>
+                        <div style={{ width: 76, height: 76, borderRadius: 14, background: "linear-gradient(140deg,#c05bf5,#7129bd)", display: "grid", placeItems: "center", color: "white", flexShrink: 0, overflow: "hidden" }}>
+                          {episode.avatar && safeMedia(episode.avatar) ? <img src={safeMedia(episode.avatar)} alt={episode.title + " 封面"} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : <span style={{ fontSize: 35 }}>◉</span>}
+                        </div>
+                        <div style={{ minWidth: 0 }}>
+                          <strong style={{ fontSize: 16 }}>{episode.title}</strong>
+                          <p style={{ fontSize: 12, color: "#846c95", margin: "5px 0" }}>{episode.sender || "我的播客"} · {episode.time || "最新节目"}</p>
+                          <p style={{ fontSize: 12, margin: 0 }}>{episode.body}</p>
+                        </div>
+                      </div>
+                      {episode.media && safeMedia(episode.media) ? <audio controls preload="metadata" src={safeMedia(episode.media)} style={{ width: "100%", marginTop: 12 }} /> : <p style={{ fontSize: 12, color: "#a18bab" }}>尚未添加音频文件</p>}
+                    </section>
+                  ))}
                 </div>
               </AppWindow>
             ) : app && app !== "appstore" ? (
