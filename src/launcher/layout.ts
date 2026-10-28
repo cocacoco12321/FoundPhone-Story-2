@@ -169,7 +169,9 @@ export function useDeviceLayout(authored: Work, creator = false) {
   const layout = useMemo(() => ({
     ...storedLayout,
     apps: [
-      ...storedLayout.apps.filter((app) => base.apps.some((current) => current.id === app.id && current.installed)).map((app) => pinnedApps.includes(app.id)
+      ...storedLayout.apps.filter((app) => base.apps.some((current) => current.id === app.id && current.installed)).map((app) => ["twitter", "podcasts"].includes(app.id)
+        ? { ...app, installed: true, visible: true, dock: false, folder: "" }
+        : pinnedApps.includes(app.id)
         ? { ...app, installed: true, visible: true, dock: false, folder: "" }
         : app),
       ...base.apps.filter((app) => app.installed && !storedLayout.apps.some((existing) => existing.id === app.id))
