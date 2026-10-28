@@ -35,7 +35,7 @@ export type Widget = z.infer<typeof widgetSchema>;
 export type AppConfig = Work["apps"][number];
 export const hiddenAppIds = new Set([
   "jd", "jingdong", "jdcom", "whatsapp", "instagram", "tiktok",
-  "twitter", "telegram", "discord", "youtube", "line",
+  "telegram", "discord", "youtube", "line",
   "snapchat", "facebook", "messenger", "reddit",
 ]);
 export const isHiddenApp = (app: { id: string; name: string }) =>
