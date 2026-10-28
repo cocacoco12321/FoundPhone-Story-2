@@ -530,8 +530,7 @@ function PhoneRuntime({
   const isJdApp = (a: { id: string; name: string }) =>
     a.name.includes("京东") || ["jd", "jingdong", "jdcom"].includes(a.id.toLowerCase());
   // Strict allowlist also applies to browser-saved layouts from earlier versions.
-  // "weibo" is the existing social-feed engine; it will be presented as Twitter.
-  const allowedApps = new Set(["photos","mail","clock","notes","settings","calendar","spotify","weather","netflix","appstore","kakao","camera","phone","messages","safari","contacts","weibo"]);
+  const allowedApps = new Set(["photos","mail","clock","notes","settings","calendar","spotify","weather","netflix","appstore","kakao","camera","phone","messages","safari","contacts","twitter","podcasts"]);
   const installedApps = work.apps.filter((a) => a.installed && allowedApps.has(a.id.toLowerCase()) && !isJdApp(a));
   const apps = installedApps.filter((a) => a.visible);
   const unlock = (pin = "") => {
