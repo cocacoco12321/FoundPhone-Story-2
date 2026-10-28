@@ -165,21 +165,21 @@ export function useDeviceLayout(authored: Work, creator = false) {
     [error, setError] = useState("");
   const storedLayout = stored.workId === base.id ? stored : defaultLayout(base);
   // Keep requested apps visible on all devices, including older saved layouts.
-  const pinnedApps = ["bilibili","weather","netflix","redbook","netease","spotify","music"];
+  const pinnedApps: string[] = [];
   const layout = useMemo(() => ({
     ...storedLayout,
     apps: [
-      ...storedLayout.apps.map((app) => pinnedApps.includes(app.id)
+      ...storedLayout.apps.filter((app) => base.apps.some((current) => current.id === app.id && current.installed)).map((app) => pinnedApps.includes(app.id)
         ? { ...app, installed: true, visible: true, dock: false, folder: "" }
         : app),
-      ...base.apps.filter((app) => pinnedApps.includes(app.id) && !storedLayout.apps.some((existing) => existing.id === app.id))
+      ...base.apps.filter((app) => app.installed && !storedLayout.apps.some((existing) => existing.id === app.id))
         .map((app) => ({ ...app, installed: true, visible: true, dock: false, folder: "" })),
     ],
     order: [
       ...pinnedApps,
-      ...storedLayout.order.filter((id) => !pinnedApps.includes(id)),
+      ...storedLayout.order.filter((id) => base.apps.some((app) => app.id === id && app.installed) && !pinnedApps.includes(id)),
     ],
-    positions: Object.fromEntries(Object.entries(storedLayout.positions).filter(([id]) => !pinnedApps.includes(id))),
+    positions: Object.fromEntries(Object.entries(storedLayout.positions).filter(([id]) => base.apps.some((app) => app.id === id && app.installed) && !pinnedApps.includes(id))),
   }), [storedLayout, base.apps]);
   useEffect(() => {
     if (creator) return;
