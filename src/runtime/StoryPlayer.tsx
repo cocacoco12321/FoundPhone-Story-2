@@ -7,6 +7,7 @@ import "../styles.css";
 import "./player.css";
 function StoryPlayer() {
   const [work, setWork] = useState<Work | null>(null),
+    [activePhone, setActivePhone] = useState<"A" | "B">("A"),
     [error, setError] = useState("");
   useEffect(() => {
     initAnalytics();
@@ -63,7 +64,15 @@ function StoryPlayer() {
   return (
     <main className="story-runtime">
       {work ? (
-        <Phone work={work} />
+        <>
+          <Phone key={activePhone} work={work} />
+          <button type="button" className="phone-owner-switch"
+            onClick={() => setActivePhone(current => current === "A" ? "B" : "A")}
+            aria-label={activePhone === "A" ? "切换到主角B的手机" : "切换到主角A的手机"}
+            title="切换手机主人（故事内容待导入）">
+            ⇄ 主角 {activePhone} · 切换
+          </button>
+        </>
       ) : (
         <p role="status">{error || "正在打开手机…"}</p>
       )}
