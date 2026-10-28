@@ -135,7 +135,8 @@ const definitions: [
     ["首页", "Story", "Reels", "私信", "个人主页"],
   ],
   ["tiktok", "TikTok", "media", "#303538", Video, ["推荐", "关注"]],
-  ["twitter", "X", "social", "#343839", AtSign, ["时间线", "回复"]],
+  ["twitter", "Twitter", "social", "#343839", AtSign, ["时间线", "回复"]],
+  ["podcasts", "播客", "media", "#8b42db", Radio, ["节目", "播放"]],
   ["telegram", "Telegram", "messaging", "#62a6c8", Send, ["聊天", "频道"]],
   [
     "discord",
