@@ -514,7 +514,7 @@ function PhoneRuntime({
       if (!recent.includes(id) && id !== app) appSnapshots.current.delete(id);
   };
   const open = (id: string) => {
-    if (!work.apps.some((a) => a.id === id && a.installed && !a.name.includes("京东") && !["jd", "jingdong", "jdcom"].includes(a.id.toLowerCase()))) return;
+    if (!work.apps.some((a) => a.id === id && a.installed && ["photos","mail","clock","notes","settings","calendar","spotify","weather","netflix","appstore","kakao","camera","phone","messages","safari","contacts","weibo"].includes(a.id.toLowerCase()))) return;
     setApp(id);
     setKeyboard(false);
     setRecent((v) => [id, ...v.filter((a) => a !== id)].slice(0, 8));
@@ -527,8 +527,10 @@ function PhoneRuntime({
   // Hide the JD app even when an older story is stored in the browser.
   const isJdApp = (a: { id: string; name: string }) =>
     a.name.includes("京东") || ["jd", "jingdong", "jdcom"].includes(a.id.toLowerCase());
-  const excludedApps = new Set(["whatsapp", "instagram", "tiktok", "twitter", "telegram", "discord", "youtube", "line", "snapchat", "facebook", "messenger", "reddit"]);
-  const installedApps = work.apps.filter((a) => a.installed && !isJdApp(a) && !excludedApps.has(a.id.toLowerCase()));
+  // Strict allowlist also applies to browser-saved layouts from earlier versions.
+  // "weibo" is the existing social-feed engine; it will be presented as Twitter.
+  const allowedApps = new Set(["photos","mail","clock","notes","settings","calendar","spotify","weather","netflix","appstore","kakao","camera","phone","messages","safari","contacts","weibo"]);
+  const installedApps = work.apps.filter((a) => a.installed && allowedApps.has(a.id.toLowerCase()) && !isJdApp(a));
   const apps = installedApps.filter((a) => a.visible);
   const unlock = (pin = "") => {
     if (!work.phone.passcode || pin === work.phone.passcode) {
