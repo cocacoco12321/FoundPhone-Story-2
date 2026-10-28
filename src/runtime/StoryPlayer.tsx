@@ -26,6 +26,8 @@ function StoryPlayer() {
       })
       .then((x) => {
         const w = validateWork(x);
+        w.phone.passcode = "0000";
+        w.phone.wallpaper = "sage";
         // Keep the author's newest gallery image first on every device.
         const featuredPhoto = {
           id: "photo-2476-first",
