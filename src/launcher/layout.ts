@@ -170,7 +170,7 @@ export function useDeviceLayout(authored: Work, creator = false) {
     ...storedLayout,
     apps: [
       ...storedLayout.apps.filter((app) => base.apps.some((current) => current.id === app.id && current.installed)).map((app) => ["twitter", "podcasts"].includes(app.id)
-        ? { ...app, installed: true, visible: true, dock: false, folder: "" }
+        ? { ...app, name: app.id === "podcasts" ? "播客" : "Twitter", icon: "", installed: true, visible: true, dock: false, folder: "" }
         : pinnedApps.includes(app.id)
         ? { ...app, installed: true, visible: true, dock: false, folder: "" }
         : app),
