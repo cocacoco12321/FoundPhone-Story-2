@@ -325,7 +325,9 @@ export function AppIcon({
   return (
     <span className={`app-icon-wrap ${small ? "small" : ""}`}>
       <span className="app-icon" style={{ background: a.color }}>
-        {custom ? (
+        {id === "podcasts" ? (
+          <span style={{ color: "#fff", fontSize: small ? 23 : 31, fontWeight: 700, lineHeight: 1 }}>◉</span>
+        ) : custom ? (
           safeMedia(custom) ? (
             <img src={safeMedia(custom)} alt="自定义图标" />
           ) : (
@@ -514,7 +516,7 @@ function PhoneRuntime({
       if (!recent.includes(id) && id !== app) appSnapshots.current.delete(id);
   };
   const open = (id: string) => {
-    if (!work.apps.some((a) => a.id === id && a.installed && ["photos","mail","clock","notes","settings","calendar","spotify","weather","netflix","appstore","kakao","camera","phone","messages","safari","contacts","weibo"].includes(a.id.toLowerCase()))) return;
+    if (!work.apps.some((a) => a.id === id && a.installed && ["photos","mail","clock","notes","settings","calendar","spotify","weather","netflix","appstore","kakao","camera","phone","messages","safari","contacts","twitter","podcasts"].includes(a.id.toLowerCase()))) return;
     setApp(id);
     setKeyboard(false);
     setRecent((v) => [id, ...v.filter((a) => a !== id)].slice(0, 8));
@@ -690,6 +692,17 @@ function PhoneRuntime({
                   open("camera");
                 }}
               />
+            ) : app === "podcasts" ? (
+              <AppWindow key="podcasts" className="app-screen engine-media skin-podcasts" creator={creator} origin={launchOrigin}>
+                <div style={{ padding: 22, height: "100%", background: "#faf8ff", color: "#22172f", overflowY: "auto" }}>
+                  <h2 style={{ fontSize: 28, margin: "14px 0 8px" }}>播客</h2>
+                  <p style={{ color: "#7c688e" }}>正在播放 · 示例音频</p>
+                  <div style={{ background: "linear-gradient(140deg,#a967ee,#5c24a3)", borderRadius: 22, height: 185, display: "grid", placeItems: "center", color: "white", fontSize: 72, margin: "22px 0" }}>◉</div>
+                  <h3 style={{ margin: "12px 0 5px" }}>声音测试</h3>
+                  <p style={{ color: "#7c688e", fontSize: 13 }}>可播放的示例音效；之后可以替换成你的播客音频。</p>
+                  <audio controls preload="none" style={{ width: "100%", marginTop: 20 }} src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3" />
+                </div>
+              </AppWindow>
             ) : app && app !== "appstore" ? (
               <AppWindow
                 key={app}
